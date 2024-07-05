@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+ 
+.container{
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align:start;
+   
+}
+
+h1 {
+    color: rgb(226,226,226);
+    text-shadow: 1px 1px 4px #000;
+}
+.one{
+    /* background-color: black; */
+    background-size: cover;  /* Ensure the image covers the whole element */
+    background-position: center center;  /* Center the image */
+}
+
+.two{
+    /* background-color: black; */
+    background-size: cover;  /* Ensure the image covers the whole element */
+    background-position: center center; 
+}
+.three{
+    /* background-color: black; */
+    background-size: cover;  /* Ensure the image covers the whole element */
+    background-position: center center; 
+}
+.four{
+    /* background-color: black; */
+    background-size: cover;  /* Ensure the image covers the whole element */
+    background-position: center center; 
+}
+.five{
+    /* background-color: black; */
+    background-size: cover;  /* Ensure the image covers the whole element */
+    background-position: center center; 
+}
+
+.control-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.control-button i {
+    font-size: 24px;
+}
