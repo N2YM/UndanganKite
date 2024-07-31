@@ -24,10 +24,15 @@ class AudioController extends Controller
         $user = Auth::user();
         return view('Admin.Audio.create',compact('user'));
     }
-
- 
     public function store(Request $request)
     { 
+        // Validasi input
+    $request->validate([
+        'kategori_audio' => 'required|string|max:255',
+        'judul' => 'required|string|max:255',
+        'musik' => 'nullable|file|mimes:mp3,wav|max:5048', // Validasi file musik
+    ]);
+
         $kategoriAudio = KategoriAudio::create([
             'kategori_audio' => $request->kategori_audio,
             'user_id' => auth()->id(),
@@ -38,33 +43,35 @@ class AudioController extends Controller
             $fileName = time() . '_' . $file->getClientOriginalName();
             $musik = $file->storeAs('uploads/musik', $fileName, 'public');
         }
-    
-       
         $audio = new ModelAudio();
         $audio->user_id = auth()->id();
         $audio->judul = $request->judul;
         $audio->kategori_audio_id = $kategoriAudio->id;
         $audio->musik = $musik;
         $audio->save();
-        
-    
-        
         return redirect()->route('audio')->with('success', 'Audio berhasil ditambahkan.');
     }
 
     public function edit($id)
 {   
     $user = Auth::user();
-    $audio = ModelAudio::findOrFail($id);
-    return view('Admin.Audio.edit', compact('audio','user'));
+    $data = ModelAudio::findOrFail($id);
+    return view('Admin.Audio.edit', compact('data','user'));
 }
 
 public function update(Request $request, $id)
 {
+    // Tambahkan validasi
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'kategori_audio' => 'required|string|max:255', // Perbaikan di sini
+        'musik' => 'nullable|file|mimes:mp3,wav|max:5048', // Validasi file musik
+    ]);
+
     $audio = ModelAudio::findOrFail($id);
 
     $audio->judul = $request->judul;
-    $audio->kategori = $request->kategori;
+    $audio->kategori_audio_id = KategoriAudio::where('kategori_audio', $request->kategori_audio)->first()->id; // Perbaikan di sini
 
     if ($request->hasFile('musik')) {
         $file = $request->file('musik');
@@ -79,7 +86,7 @@ public function update(Request $request, $id)
     }
     $audio->save();
 
-    return redirect()->route('audio')->with('success', 'Audio updated successfully.');
+    return redirect()->route('audio')->with('warning', 'Audio updated successfully.');
 }
 public function destroy($id)
 {
@@ -89,6 +96,6 @@ public function destroy($id)
     }
     $audio->delete();
 
-    return redirect()->route('audio')->with('success', 'Audio deleted successfully.');
+    return redirect()->route('audio')->with('danger', 'Audio deleted successfully.');
 }
 }

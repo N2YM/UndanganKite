@@ -32,9 +32,9 @@ class Register extends Component
             'password' =>  bcrypt($this->password),
         ]);
        
-        Auth::login($user,true);
+        // Auth::login($user,true);
         event(new Registered($user));
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success','Register Berhasil');
     }
     
 }

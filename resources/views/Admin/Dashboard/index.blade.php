@@ -23,8 +23,8 @@
             <div class="ibox bg-warning color-white widget-stat">
                 <div class="ibox-body">
                     <h2 class="m-b-5 font-strong">{{ $jumlahAudio }}</h2>
-                    <div class="m-b-5">JUMLAH </div><i class="fa fa-money widget-stat-icon"></i>
-                    <div class="m-b-5">AUDIO</div><i class="fa fa-money widget-stat-icon"></i>
+                    <div class="m-b-5">JUMLAH </div><i class="ti-bar-chart widget-stat-icon"></i>
+                    <div class="m-b-5">AUDIO</div><i class="ti-bar-chart widget-stat-icon"></i>
                 </div>
             </div>
         </div>
@@ -32,8 +32,8 @@
             <div class="ibox bg-danger color-white widget-stat">
                 <div class="ibox-body">
                     <h2 class="m-b-5 font-strong"> {{ $jumlahKategoriTmp }}</h2>
-                    <div class="m-b-5">KATEGORI</div><i class="ti-user widget-stat-icon"></i>
-                    <div class="m-b-5">TEMPLATE</div><i class="ti-user widget-stat-icon"></i>
+                    <div class="m-b-5">KATEGORI</div><i class="ti-image widget-stat-icon"></i>
+                    <div class="m-b-5">TEMPLATE</div><i class="ti-image widget-stat-icon"></i>
                 </div>
             </div>
         </div>
@@ -41,9 +41,8 @@
             <div class="ibox bg-danger color-white widget-stat">
                 <div class="ibox-body">
                     <h2 class="m-b-5 font-strong">{{ $jumlahKategoriAudio }}</h2>
-                    <div class="m-b-5"></div><i class="ti-user widget-stat-icon"></i>
-                    <div class="m-b-5">KATEGORI</div><i class="ti-user widget-stat-icon"></i>
-                    <div class="m-b-5 ">AUDIO</div><i class="ti-user widget-stat-icon"></i>
+                    <div class="m-b-5">KATEGORI</div><i class="ti-music widget-stat-icon"></i>
+                    <div class="m-b-5 ">AUDIO</div><i class="ti-music widget-stat-icon"></i>
                 </div>
             </div>
         </div>

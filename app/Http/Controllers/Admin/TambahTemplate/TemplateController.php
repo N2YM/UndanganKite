@@ -29,22 +29,28 @@ class TemplateController extends Controller
         return view('Admin.TambahTemplate.create',compact('user'));
     }
 
-    public function edit(string $id)
-    {
-        $user = Auth::user();
-        $template = ModelTemplate::findOrFail($id);
-        return view('Admin.TambahTemplate.edit', compact('template','user'));
-    }
-
     public function store(Request $request)
 {
-   
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'kategori_tmp' => 'required|string|max:255',
+        'cover1' => 'nullable|image|max:3048',
+        'cover2' => 'nullable|image|max:3048',
+        'cover3' => 'nullable|image|max:3048',
+        'cover4' => 'nullable|image|max:3048',
+        'cover5' => 'nullable|image|max:3048',
+    ], [
+        'judul.required' => 'Judul template harus diisi.',
+        'kategori_tmp.required' => 'Kategori template harus diisi.',
+        'cover1.image' => 'Cover 1 harus berupa gambar.',
+        'cover1.max' => 'Cover 1 tidak boleh lebih dari 2MB.',
+        // Tambahkan pesan untuk cover2, cover3, cover4, dan cover5 jika diperlukan
+    ]);
     // Simpan kategori_template terlebih dahulu
     $kategoriTemplate = TemplateKategoriTemplate::create([
         'kategori_tmp' => $request->kategori_tmp,
         'user_id' => auth()->id(),
     ]);
-
     // Simpan data template
     $template = new ModelTemplate();
     $template->judul = $request->judul;
@@ -63,11 +69,16 @@ class TemplateController extends Controller
     return redirect()->route('template')->with('success', 'Template berhasil ditambahkan.');
 }
 
+public function edit(string $id)
+{
+    $user = Auth::user();
+    $template = ModelTemplate::findOrFail($id);
+    return view('Admin.TambahTemplate.edit', compact('template','user'));
+}
 // Fungsi untuk menyimpan gambar
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         // $request->validate([
         //     'judul' => 'required|string',
         //     'cover1' => 'nullable|image|max:2048', // Contoh validasi untuk file gambar (opsional)
@@ -104,7 +115,7 @@ class TemplateController extends Controller
         $this->storeImage($request, 'cover5', $template);
     
         // Redirect ke rute atau halaman yang sesuai setelah pembaruan berhasil
-        return redirect()->route('template')->with('success', 'Template berhasil diperbarui.');
+        return redirect()->route('template')->with('warning', 'Template berhasil diperbarui.');
     }
     
     // Fungsi untuk menyimpan gambar
@@ -117,28 +128,33 @@ class TemplateController extends Controller
         }
     }
     public function destroy(string $id)
-    {
-        $template = ModelTemplate::findOrFail($id); // Cari template berdasarkan ID
+{
+    $template = ModelTemplate::findOrFail($id); // Cari template berdasarkan ID
 
-        // Hapus file cover jika ada sebelum menghapus record dari database
-        if ($template->cover1) {
-            Storage::delete('public/cover_images/' . $template->cover1);
-        }
-        if ($template->cover2) {
-            Storage::delete('public/cover_images/' . $template->cover2);
-        }
-        if ($template->cover3) {
-            Storage::delete('public/cover_images/' . $template->cover3);
-        }
-        if ($template->cover4) {
-            Storage::delete('public/cover_images/' . $template->cover4);
-        }
-        if ($template->cover5) {
-            Storage::delete('public/cover_images/' . $template->cover5);
-        }
+// Validasi sebelum menghapus
+if (!$template) {
+    return redirect()->route('template')->with('danger', 'Template tidak ditemukan.');
+}
 
-        $template->delete(); // Hapus record dari database
 
-        return redirect()->route('template')->with('success', 'Template berhasil dihapus.');
+    // Hapus file cover jika ada sebelum menghapus record dari database
+    if ($template->cover1) {
+        Storage::delete('public/cover_images/' . $template->cover1);
     }
+    if ($template->cover2) {
+        Storage::delete('public/cover_images/' . $template->cover2);
+    }
+    if ($template->cover3) {
+        Storage::delete('public/cover_images/' . $template->cover3);
+    }
+    if ($template->cover4) {
+        Storage::delete('public/cover_images/' . $template->cover4);
+    }
+    if ($template->cover5) {
+        Storage::delete('public/cover_images/' . $template->cover5);
+    }
+
+    $template->delete(); // Hapus record dari database
+    return redirect()->route('template')->with('danger', 'Template berhasil dihapus.');
+}
 }

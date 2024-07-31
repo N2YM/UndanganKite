@@ -27,17 +27,13 @@
                     <h5 class="font-strong m-b-10 m-t-20"><strong style="font-size: 23px;">{{ $user->name }}</strong></h5>
                     <div class="profile-social m-b-20" style="margin-top: 15%;">
                         <div class="row text-center m-b-20">
-                            <div class="col-4">
-                                <div class="font-24 profile-stat-count">140</div>
-                                <div class="text-muted">Followers</div>
+                            <div class="col-6">
+                                <div class="font-24 profile-stat-count">{{ $jumlahUndangan }}</div>
+                                <div class="text-muted">Undangan</div>
                             </div>
-                            <div class="col-4">
-                                <div class="font-24 profile-stat-count">$780</div>
-                                <div class="text-muted">Sales</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="font-24 profile-stat-count">15</div>
-                                <div class="text-muted">Projects</div>
+                            <div class="col-6">
+                                <div class="font-24 profile-stat-count">0</div>
+                                <div class="text-muted">Tamu</div>
                             </div>
                         </div>
                     </div>
@@ -55,7 +51,8 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab-1">
-                            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
+                                onsubmit="return confirmUpdate()">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -98,8 +95,8 @@
                                     <input class="form-control" name="password" type="password" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-info mt-2" type="submit"> <i class="fa fa-save"></i>
-                                        Submit</button>
+                                    <button class="btn btn-warning mt-2" type="submit"> <i class="fa fa-save"></i>
+                                        Update</button>
                                 </div>
                             </form>
                         </div>
@@ -123,4 +120,11 @@
             font-size: 22px
         }
     </style>
+    <script>
+        function confirmUpdate() {
+
+            return confirm("Apakah yakin ingin menyimpan perubahan ini?");
+
+        }
+    </script>
 @endsection

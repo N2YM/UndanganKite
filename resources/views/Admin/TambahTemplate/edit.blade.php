@@ -26,7 +26,8 @@
                                     <label class="col-sm-3 col-form-label">Kategori</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" name="kategori_tmp" type="text"
-                                            placeholder="Masukkan Kategori Template" value="{{ $template->kategori }}">
+                                            placeholder="Masukkan Kategori Template"
+                                            value="{{ $template->kategoriTemplate->kategori_tmp }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -61,8 +62,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-1 offset-sm-11">
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
-                                            Simpan</button>
+                                        <button type="submit" class="btn btn-warning"><i class="fa fa-save"></i>
+                                            Update</button>
                                     </div>
                                 </div>
                             </form>
@@ -72,7 +73,6 @@
             </div>
         </div>
     </div>
-
     <style>
         .form-group {
             margin-bottom: 1rem;

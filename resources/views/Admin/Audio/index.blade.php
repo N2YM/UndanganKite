@@ -30,7 +30,7 @@
                             <tr style="text-align: center;">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $audio->judul }}</td>
-                                <td>{{ $audio->kategori }}</td>
+                                <td>{{ $audio->kategoriAudio->kategori_audio ?? 'Kategori tidak tersedia' }}</td>
                                 <td>
                                     <audio controls>
                                         <source src="{{ asset('storage/' . $audio->musik) }}" type="audio/mpeg">
@@ -39,11 +39,12 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('edit-audio', $audio->id) }}" class="btn btn-warning">Edit</a>
-                                    <form action="{{ route('destroy-audio', $audio->id) }}" method="POST"
-                                        style="display:inline;">
+                                    <a class="btn btn-danger" onclick="confirmDelete({{ $audio->id }})">Hapus</a>
+                                    <form id="delete-form-{{ $audio->id }}"
+                                        action="{{ route('destroy-template', $audio->id) }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -53,4 +54,15 @@
             </div>
         </div>
     </div>
+    <script>
+        // Fungsi untuk mengonfirmasi penghapusan data
+        function confirmDelete(id) {
+            // Menampilkan dialog konfirmasi
+            const confirmation = confirm('Anda yakin ingin menghapus data ini?');
+            if (confirmation) {
+                // Mengirimkan form penghapusan jika dikonfirmasi
+                document.getElementById('delete-form-' + id).submit();
+            }
+        }
+    </script>
 @endsection

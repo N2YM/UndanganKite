@@ -20,7 +20,6 @@
         <!-- PAGE LEVEL STYLES-->
         <link href="{{ url('TemplateSystem/html/dist') }}/assets/css/pages/auth-light.css" rel="stylesheet" />
     </head>
-
     <body class="bg-silver-300">
         <div class="content">
             <div class="brand">
@@ -76,10 +75,6 @@
         </div>
         <!-- BEGIN PAGE BACKDROPS-->
         <div class="sidenav-backdrop backdrop"></div>
-        {{-- <div class="preloader-backdrop">
-            <div class="page-preloader">Loading</div>
-        </div> --}}
-        <!-- END PAGE BACKDROPS-->
         <!-- CORE PLUGINS -->
         <script src="{{ url('TemplateSystem/html/dist') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript">
         </script>

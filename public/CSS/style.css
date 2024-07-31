@@ -27,34 +27,52 @@ h1 {
     text-shadow: 1px 1px 4px #000;
 }
 .one{
-    /* background-color: black; */
-    background-size: cover;  /* Ensure the image covers the whole element */
-    background-position: center center;  /* Center the image */
+   
+    background-size: cover; 
+    background-position: center center;  
 }
 
 .two{
-    /* background-color: black; */
-    background-size: cover;  /* Ensure the image covers the whole element */
+   
+    background-size: cover; 
     background-position: center center; 
 }
 .three{
-    /* background-color: black; */
-    background-size: cover;  /* Ensure the image covers the whole element */
+   
+    background-size: cover;  
     background-position: center center; 
 }
 .four{
-    /* background-color: black; */
-    background-size: cover;  /* Ensure the image covers the whole element */
+   
+    background-size: cover;  
     background-position: center center; 
 }
 .five{
-    /* background-color: black; */
+   
     background-size: cover;  /* Ensure the image covers the whole element */
     background-position: center center; 
+}
+
+
+.navigation-buttons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.navigation-buttons button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .control-button {
     position: fixed;
+    z-index: 1000;
     bottom: 20px;
     right: 20px;
     background-color: #f1f1f1;
@@ -72,3 +90,6 @@ h1 {
 .control-button i {
     font-size: 24px;
 }
+
+/* STYLE ANIMASI COVER */
+

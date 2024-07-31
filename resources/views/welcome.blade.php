@@ -43,9 +43,90 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .ml-auto {
             margin-left: auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            margin-left: -90px;
+        }
+        .brand {
+            font-size: 24px;
+            /* Adjust size as needed */
+            font-weight: bold;
+            color: #333;
+        }
+        .brand-tip {
+            font-size: 18px;
+            /* Adjust size as needed */
+            font-weight: normal;
+            color: #666;
+        }
+        .ml-auto {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+            /* Adjust padding as needed */
+        }
+        .btn {
+            display: inline-block;
+            font-size: 16px;
+            /* Adjust font size as needed */
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(90deg, #02AAB0, #00CDAC);
+            /* Gradient background */
+            padding: 10px 20px;
+            /* Adjust padding as needed */
+            border: none;
+            border-radius: 30px;
+            /* Rounded corners */
+            text-decoration: none;
+            /* Remove underline */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-right: -90px;
+            /* Adjust margin to move button left */
+        }
+
+        .btn:hover {
+            color: #fff;
+            /* Ensure text color stays white on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            color: #fff;
+            /* Ensure text color stays white on active */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, #6c757d, #5a6268);
+            /* Secondary gradient background */
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(90deg, #5a6268, #4e555b);
+            /* Darker shade for hover */
+        }
+
+        .btn-secondary:active {
+            background: linear-gradient(90deg, #4e555b, #3d4247);
+            /* Even darker shade for active */
+        }
+
+        .btn-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-icon i {
+            margin-left: 10px;
+            /* Space between text and icon */
         }
     </style>
 </head>
@@ -59,11 +140,14 @@
             <div class="wrap-menu-desktop">
                 <nav class="limiter-menu-desktop container d-flex justify-content-between align-items-center">
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
-                        <img src="{{ asset('info') }}/images/icons/logo-01.png" alt="IMG-LOGO">
-                    </a>
+                    <div class="logo">
+                        <img src="{{ asset('info/logo/LOGO.png') }}" style="width: 40px; height: auto;" alt="">
+                        <span class="brand">InviVibe
+
+                        </span>
+                    </div>
                     <div class="ml-auto">
-                        <a href="{{ route('login') }}" class="btn btn-secondary">Login</a>
+                        <a href="{{ route('login') }}" class="btn ">Daftar & Coba Gratis</a>
                     </div>
                 </nav>
             </div>
@@ -76,27 +160,20 @@
             </div>
         </div>
     </header>
-
-
     <!-- Cart -->
     <div class="wrap-header-cart js-panel-cart">
         <div class="s-full js-hide-cart"></div>
-
         <div class="header-cart flex-col-l p-l-65 p-r-25">
             <div class="header-cart-title flex-w flex-sb-m p-b-8">
                 <span class="mtext-103 cl2">
                     Your Cart
                 </span>
-
                 <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
                     <i class="zmdi zmdi-close"></i>
                 </div>
             </div>
         </div>
     </div>
-
-
-
     <!-- Slider -->
     <section class="section-slide">
         <div class="wrap-slick1">

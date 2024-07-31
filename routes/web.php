@@ -5,6 +5,7 @@ use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\User\BuatUndangan\ProfilWedding;
 use App\Http\Controllers\Admin\Audio\AudioController;
 use App\Http\Controllers\Admin\Dashboard\HomeController;
 use App\Http\Controllers\User\Profile\ProfileController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\User\TambahUndangan\UndanganController;
 use App\Http\Controllers\Admin\TambahTemplate\TemplateController;
 use App\Http\Controllers\Admin\DaftarTemplate\DaftarTemplateController;
 use App\Http\Controllers\User\TambahUndangan\PilihTemplate\PilihTemplateController;
+use App\Http\Controllers\User\TambahUndangan\KategoriWedding\ProfilWeddingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +33,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['login' => false, 'register' => false,'verify'=> true]);
 
 route::middleware('guest')->group(function (){
+Auth::routes(['login' => false, 'register' => false,'verify'=> true]);
 Route::get('/login',Login::class)->name('login');
 Route::get('/register',Register::class)->name('register');
 });
@@ -76,10 +78,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-
-
-
-
 // ===============================HALAMAN USER===============================
 
 Route::middleware('auth')->group(function () {
@@ -90,10 +88,9 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Route untuk Undangan
-    Route::get('undangan', [UndanganController::class, 'index'])->name('undangan');
-    Route::delete('destroy-undangan/{id}', [UndanganController::class, 'destroy'])->name('destroy-undangan');
 
+
+   
     // Route untuk pilih template
     Route::get('pilih-template', [PilihTemplateController::class, 'index'])->name('pilih-template');
 
@@ -104,8 +101,14 @@ Route::middleware('auth')->group(function () {
     // Preview Undangan yang dibuat User
     Route::get('preview-undangan/{id}',[UndanganController::class, 'preview'])->name('preview-undangan');
 
-    // Edit Undangan yang di Buat User
+ // Route untuk Undangan
+    Route::get('undangan', [UndanganController::class, 'index'])->name('undangan');
     Route::get('edit-undangan/{id}',[UndanganController::class, 'edit'])->name('edit-undangan');
+    Route::post('profil-wedding-update{buatUndanganId}', [UndanganController::class,'update'])->name('profil-wedding-update');
+    Route::post('update-opening{buatUndanganId}', [UndanganController::class,'updateOpening'])->name('update-opening');
+    Route::post('update-detail-acara{buatUndanganId}', [UndanganController::class,'updateDetailAcara'])->name('update-detail-acara');
+    Route::post('update-galeri{buatUndanganId}', [UndanganController::class,'updateGalleri'])->name('update-galeri');
+    Route::delete('destroy-undangan/{id}', [UndanganController::class, 'destroy'])->name('destroy-undangan');
 
 
 });

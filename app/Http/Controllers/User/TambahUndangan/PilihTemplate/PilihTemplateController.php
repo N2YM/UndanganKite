@@ -11,9 +11,7 @@ use App\Models\User\BuatUndangan\ModelUndangan;
 
 class PilihTemplateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $template = ModelTemplate::all();
@@ -26,9 +24,6 @@ class PilihTemplateController extends Controller
         $template = ModelTemplate::findOrFail($id);
         return view('User.TambahUndangan.PilihTemplate.create', compact('kategori_undangan', 'audio','template'));
     }
-
-
- 
     public function store(Request $request)
     {
         // // Validasi data
@@ -50,7 +45,6 @@ class PilihTemplateController extends Controller
             $audioFileName = time() . '_' . $audioFile->getClientOriginalName();
             $audioPath = $audioFile->storeAs('uploads/audio', $audioFileName, 'public');
         }
-    
         // Upload cover images
         $coverPaths = [];
         for ($i = 1; $i <= 5; $i++) {
@@ -60,7 +54,6 @@ class PilihTemplateController extends Controller
                 $coverPaths['cover' . $i] = $coverFile->storeAs('uploads/covers', $coverFileName, 'public');
             }
         }
-    
         // Simpan data ke database
         $undangan = new ModelUndangan();
         $undangan->judul_undangan = $request->judul_undangan;
@@ -81,21 +74,5 @@ class PilihTemplateController extends Controller
     }
     
 
-   
-    public function edit(string $id)
-    {
-        //
-    }
 
-   
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-   
-    public function destroy(string $id)
-    {
-        //
-    }
 }

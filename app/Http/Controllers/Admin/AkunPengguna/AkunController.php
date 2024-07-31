@@ -47,6 +47,6 @@ class AkunController extends Controller
         // Hapus user
         $user->delete();
         // Redirect kembali ke halaman daftar user dengan pesan sukses
-        return redirect()->route('akun')->with('success', 'User deleted successfully.');
+        return redirect()->route('akun')->with('danger', 'Akun User Berhasil di hapus.');
     }
 }

@@ -8,12 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        // Asumsikan ada kolom 'is_admin' di tabel users yang menandai admin
+        if (Auth::check() && Auth::user()->is_admin) {
             return $next($request);
         }
-
-        abort(403, 'Unauthorized action.');
+        // Jika bukan admin, arahkan ke halaman tertentu atau tampilkan pesan error
+        return redirect('/home')->with('error', 'You do not have admin access.');
     }
 }

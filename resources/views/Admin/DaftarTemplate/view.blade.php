@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 
+
 <body>
     <div class="container">
         <section class="one"
@@ -32,7 +33,6 @@
             <!-- Konten lainnya -->
         </section>
     </div>
-
     <!-- Audio element -->
     <audio id="background-audio" src="{{ asset('' . $data->musik) }}" loop></audio>
 

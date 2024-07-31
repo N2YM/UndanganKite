@@ -39,25 +39,38 @@
 @section('styles')
     <style>
         .card {
-            height: 250px;
-            /* Tinggi kartu */
+            height: 300px;
+            /* Atur tinggi kartu agar sama */
             border-radius: 10px;
-            /* Border radius */
             overflow: hidden;
-            /* Hindari overflow dari gambar jika terlalu besar */
+            display: flex;
+            /* Tambahkan flex untuk meratakan konten */
+            flex-direction: column;
+            /* Atur arah flex */
+        }
+
+        .card-img-top {
+            height: 150px;
+            /* Atur tinggi gambar */
+            width: 150px;
+            /* Atur lebar gambar agar sama */
+            object-fit: cover;
+            /* Memastikan gambar terpotong dengan baik */
         }
 
         .card-body {
             padding: 1rem;
+            flex-grow: 1;
+            /* Membuat body kartu tumbuh untuk mengisi ruang */
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            /* Meratakan konten di dalam body */
         }
 
         .btn-secondary {
             width: 100%;
-            /* Tombol lebar penuh */
             border-radius: 5px;
-            /* Border radius tombol */
         }
     </style>
 @endsection

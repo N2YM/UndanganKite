@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>Admincast bootstrap 4 &amp; angular 5 admin template, Шаблон админки | Login</title>
+        <title>InviVibe | Login</title>
         <!-- GLOBAL MAINLY STYLES-->
         <link href="{{ url('TemplateSystem/html/dist') }}/assets/vendors/bootstrap/dist/css/bootstrap.min.css"
             rel="stylesheet" />
@@ -41,14 +41,33 @@
                 border-radius: 8px;
                 /* Opsional: Tambahkan border-radius untuk sudut yang membulat */
             }
+
+            .input-group {
+                position: relative;
+            }
+
+            .input-group-append {
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 10;
+            }
+
+            body {
+                overflow: hidden;
+                /* background-image: url('{{ url('info/bg_login/bg1.jpg') }}');  */
+                background-size: cover;
+                /* Mengatur ukuran background agar menutupi seluruh area */
+                background-position: center;
+            }
         </style>
     </head>
-
-    <body class="bg-silver-300">
+    <body class="bg-white">
         <div class="login-container d-flex justify-content-center align-items-center">
             <div class="content login-content">
                 <form wire:submit.prevent="loginUser">
-                    <h2 class="login-title">Log in</h2>
+                    <h2 class="login-title">InviVibe</h2>
                     <div class="form-group">
                         <div class="input-group-icon right">
                             <div class="input-icon"><i class="fa fa-envelope"></i></div>
@@ -64,9 +83,15 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group-icon right">
-                            <div class="input-icon"><i class="fa fa-lock font-16"></i></div>
+                            <div class="input-icon"></div>
                             <input class="form-control @error('password') is-invalid @enderror" type="password"
                                 name="password" id="password" placeholder="******" wire:model.defer="password">
+                            <div class="input-group-append">
+                                <button type="button" onclick="togglePassword()" class="btn"
+                                    style="border: none; background: transparent;">
+                                    <i id="toggle-icon" class="fa fa-lock"></i> <!-- Ganti dengan ikon gembok -->
+                                </button>
+                            </div>
                             @error('password')
                                 <div class="ivalid-feedback" style="color: red;">
                                     {{ $message }}
@@ -74,19 +99,16 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group d-flex justify-content-between">
-                        <label class="ui-checkbox ui-checkbox-info">
-                            <input type="checkbox" wire:model.defer="remember">
-                            <span class="input-span"></span>Remember me</label>
-                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                    <div class="form-group d-flex justify-content-between float-right">
+                        <a href="{{ route('password.request') }}">Lupa Sandi</a>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-info btn-block" type="submit">Login</button>
                     </div>
                     <div class="social-auth-hr">
                     </div>
-                    <div class="text-center">Not a member?
-                        <a class="color-blue" href="{{ route('register') }}">Create account</a>
+                    <div class="text-center">Belum Punya Akun?
+                        <a class="color-blue" href="{{ route('register') }}">Daftar Sini</a>
                     </div>
                 </form>
             </div>
@@ -129,6 +151,37 @@
                 });
             });
         </script>
+        <script>
+            function togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleIcon = document.getElementById('toggle-icon');
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                toggleIcon.className = type === 'password' ? 'fa fa-lock' : 'fa fa-unlock'; // Ganti ikon
+            }
+        </script>
+
+        {{-- Sweet Alert --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        @if ($message = Session::get('success'))
+            <script>
+                Swal.fire({
+                    icon: "success",
+                    title: "{{ $message }}",
+
+                });
+            </script>
+        @endif
+        @if ($message = Session::get('failed'))
+            <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "{{ $message }}",
+                    text: "Silahkan Periksa Lagi",
+                });
+            </script>
+        @endif
     </body>
 
     </html>

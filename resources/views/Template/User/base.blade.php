@@ -23,7 +23,17 @@
     <!-- THEME STYLES-->
     <link href="{{ url('TemplateSystem/html/dist') }}/assets/css/main.min.css" rel="stylesheet" />
     <!-- PAGE LEVEL STYLES-->
-    
+    {{-- Fontawsemo --}}
+    <link rel="stylesheet" href="{{ asset('icon/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/solid.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/solid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/regular.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('icon/css/regular.min.css') }}">
+    @include('User.PreviewTemplate.font')
+    @yield('css')
 </head>
 
 
@@ -34,6 +44,7 @@
         @include('Template.User.Layout.sidebar')
         <!-- END SIDEBAR-->
         <div class="content-wrapper">
+            @include('Utils.notif')
             <!-- START PAGE CONTENT-->
             <div class="page-content fade-in-up">
                 @yield('content')
@@ -51,6 +62,50 @@
                         text-align: right;
                         margin-left: 10px;
                     }
+
+                    .costum-alert {
+                        position: fixed;
+                        top: -100px;
+                        /* Menyembunyikan notifikasi di luar layar atas */
+                        right: 20px;
+                        z-index: 9999;
+                        width: 450px;
+                        padding: 10px;
+                        border-radius: 4px;
+                        font-size: 16px;
+                        transition: top 0.5s ease-in-out;
+                        /* Menambahkan animasi untuk transisi */
+                    }
+
+                    .costum-alert.show {
+                        top: 70px;
+                        /* Menampilkan notifikasi setelah animasi masuk */
+                    }
+
+                    .costum-alert:hover {
+                        transform: scale(1.05);
+                    }
+
+                    .costum-alert .close {
+                        position: absolute;
+                        top: 5px;
+                        right: 10px;
+                        color: inherit;
+                    }
+
+                    /* Scrollbar pada menu font di Summernote */
+                    .note-popover .dropdown-menu {
+                        max-height: 200px;
+                        /* Atur tinggi maksimal dropdown */
+                        overflow-y: auto;
+                        /* Aktifkan scroll vertikal */
+                    }
+
+                    /* Jika dropdown menu terlalu panjang */
+                    .note-popover {
+                        z-index: 9999;
+                        /* Pastikan dropdown muncul di atas elemen lain */
+                    }
                 </style>
 
             </div>
@@ -58,138 +113,6 @@
             @include('Template.User.Layout.footer')
         </div>
     </div>
-    <!-- BEGIN THEME CONFIG PANEL-->
-    <div class="theme-config">
-        <div class="theme-config-toggle"><i class="fa fa-cog theme-config-show"></i><i
-                class="ti-close theme-config-close"></i></div>
-        <div class="theme-config-box">
-            <div class="text-center font-18 m-b-20">SETTINGS</div>
-            <div class="font-strong">LAYOUT OPTIONS</div>
-            <div class="check-list m-b-20 m-t-10">
-                <label class="ui-checkbox ui-checkbox-gray">
-                    <input id="_fixedNavbar" type="checkbox" checked>
-                    <span class="input-span"></span>Fixed navbar</label>
-                <label class="ui-checkbox ui-checkbox-gray">
-                    <input id="_fixedlayout" type="checkbox">
-                    <span class="input-span"></span>Fixed layout</label>
-                <label class="ui-checkbox ui-checkbox-gray">
-                    <input class="js-sidebar-toggler" type="checkbox">
-                    <span class="input-span"></span>Collapse sidebar</label>
-            </div>
-            <div class="font-strong">LAYOUT STYLE</div>
-            <div class="m-t-10">
-                <label class="ui-radio ui-radio-gray m-r-10">
-                    <input type="radio" name="layout-style" value="" checked="">
-                    <span class="input-span"></span>Fluid</label>
-                <label class="ui-radio ui-radio-gray">
-                    <input type="radio" name="layout-style" value="1">
-                    <span class="input-span"></span>Boxed</label>
-            </div>
-            <div class="m-t-10 m-b-10 font-strong">THEME COLORS</div>
-            <div class="d-flex m-b-20">
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Default">
-                    <label>
-                        <input type="radio" name="setting-theme" value="default" checked="">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-white"></div>
-                        <div class="color-small bg-ebony"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Blue">
-                    <label>
-                        <input type="radio" name="setting-theme" value="blue">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-blue"></div>
-                        <div class="color-small bg-ebony"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Green">
-                    <label>
-                        <input type="radio" name="setting-theme" value="green">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-green"></div>
-                        <div class="color-small bg-ebony"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Purple">
-                    <label>
-                        <input type="radio" name="setting-theme" value="purple">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-purple"></div>
-                        <div class="color-small bg-ebony"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Orange">
-                    <label>
-                        <input type="radio" name="setting-theme" value="orange">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-orange"></div>
-                        <div class="color-small bg-ebony"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Pink">
-                    <label>
-                        <input type="radio" name="setting-theme" value="pink">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-pink"></div>
-                        <div class="color-small bg-ebony"></div>
-                    </label>
-                </div>
-            </div>
-            <div class="d-flex">
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="White">
-                    <label>
-                        <input type="radio" name="setting-theme" value="white">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color"></div>
-                        <div class="color-small bg-silver-100"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Blue light">
-                    <label>
-                        <input type="radio" name="setting-theme" value="blue-light">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-blue"></div>
-                        <div class="color-small bg-silver-100"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Green light">
-                    <label>
-                        <input type="radio" name="setting-theme" value="green-light">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-green"></div>
-                        <div class="color-small bg-silver-100"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Purple light">
-                    <label>
-                        <input type="radio" name="setting-theme" value="purple-light">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-purple"></div>
-                        <div class="color-small bg-silver-100"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Orange light">
-                    <label>
-                        <input type="radio" name="setting-theme" value="orange-light">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-orange"></div>
-                        <div class="color-small bg-silver-100"></div>
-                    </label>
-                </div>
-                <div class="color-skin-box" data-toggle="tooltip" data-original-title="Pink light">
-                    <label>
-                        <input type="radio" name="setting-theme" value="pink-light">
-                        <span class="color-check-icon"><i class="fa fa-check"></i></span>
-                        <div class="color bg-pink"></div>
-                        <div class="color-small bg-silver-100"></div>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END THEME CONFIG PANEL-->
-    <!-- BEGIN PAGA BACKDROPS-->
     <div class="sidenav-backdrop backdrop"></div>
     <div class="preloader-backdrop">
         <div class="page-preloader">Loading</div>
@@ -226,46 +149,62 @@
         type="text/javascript"></script>
     <!-- PAGE LEVEL SCRIPTS-->
     {{-- <div id="summernote1"></div> --}}
+
     <script>
-        $('#summernote1').summernote({
-            placeholder: 'Hello stand alone ui',
-            tabsize: 1,
-            height: 30,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
+        $(document).ready(function() {
+            $('.nav-tabs a').click(function() {
+                $(this).tab('show');
+            });
+            $('#summernote1, #summernote2, #summernote3, #summernote4, #summernote5, #summernote6, #summernote7, #summernote8, #summernote9,#summernote10,#summernote11,#summernote12,#summernote13,#summernote14')
+                .summernote({
+                    tabsize: 2,
+                    height: 35,
+                    toolbar: [
+                        ['fontname', ['fontname']],
+                        ['style', ['bold', 'italic']],
+                    ],
+                    fontNames: [
+                        'Arial', 'Arial Black', 'Courier New', 'Helvetica', 'Impact', 'Times New Roman',
+                        'Verdana',
+                        'Poppins', 'Playfair Display', 'Lora', 'Raleway', 'Great Vibes', 'Pacifico',
+                        'Montserrat',
+                        'Roboto', 'Open Sans', 'Merriweather', 'Dancing Script', 'Cinzel', 'Noto Serif',
+                        'Source Sans Pro',
+                        'Lobster'
+                    ],
+                    fontNamesIgnoreCheck: [
+                        'Poppins', 'Playfair Display', 'Lora', 'Raleway', 'Great Vibes', 'Pacifico',
+                        'Montserrat',
+                        'Roboto', 'Open Sans', 'Merriweather', 'Dancing Script', 'Cinzel', 'Noto Serif',
+                        'Source Sans Pro',
+                        'Lobster'
+                    ],
+                    popover: {
+                        font: [
+                            ['fontname', ['fontname']],
+                            ['style', ['bold', 'italic', ]],
+                        ]
+                    }
+                });
         });
     </script>
-    <script type="text/javascript">
-        $(function() {
-            $('#summernote2').summernote();
-            $('#summernote_air').summernote({
-                airMode: true
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fungsi untuk menutup notifikasi secara otomatis setelah 4 detik
+            setTimeout(function() {
+                var alerts = document.querySelectorAll('.costum-alert');
+                alerts.forEach(function(alert) {
+                    alert.remove();
+                });
+            }, 3000);
+            // Menambahkan class show setelah notifikasi ditambahkan
+            var alerts = document.querySelectorAll('.costum-alert');
+            alerts.forEach(function(alert) {
+                alert.classList.add('show');
             });
         });
     </script>
-    <script type="text/javascript">
-        $(function() {
-            $('#summernote3').summernote();
-            $('#summernote_air').summernote({
-                airMode: true
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $(function() {
-            $('#summernote4').summernote();
-            $('#summernote_air').summernote({
-                airMode: true
-            });
-        });
-    </script>
+    @stack('javascript')
 </body>
 
 </html>

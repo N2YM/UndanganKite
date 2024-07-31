@@ -68,11 +68,12 @@
                                     <div class="btn-group">
                                         <a href="{{ route('edit-template', $tmp->id) }}"
                                             class="btn btn-warning mr-1">Edit</a>
-                                        <form action="{{ route('destroy-template', $tmp->id) }}" method="POST"
-                                            style="display:inline;">
+                                        <a class="btn btn-danger" onclick="confirmDelete({{ $tmp->id }})">Hapus</a>
+                                        <form id="delete-form-{{ $tmp->id }}"
+                                            action="{{ route('destroy-template', $tmp->id) }}" method="POST"
+                                            style="display: none;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </div>
                                 </td>
@@ -83,4 +84,15 @@
             </div>
         </div>
     </div>
+    <script>
+        // Fungsi untuk mengonfirmasi penghapusan data
+        function confirmDelete(id) {
+            // Menampilkan dialog konfirmasi
+            const confirmation = confirm('Anda yakin ingin menghapus data ini?');
+            if (confirmation) {
+                // Mengirimkan form penghapusan jika dikonfirmasi
+                document.getElementById('delete-form-' + id).submit();
+            }
+        }
+    </script>
 @endsection

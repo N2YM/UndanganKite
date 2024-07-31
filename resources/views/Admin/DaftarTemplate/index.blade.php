@@ -45,5 +45,14 @@
             border-radius: 5px;
             /* Border radius tombol */
         }
+
+        .card-img-top {
+            height: 150px;
+            /* Atur tinggi gambar */
+            object-fit: cover;
+            /* Memastikan gambar terpotong dengan rapi */
+            width: 100%;
+            /* Pastikan gambar memenuhi lebar kartu */
+        }
     </style>
 @endsection

@@ -66,7 +66,7 @@
             </li>
             <li>
                 <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    onclick="event.preventDefault(); if(confirm('Yakin ingin keluar dari sistem ini?')) { document.getElementById('logout-form').submit(); }">
                     <i class="sidebar-item-icon fa fa-key"></i>
                     <span class="nav-label">Logout</span>
                 </a>

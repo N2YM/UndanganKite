@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Profile;
 use App\Models\User\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User\BuatUndangan\ModelUndangan;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -13,7 +14,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('User.Profile.index', compact('user'));
+        $jumlahUndangan = ModelUndangan::count();
+        return view('User.Profile.index', compact('user','jumlahUndangan'));
     }
 
     public function update(Request $request)
@@ -63,8 +65,6 @@ class ProfileController extends Controller
     
         $profile->save();
     
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+        return redirect()->back()->with('warning', 'Profile updated successfully.');
     }
-    
-
 }
