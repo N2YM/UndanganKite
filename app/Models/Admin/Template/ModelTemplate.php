@@ -6,31 +6,23 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 
+use App\Models\Admin\Template\KategoriTemplate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ModelTemplate extends Model
 {
     use HasFactory;
 
-    protected $table = 'template';
+    protected $table = 'admin__template';
 
     protected $fillable = [
             'judul',
-            'cover1',
-            'cover2',
-            'cover3',
-            'cover4',
-            'cover5',
-            'user_id',
-            'kategori_template_id'
+            'kategori_tmp',
+            'cover',
     ];
-    public function user()
+    
+    public function kategori()
     {
-        return $this->belongsTo(User::class);
-    }
-    // Definisikan relasi dengan model Kategori
-    public function kategoriTemplate()
-    {
-        return $this->belongsTo(KategoriTemplate::class,'kategori_template_id');
+        return $this->belongsTo(KategoriTemplate::class, 'kategori_id'); // Pastikan nama field foreign key sesuai
     }
 }

@@ -10,21 +10,20 @@ class ModelAudio extends Model
 {
     use HasFactory;
 
-    protected $table = 'audio';
+    protected $table = 'admin__audio';
 
     protected $fillable = [
-        'user_id',
         'judul',
-        'kategori',
+        'kategori_audio',
         'musik',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-    public function kategoriAudio()
-    {
-        return $this->belongsTo(KategoriAudio::class,'kategori_audio_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+    // public function kategoriAudio()
+    // {
+    //     return $this->belongsTo(KategoriAudio::class,'kategori_audio_id');
+    // }
 }

@@ -17,19 +17,16 @@
 
             </li>
         </ul>
-        <div class="ml-auto d-flex align-items-center mt-3 mr-3">
-            @if (Route::currentRouteName() == 'audio')
-                <a href="{{ route('tambah-audio') }}" class="nav-link btn btn-primary mb-4 text-white mr-2"><i
-                        class="fas fa-plus"></i>
-                    Buat Undangan</a>
-            @endif
-
-            @if (Route::currentRouteName() == 'template')
-                <a href="{{ route('tambah-template') }}" class="nav-link btn btn-primary mb-4 text-white"><i
-                        class="fas fa-plus"></i>
-                    Buat Undangan</a>
+        <div class="btn-group mr-3">
+            @if (Route::currentRouteName() == 'sampel-undangan')
+                <li class="nav-item">
+                    <a href="{{ route('pilih-undangan') }}" class="nav-link btn btn-primary mb-4 text-white"
+                        style="border-radius: 0;"><i class="fas fa-plus"></i>
+                        Buat Undangan</a>
+                </li>
             @endif
         </div>
+
     </div>
 </header>
 <style>

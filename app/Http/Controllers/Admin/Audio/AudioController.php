@@ -16,54 +16,57 @@ class AudioController extends Controller
     {
         $data = ModelAudio::all();
         $user = Auth::user();
-     return view('Admin.Audio.index',compact('data','user'));
+        $kategoriAudio = KategoriAudio::all();  
+     return view('Admin.Audio.index',compact('data','user','kategoriAudio'));
     }
- 
-    public function create()
+    
+  public function store(Request $request)
     {
-        $user = Auth::user();
-        return view('Admin.Audio.create',compact('user'));
-    }
-    public function store(Request $request)
-    { 
         // Validasi input
-    $request->validate([
-        'kategori_audio' => 'required|string|max:255',
-        'judul' => 'required|string|max:255',
-        'musik' => 'nullable|file|mimes:mp3,wav|max:5048', // Validasi file musik
-    ]);
-
-        $kategoriAudio = KategoriAudio::create([
-            'kategori_audio' => $request->kategori_audio,
-            'user_id' => auth()->id(),
+        $request->validate([
+            'kategori_audio' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
+            'musik' => 'nullable|file|mimes:mp3,wav|max:5048',
         ]);
-       
+    
+        // Cek apakah judul sudah ada di database
+        $exists = ModelAudio::where('judul', $request->judul)->exists();
+        if ($exists) {
+            return back()->with('info', 'Judul sudah ada, ganti dengan yang lain.');
+        }
+    
+        // Simpan file musik jika ada
         if ($request->hasFile('musik')) {
             $file = $request->file('musik');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $musik = $file->storeAs('uploads/musik', $fileName, 'public');
+        } else {
+            $musik = null; // Atau beri nilai default jika tidak ada file yang diunggah
         }
+    
+        // Buat dan simpan objek ModelAudio
         $audio = new ModelAudio();
-        $audio->user_id = auth()->id();
         $audio->judul = $request->judul;
-        $audio->kategori_audio_id = $kategoriAudio->id;
+        $audio->kategori_audio = $request->kategori_audio;
         $audio->musik = $musik;
         $audio->save();
+    
+        // Redirect dengan pesan sukses
         return redirect()->route('audio')->with('success', 'Audio berhasil ditambahkan.');
     }
+    
+    
+    public function edit($id){ 
 
-    public function edit($id)
-{   
-    $user = Auth::user();
+    $kategoriAudio = KategoriAudio::all();
     $data = ModelAudio::findOrFail($id);
-    return view('Admin.Audio.edit', compact('data','user'));
+    return view('Admin.Audio.edit', compact('data','kategoriAudio'));
 }
-
 public function update(Request $request, $id)
 {
     // Tambahkan validasi
     $request->validate([
-        'judul' => 'required|string|max:255',
+        'judul' => 'required|string|max:255|',
         'kategori_audio' => 'required|string|max:255', // Perbaikan di sini
         'musik' => 'nullable|file|mimes:mp3,wav|max:5048', // Validasi file musik
     ]);
@@ -71,7 +74,7 @@ public function update(Request $request, $id)
     $audio = ModelAudio::findOrFail($id);
 
     $audio->judul = $request->judul;
-    $audio->kategori_audio_id = KategoriAudio::where('kategori_audio', $request->kategori_audio)->first()->id; // Perbaikan di sini
+    $audio->kategori_audio = $request->kategori_audio;
 
     if ($request->hasFile('musik')) {
         $file = $request->file('musik');

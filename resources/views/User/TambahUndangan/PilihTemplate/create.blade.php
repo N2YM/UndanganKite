@@ -58,11 +58,8 @@
                                         name="link_undangan" aria-describedby="inputGroup-sizing-default">
                                 </div>
                                 <!-- Input hidden untuk cover1 hingga cover5 -->
-                                <input type="hidden" name="cover1" value="{{ $template->cover1 }}">
-                                <input type="hidden" name="cover2" value="{{ $template->cover2 }}">
-                                <input type="hidden" name="cover3" value="{{ $template->cover3 }}">
-                                <input type="hidden" name="cover4" value="{{ $template->cover4 }}">
-                                <input type="hidden" name="cover5" value="{{ $template->cover5 }}">
+                                <input type="hidden" name="cover1" value="{{ $template->cover }}">
+
 
                                 <div class="row">
                                     <div class="col-md-2" style="padding-right: 0%;">

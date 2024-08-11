@@ -20,6 +20,7 @@
     <link href="{{ url('TemplateSystem/html/dist') }}/assets/css/main.min.css" rel="stylesheet" />
     <!-- PAGE LEVEL STYLES-->
     <link href="{{ url('TemplateSystem/html/dist') }}/assets/vendors/DataTables/datatables.min.css" rel="stylesheet" />
+    <link href="{{ url('TemplateSystem/html/dist') }}/assets/vendors/summernote/dist/summernote.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     {{-- Fontawsemo --}}
@@ -29,7 +30,8 @@
     <link rel="stylesheet" href="{{ asset('icon/css/solid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('icon/css/regular.css') }}">
     <link rel="stylesheet" href="{{ asset('icon/css/regular.min.css') }}">
-    
+   
+    @yield('css')
     <style>
         .visitors-table tbody tr td:last-child {
             display: flex;
@@ -142,9 +144,66 @@
     </script>
     <script src="{{ url('TemplateSystem/html/dist') }}/assets/vendors/DataTables/datatables.min.js" type="text/javascript">
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.nav-tabs a').click(function() {
+                $(this).tab('show');
+            });
+            $('#summernote1, #summernote2, #summernote3, #summernote4, #summernote5, #summernote6, #summernote7, #summernote8, #summernote9,#summernote10,#summernote11,#summernote12,#summernote13,#summernote14')
+                .summernote({
+                    tabsize: 2,
+                    height: 35,
+                    toolbar: [
+                        ['fontname', ['fontname']],
+                        ['style', ['bold', 'italic']],
+                    ],
+                    fontNames: [
+                        'Arial', 'Arial Black', 'Courier New', 'Helvetica', 'Impact', 'Times New Roman',
+                        'Verdana',
+                        'Poppins', 'Playfair Display', 'Lora', 'Raleway', 'Great Vibes', 'Pacifico',
+                        'Montserrat',
+                        'Roboto', 'Open Sans', 'Merriweather', 'Dancing Script', 'Cinzel', 'Noto Serif',
+                        'Source Sans Pro',
+                        'Lobster'
+                    ],
+                    fontNamesIgnoreCheck: [
+                        'Poppins', 'Playfair Display', 'Lora', 'Raleway', 'Great Vibes', 'Pacifico',
+                        'Montserrat',
+                        'Roboto', 'Open Sans', 'Merriweather', 'Dancing Script', 'Cinzel', 'Noto Serif',
+                        'Source Sans Pro',
+                        'Lobster'
+                    ],
+                    popover: {
+                        font: [
+                            ['fontname', ['fontname']],
+                            ['style', ['bold', 'italic', ]],
+                        ]
+                    }
+                });
+        });
+    </script>
+
+    <script src="{{ url('TemplateSystem/html/dist') }}/assets/vendors/summernote/dist/summernote.min.js"
+        type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
             $('#example-table').DataTable({
+                pageLength: 10,
+                //"ajax": './assets/demo/data/table_data.json',
+                /*"columns": [
+                    { "data": "name" },
+                    { "data": "office" },
+                    { "data": "extn" },
+                    { "data": "start_date" },
+                    { "data": "salary" }
+                ]*/
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $('#example-table1').DataTable({
                 pageLength: 10,
                 //"ajax": './assets/demo/data/table_data.json',
                 /*"columns": [
@@ -197,6 +256,9 @@
             });
         });
     </script>
+    
+    @stack('javascript')
+    
 </body>
 
 </html>

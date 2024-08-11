@@ -13,23 +13,23 @@
 <body>
     <div class="container">
         <section class="one"
-            style="@if ($data->cover1) background-image: url('{{ asset('storage/' . $data->cover1) }}'); @endif">
+            style="@if ($data->cover) background-image: url('{{ asset('storage/' . $data->cover) }}'); @endif">
             <!-- Konten lainnya -->
         </section>
         <section class="two"
-            style="@if ($data->cover2) background-image: url('{{ asset('storage/' . $data->cover2) }}'); @endif">
+            style="@if ($data->cover) background-image: url('{{ asset('storage/' . $data->cover) }}'); @endif">
             <!-- Konten lainnya -->
         </section>
         <section class="three"
-            style="@if ($data->cover3) background-image: url('{{ asset('storage/' . $data->cover3) }}'); @endif">
+            style="@if ($data->cover) background-image: url('{{ asset('storage/' . $data->cover) }}'); @endif">
             <!-- Konten lainnya -->
         </section>
         <section class="four"
-            style="@if ($data->cover4) background-image: url('{{ asset('storage/' . $data->cover4) }}'); @endif">
+            style="@if ($data->cover) background-image: url('{{ asset('storage/' . $data->cover) }}'); @endif">
             <!-- Konten lainnya -->
         </section>
         <section class="five"
-            style="@if ($data->cover5) background-image: url('{{ asset('storage/' . $data->cover5) }}'); @endif">
+            style="@if ($data->cover) background-image: url('{{ asset('storage/' . $data->cover) }}'); @endif">
             <!-- Konten lainnya -->
         </section>
     </div>

@@ -1,8 +1,9 @@
 <?php
-
 namespace App\Livewire\Auth;
 
+
 use Livewire\Component;
+use App\Models\Admin\ModelAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -36,17 +37,23 @@ class Login extends Component
             return null;
         }
 
-        if (!Auth::attempt($this->only(['email', 'password']), $this->remember)) {
-            RateLimiter::hit($throttleKey);
-            $this->addError('email', __('auth.failed'));
-            return null;
-        }
+        $credentials = ['email' => $this->email, 'password' => $this->password];
 
-        $user = Auth::user();
+        if (ModelAdmin::where('email', $this->email)->exists()) {
+            if (!Auth::guard('admin')->attempt($credentials, $this->remember)) {
+                RateLimiter::hit($throttleKey);
+                $this->addError('email', __('auth.failed'));
+                return null;
+            }
 
-        if ($user->isAdmin()) { // Misalnya, method isAdmin() mengembalikan true jika user adalah admin
             return redirect()->route('home');
         } else {
+            if (!Auth::attempt($credentials, $this->remember)) {
+                RateLimiter::hit($throttleKey);
+                $this->addError('email', __('auth.failed'));
+                return null;
+            }
+
             return redirect()->route('dashboard');
         }
     }

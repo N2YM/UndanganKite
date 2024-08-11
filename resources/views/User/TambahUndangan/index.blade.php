@@ -7,8 +7,8 @@
             @foreach ($tmp as $tmp)
                 <div class="col-md-3 mb-3">
                     <div class="card">
-                        @if ($tmp->cover1)
-                            <img class="card-img-top" src="{{ asset('storage/' . $tmp->cover1) }}" alt="Cover Image">
+                        @if ($tmp->cover)
+                            <img class="card-img-top" src="{{ asset('storage/' . $tmp->cover) }}" alt="Cover Image">
                         @endif
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $tmp->judul_undangan }}</h5>
@@ -18,7 +18,6 @@
                                     class="btn btn-secondary btn-sm stretched-link">Preview</a>
                                 <div>
                                     <a href="{{ route('edit-undangan', $tmp->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
                                     <form action="{{ route('destroy-undangan', $tmp->id) }}" method="POST"
                                         style="display:inline;">
                                         @csrf
@@ -35,7 +34,6 @@
         </div>
     </div>
 @endsection
-
 @section('styles')
     <style>
         .card {

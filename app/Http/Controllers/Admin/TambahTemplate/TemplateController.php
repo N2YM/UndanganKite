@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\TambahTemplate;
 
+use App\Models\Admin\Template\KategoriTemplate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Audio\KategoriAudio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 // use App\Models\Template\KategoriTemplate;
@@ -18,114 +20,77 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        $data = ModelTemplate::all();
-        $user = Auth::user();
-        return view('Admin.TambahTemplate.index', compact('data','user'));
+        // Ambil semua template dengan relasi kategori
+        $data = ModelTemplate::with('kategori')->get(); // Menambahkan relasi kategori
+        // Ambil semua kategori
+        $kategoriTemplate = KategoriTemplate::all();
+        // Jika Anda memerlukan kategori yang dipilih, ambil ID atau data yang relevan 
+        // Kirim data ke view
+        return view('Admin.TambahTemplate.index', compact('data', 'kategoriTemplate'));
     }
 
     public function create()
     {
-        $user = Auth::user();
-        return view('Admin.TambahTemplate.create',compact('user'));
+        $data = KategoriTemplate::all();
+        return view('Admin.TambahTemplate.create',compact('data'));
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'judul' => 'required|string|max:255',
-        'kategori_tmp' => 'required|string|max:255',
-        'cover1' => 'nullable|image|max:3048',
-        'cover2' => 'nullable|image|max:3048',
-        'cover3' => 'nullable|image|max:3048',
-        'cover4' => 'nullable|image|max:3048',
-        'cover5' => 'nullable|image|max:3048',
-    ], [
-        'judul.required' => 'Judul template harus diisi.',
-        'kategori_tmp.required' => 'Kategori template harus diisi.',
-        'cover1.image' => 'Cover 1 harus berupa gambar.',
-        'cover1.max' => 'Cover 1 tidak boleh lebih dari 2MB.',
-        // Tambahkan pesan untuk cover2, cover3, cover4, dan cover5 jika diperlukan
-    ]);
-    // Simpan kategori_template terlebih dahulu
-    $kategoriTemplate = TemplateKategoriTemplate::create([
-        'kategori_tmp' => $request->kategori_tmp,
-        'user_id' => auth()->id(),
-    ]);
-    // Simpan data template
-    $template = new ModelTemplate();
-    $template->judul = $request->judul;
-    $template->user_id = auth()->id();
-    $template->kategori_template_id = $kategoriTemplate->id;
-    $template->save();
+    {
+        // Validasi input
+        // $request->validate([
+        //     'judul' => 'required|string|max:255',
+        //     'kategori_id' => 'required|exists:admin__kategori__template,id', // Memastikan kategori_id valid
+        //     'cover' => 'nullable|image|max:2048', // Maksimal 2MB (2048 KB)
+        // ], [
+        //     'judul.required' => 'Judul template harus diisi.',
+        //     'kategori_id.required' => 'Kategori template harus diisi.',
+        //     'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
+        //     'cover.image' => 'Cover harus berupa gambar.',
+        //     'cover.max' => 'Cover tidak boleh lebih dari 2MB.',
+        // ]);
 
-    // Proses penyimpanan file gambar
-    $this->storeImage($request, 'cover1', $template);
-    $this->storeImage($request, 'cover2', $template);
-    $this->storeImage($request, 'cover3', $template);
-    $this->storeImage($request, 'cover4', $template);
-    $this->storeImage($request, 'cover5', $template);
+        // Simpan data template
+        $template = new ModelTemplate();
+        $template->judul = $request->judul;
+        $template->kategori_id = $request->kategori_id;
 
-    // Redirect ke rute atau halaman yang sesuai setelah penyimpanan berhasil
-    return redirect()->route('template')->with('success', 'Template berhasil ditambahkan.');
-}
+        // Proses penyimpanan file gambar
+        if ($request->hasFile('cover')) {
+            $imagePath = $request->file('cover')->store('images', 'public');
+            $template->cover = $imagePath;
+        }
 
-public function edit(string $id)
-{
-    $user = Auth::user();
-    $template = ModelTemplate::findOrFail($id);
-    return view('Admin.TambahTemplate.edit', compact('template','user'));
-}
-// Fungsi untuk menyimpan gambar
+        $template->save();
+
+        return redirect()->route('template')->with('success', 'Template berhasil ditambahkan.');
+    }
 
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'judul' => 'required|string',
-        //     'cover1' => 'nullable|image|max:2048', // Contoh validasi untuk file gambar (opsional)
-        //     'cover2' => 'nullable|image|max:2048',
-        //     'cover3' => 'nullable|image|max:2048',
-        //     'cover4' => 'nullable|image|max:2048',
-        //     'cover5' => 'nullable|image|max:2048',
-        //     'isi' => 'required|string',
-        //     'kategori_tmp' => 'required|string',
-        // ]);
-    
+        // Validasi input
+        $request->validate([
+            'judul' => 'nullable|string|max:255',
+            'kategori_id' => 'required|exists:admin__kategori__template,id',
+            'cover' => 'nullable|image|max:2048', // Maksimal 2MB (2048 KB)
+        ]);
+
         // Temukan template berdasarkan ID
         $template = ModelTemplate::findOrFail($id);
-    
-        // Update atau buat data kategori_template
-        $kategoriTemplate = $template->kategoriTemplate;
-        if (!$kategoriTemplate) {
-            $kategoriTemplate = new TemplateKategoriTemplate();
-            $kategoriTemplate->user_id = auth()->id();
-        }
-        $kategoriTemplate->kategori_tmp = $request->kategori_tmp;
-        $kategoriTemplate->save();
-    
+
         // Update data template
-        $template->judul = $request->judul;
-        $template->kategori_template_id = $kategoriTemplate->id;
-        $template->save();
-    
+        $template->judul = $request->judul ?? $template->judul; // Jika tidak ada perubahan, tetap menggunakan nilai lama
+        $template->kategori_id = $request->kategori_id;
+
         // Proses pembaruan file gambar
-        $this->storeImage($request, 'cover1', $template);
-        $this->storeImage($request, 'cover2', $template);
-        $this->storeImage($request, 'cover3', $template);
-        $this->storeImage($request, 'cover4', $template);
-        $this->storeImage($request, 'cover5', $template);
-    
-        // Redirect ke rute atau halaman yang sesuai setelah pembaruan berhasil
-        return redirect()->route('template')->with('warning', 'Template berhasil diperbarui.');
-    }
-    
-    // Fungsi untuk menyimpan gambar
-    private function storeImage($request, $imageField, $template)
-    {
-        if ($request->hasFile($imageField)) {
-            $imagePath = $request->file($imageField)->store('images', 'public');
-            $template->$imageField = $imagePath;
-            $template->save();
+        if ($request->hasFile('cover')) {
+            $imagePath = $request->file('cover')->store('images', 'public');
+            $template->cover = $imagePath;
         }
+
+        $template->save();
+
+        return redirect()->route('template.index')->with('warning', 'Template berhasil diperbarui.');
     }
     public function destroy(string $id)
 {

@@ -7,12 +7,12 @@
             @foreach ($data as $tmp)
                 <div class="col-md-2 mb-3">
                     <div class="card">
-                        @if ($tmp->cover1)
-                            <img class="card-img-top" src="{{ asset('storage/' . $tmp->cover1) }}" alt="Cover Image">
+                        @if ($tmp->cover)
+                            <img class="card-img-top" src="{{ asset('storage/' . $tmp->cover) }}" alt="Cover Image">
                         @endif
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $tmp->judul }}</h5>
-                            <p class="card-text">{{ $tmp->kategoriTemplate->kategori_tmp }}</p>
+                            <p class="card-text">{{ $tmp->kategori_tmp }}</p>
                             <div class="mt-auto">
                                 <a href="{{ route('view', ['id' => $tmp->id]) }}"
                                     class="btn btn-secondary btn-sm stretched-link">Preview</a>

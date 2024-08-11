@@ -8,39 +8,29 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User\BuatUndangan\Opening;
 use App\Models\User\BuatUndangan\GaleriWedding;
-use App\Models\User\BuatUndangan\ModelUndangan;
 use App\Models\User\BuatUndangan\ProfilWedding;
 use App\Models\User\BuatUndangan\DetailAcaraUndangan;
+use App\Models\User\BuatUndangan\TambahUndangan;
 
 class UndanganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user = Auth::user();
-        $tmp = ModelUndangan::where('id_user', $user->id)->get();
-        // return $tmp;
+        $tmp = TambahUndangan::where('id_user', $user->id)->get();
         return view('User.TambahUndangan.index', compact('user', 'tmp'));
     }
     public function preview($id)
     {
-        $tmp = ModelUndangan::with(['opening', 'undanganProfilWedding', 'galeriWedding','detailWedding'])->find($id);
-        
-        // dd($tmp);
-        // return $tmp;
-         // Periksa apakah undangan ditemukan
-        //  if (!$tmp) {
-        //     return redirect()->route('undangan.index')->with('error', 'Undangan tidak ditemukan');
-        // }
-        return view('User.PreviewTemplate.index', compact('tmp',));
+        $tmp = TambahUndangan::with(['opening', 'undanganProfilWedding', 'galeriWedding','detailWedding'])->find($id);
+       
+        return view('User.PreviewTemplate.index', compact('tmp',    ));
     }
 
     public function edit($id)
     {
         $user = Auth::user();
-        $tmp = ModelUndangan::find($id);
+        $tmp = TambahUndangan::find($id);
         $profilWedding = ProfilWedding::firstOrNew(['user_id' => $user->id, 'buat_undangan_id' => $id]);
         $opening = Opening::firstOrNew(['user_id' => $user->id, 'buat_undangan_id' => $id]);
         return view('User.TambahUndangan.edit', compact('user', 'tmp', 'profilWedding','opening'));
@@ -216,7 +206,7 @@ class UndanganController extends Controller
     public function destroy($id)
     {
         // Temukan data undangan berdasarkan ID
-        $template = ModelUndangan::findOrFail($id);
+        $template = TambahUndangan::findOrFail($id);
     
         // Hapus cover images dari storage (jika ada)
         // Hapus audio undangan dari storage (jika ada)

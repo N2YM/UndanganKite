@@ -364,7 +364,7 @@
                         <!-- Block2 -->
                         <div class="block2">
                             <div class="block2-pic hov-img0">
-                                <img src="{{ asset('storage/' . $tmp->cover1) }}" class="larger-image"
+                                <img src="{{ asset('storage/' . $tmp->cover) }}" class="larger-image"
                                     alt="IMG-PRODUCT">
                             </div>
                             <div class="block2-txt flex-w flex-t p-t-14">
@@ -373,7 +373,7 @@
                                         {{ $tmp->judul }}
                                     </div>
                                     <span class="stext-105 cl3">
-                                        <b>{{ $tmp->kategoriTemplate->kategori_tmp }}</b>
+                                        <b>{{ $tmp->kategori_tmp }}</b>
                                     </span>
                                 </div>
                                 <div class="row">

@@ -7,15 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Reverse the migrations.
      */
     public function up(): void
     {
-        Schema::create('kategori_template', function (Blueprint $table) {
-            $table->id();
-            $table->string('kategori_tmp');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('kategori_template', function (Blueprint $table) {
+            $table->dropForeign(['user_id']); // Hapus foreign key constraint
+            $table->dropColumn('user_id');    // Hapus kolom user_id
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_template');
+        Schema::table('kategori_template', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Tambahkan kembali kolom dan constraint
+        });
     }
 };

@@ -10,6 +10,7 @@
         rel="stylesheet" />
     @include('User.PreviewTemplate.font')
     <title>Document</title>
+
     <style>
         html,
         body {
@@ -63,7 +64,6 @@
             border-radius: 8px;
             background: white;
             padding: 20px;
-
         }
 
         .hours {
@@ -190,6 +190,111 @@
             }
         }
     </style>
+    <style>
+        .nav-button {
+            transition: transform 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Warna latar belakang tombol dengan transparansi */
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .nav-button.active {
+            transform: scale(1.2);
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <style>
+        .zoom-in {
+            animation: zoomIn 1s forwards;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+    <style>
+        .banner {
+            position: relative;
+            min-height: 100vh;
+            /* Minimum height to cover the full viewport height */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            left: 0;
+            bottom: 0;
+        }
+
+        .banner::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0) scale(1.0, 1.0);
+            -moz-transform: translateZ(0) scale(1.0, 1.0);
+            -ms-transform: translateZ(0) scale(1.0, 1.0);
+            -o-transform: translateZ(0) scale(1.0, 1.0);
+            transform: translateZ(0) scale(1.0, 1.0);
+            background-size: cover;
+
+            /* Menggunakan cover untuk semua section */
+            background-image: url('{{ asset('storage/' . ($tmp->cover ?? 'default_cover_image.jpg')) }}');
+            background-attachment: fixed;
+            animation: increase 60s linear 10ms infinite;
+            -webkit-transition: all 0.2s ease-in-out;
+            -moz-transition: all 0.2s ease-in-out;
+            -ms-transition: all 0.2s ease-in-out;
+            -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+            z-index: -2;
+        }
+
+        @keyframes increase {
+            0% {
+                transform: scale(1)
+            }
+
+            100% {
+                transform: scale(1.5)
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -297,10 +402,10 @@
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
                     <div class="col-md-12">
                         <div class="row">
-                            @foreach ($tmp->galeriWedding as $img)
+                            {{-- @foreach ($tmp->galeriWedding as $img)
                                 <img src="{{ Storage::url($img->image_path ?? 'data kosong') }}" alt="Gallery Image"
                                     style="width: 200px; height: 200px; border-radius: 10px;">
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
                 </div>
@@ -316,7 +421,7 @@
         </section>
     </div>
     <!-- Audio element -->
-    <audio id="background-audio" src="{{ asset('' . $tmp->audio_undangan) }}" type="audio/mpeg" loop></audio>
+     --}}
     <!-- Control button -->
     <button class="control-button" onclick="toggleAudio()">
         <i id="audio-icon" class="fa-solid fa-play"></i>
@@ -333,6 +438,7 @@
         {{-- <button class="nav-button" onclick="toggleAutoScroll()"><i id="scroll-icon"
                 class="fa-solid fa-play"></i></button> --}}
     </div>
+
     <script>
         var audio = document.getElementById('background-audio');
         var icon = document.getElementById('audio-icon');
@@ -409,10 +515,12 @@
         }
     </script>
     <script>
-        // Set the date we're counting down to
-        var countDownDate = new Date("{!! $tmp->detailWedding->first()->hari_tanggal_acara1 ?? '2023-01-01' !!} ??").getTime();
+        var countDownDate = new Date("{!! isset($tmp->detailWedding) && $tmp->detailWedding->isNotEmpty()
+            ? $tmp->detailWedding->first()->hari_tanggal_acara1
+            : '2023-01-01' !!}").getTime();
+    </script>
 
-        // Update the count down every 1 second
+    <script>
         var x = setInterval(function() {
             // Get today's date and time
             var now = new Date().getTime();
@@ -443,113 +551,6 @@
             document.getElementById("seconds").innerHTML = seconds + " Detik";
         }, 1000);
     </script>
-    <style>
-        .nav-button {
-            transition: transform 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.7);
-            /* Warna latar belakang tombol dengan transparansi */
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 5px;
-        }
-
-        .nav-button.active {
-            transform: scale(1.2);
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
-    <style>
-        .zoom-in {
-            animation: zoomIn 1s forwards;
-        }
-
-        @keyframes zoomIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-    </style>
-
-    <style>
-        .banner {
-            position: relative;
-            min-height: 100vh;
-            /* Minimum height to cover the full viewport height */
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            color: #fff;
-        }
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            left: 0;
-            bottom: 0;
-        }
-
-        .banner::before {
-            content: '';
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: -1;
-            left: 0;
-            top: 0;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -ms-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform: translateZ(0) scale(1.0, 1.0);
-            -moz-transform: translateZ(0) scale(1.0, 1.0);
-            -ms-transform: translateZ(0) scale(1.0, 1.0);
-            -o-transform: translateZ(0) scale(1.0, 1.0);
-            transform: translateZ(0) scale(1.0, 1.0);
-            background-size: cover;
-
-            /* Menggunakan cover untuk semua section */
-            background-image: url('{{ asset('storage/' . ($tmp->cover1 ?? ($tmp->cover2 ?? ($tmp->cover3 ?? ($tmp->cover4 ?? $tmp->cover5))))) }}');
-            background-attachment: fixed;
-            animation: increase 60s linear 10ms infinite;
-            -webkit-transition: all 0.2s ease-in-out;
-            -moz-transition: all 0.2s ease-in-out;
-            -ms-transition: all 0.2s ease-in-out;
-            -o-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-            z-index: -2;
-        }
-
-        @keyframes increase {
-            0% {
-                transform: scale(1)
-            }
-
-            100% {
-                transform: scale(1.5)
-            }
-        }
-    </style>
-
     <script>
         // Fungsi untuk membuat daun maple
         function createMapleLeaves() {
