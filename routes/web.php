@@ -90,7 +90,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('admin-store-undangan', [SampelController::class,'store'])->name('admin-store-undangan');
     Route::get('admin-edit-undangan/{id}/{kategori_id}', [SampelController::class,'editForm'])->name('admin-edit-undangan');
     Route::put('admin-update-undangan-form/{id}/{kategori_id}', [SampelController::class, 'updateForm'])->name('admin-update-undangan-form');
-    Route::get('admin-undangan-form/{id}/{kategori_id}', [SampelController::class, 'viewForm'])->name('admin-undangan-form');
+    Route::get('/admin-undangan-form/{id}/{kategori_id}', [SampelController::class, 'viewForm'])->name('admin-undangan-form');
+
 
 });
 

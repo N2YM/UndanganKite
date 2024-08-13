@@ -5,8 +5,9 @@ namespace App\Http\Controllers\User\Profile;
 use App\Models\User\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User\BuatUndangan\ModelUndangan;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User\BuatUndangan\ModelUndangan;
+use App\Models\Admin\SampelUndangan\SampelUndangan;
 
 class ProfileController extends Controller
 {
@@ -14,7 +15,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $jumlahUndangan = ModelUndangan::count();
+        $jumlahUndangan = SampelUndangan::count();
         return view('User.Profile.index', compact('user','jumlahUndangan'));
     }
 

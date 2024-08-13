@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models\Admin\SampelUndangan\Kategori;
 
 use Illuminate\Database\Eloquent\Model;
@@ -52,7 +51,7 @@ class Wedding extends Model
         'gallery',
     ];
 
-    public function adminUndangans()
+    public function sampelUndangans()
     {
         return $this->hasMany(SampelUndangan::class, 'wedding_id');
     }

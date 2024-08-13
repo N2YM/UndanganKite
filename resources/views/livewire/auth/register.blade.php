@@ -19,58 +19,81 @@
         <link href="{{ url('TemplateSystem/html/dist') }}/assets/css/main.css" rel="stylesheet" />
         <!-- PAGE LEVEL STYLES-->
         <link href="{{ url('TemplateSystem/html/dist') }}/assets/css/pages/auth-light.css" rel="stylesheet" />
+        <style>
+            body {
+                overflow: hidden;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .login-container {
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .content {
+                width: 100%;
+                max-width: 400px;
+                padding: 20px;
+                background-color: white;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+        </style>
     </head>
-    <body class="bg-silver-300">
-        <div class="content">
-            <div class="brand">
-                <a class="link" href="index.html">AdminCAST</a>
-            </div>
-            <div>
-                <form id="register-form" wire:submit.prevent="registerUser">
-                    <h2 class="login-title">Sign Up</h2>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                    name="name" placeholder="Name" wire:model.defer="name">
-                                @error('name')
-                                    <div class="invalid-feedback" style="color: red;">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+
+    <body style="background-image: url('info/bg_login/bg3.png');">
+        <div class="login-container">
+            <div class="content">
+                <div class="register">
+                    <form id="register-form" wire:submit.prevent="registerUser">
+                        <h2 class="login-title">Register</h2>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                        name="name" placeholder="Name" wire:model.defer="name">
+                                    @error('name')
+                                        <div class="invalid-feedback" style="color: red;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email"
-                            placeholder="Email" wire:model.defer="email">
-                        @error('email')
-                            <div class="invalid-feedback" style="color: red;">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control @error('password') is-invalid @enderror" id="password"
-                            type="password" name="password" placeholder="Password" wire:model.defer="password">
-                        @error('password')
-                            <div class="invalid-feedback" style="color: red;">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="password_confirmation" type="password"
-                            placeholder="Confirm Password" wire:model.defer="password_confirmation">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-info btn-block" type="submit">Sign up</button>
-                    </div>
-                    <div class="social-auth-hr"></div>
-                    <div class="text-center">Already a member?
-                        <a class="color-blue" href="{{ route('login') }}">Login here</a>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                name="email" placeholder="Email" wire:model.defer="email">
+                            @error('email')
+                                <div class="invalid-feedback" style="color: red;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control @error('password') is-invalid @enderror" id="password"
+                                type="password" name="password" placeholder="Password" wire:model.defer="password">
+                            @error('password')
+                                <div class="invalid-feedback" style="color: red;">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="password_confirmation" type="password"
+                                placeholder="Confirm Password" wire:model.defer="password_confirmation">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-info btn-block" type="submit">Daftar</button>
+                        </div>
+                        <div class="social-auth-hr"></div>
+                        <div class="text-center">Sudah Punya Akun?
+                            <a class="color-blue" href="{{ route('login') }}">Login disini</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- BEGIN PAGE BACKDROPS-->

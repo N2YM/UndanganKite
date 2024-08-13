@@ -4,6 +4,7 @@ namespace App\Models\Admin\Template;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Admin\SampelUndangan\Kategori\Wedding;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class KategoriTemplate extends Model
@@ -16,5 +17,9 @@ class KategoriTemplate extends Model
       
     ];
 
+    public function weddings()
+    {
+        return $this->hasMany(Wedding::class, 'kategori_id');
+    }
     
 }

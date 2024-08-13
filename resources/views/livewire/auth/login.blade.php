@@ -56,18 +56,20 @@
 
             body {
                 overflow: hidden;
-                /* background-image: url('{{ url('info/bg_login/bg1.jpg') }}');  */
                 background-size: cover;
                 /* Mengatur ukuran background agar menutupi seluruh area */
                 background-position: center;
             }
         </style>
     </head>
-    <body class="bg-white">
+
+    <body style="background-image: url('info/bg_login/bg3.png');">
         <div class="login-container d-flex justify-content-center align-items-center">
             <div class="content login-content">
                 <form wire:submit.prevent="loginUser">
-                    <h2 class="login-title">InviVibe</h2>
+                    <strong>
+                        <h2 class="login-title">InviVibe</h2>
+                    </strong>
                     <div class="form-group">
                         <div class="input-group-icon right">
                             <div class="input-icon"><i class="fa fa-envelope"></i></div>

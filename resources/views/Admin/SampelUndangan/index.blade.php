@@ -1,3 +1,9 @@
+@if (session('error'))
+    <p>{{ session('error') }}</p>
+@endif
+@if (session('success'))
+    <p>{{ session('success') }}</p>
+@endif
 @extends('Template.Admin.base')
 @section('content')
     <div class="container">

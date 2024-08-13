@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url('CSS/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="{{ url('TemplateSystem/html/dist') }}/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{ url('TemplateSystem/html/dist') }}/assets/vendors/font-awesome/css/font-awesome.min.css"
+        rel="stylesheet" />
     @include('User.PreviewTemplate.font')
     <title>Document</title>
 
     <style>
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
         }
+
         body .container {
             background-color: rgba(0, 0, 0, 0.6);
         }
+
         .formatted-text {
             color: white;
             margin-top: 20px;
             word-wrap: break-word;
             font-size: 20px;
         }
+
         .logo-text {
             font-family: 'Cursive', sans-serif;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             letter-spacing: 5px;
         }
+
         .vertical-text {
             display: flex;
             flex-direction: row;
@@ -34,32 +41,47 @@
             font-size: 30px;
             color: #b3b3b3;
         }
+
         .judul {
             color: #b3b3b3;
             font-size: 30px;
         }
+
         .hari-tgl {
             color: #b3b3b3;
             font-size: 35px;
         }
-        .days, .hours, .minute, .seconds {
+
+        .days,
+        .hours,
+        .minute,
+        .seconds {
             color: #333;
             border-radius: 8px;
             background: white;
             padding: 20px;
             font-weight: bold;
         }
+
         .save-tanggal {
             color: #b3b3b3;
             font-size: 20px;
         }
+
         .teks-acara {
             text-transform: uppercase;
         }
+
         @keyframes fall {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
         }
+
         .maple-leaf {
             position: absolute;
             top: -10%;
@@ -69,27 +91,33 @@
             pointer-events: none;
             animation: fall linear infinite 2s;
         }
+
         .three {
             min-height: 100vh;
             background-color: rgba(0, 0, 0, 0.1);
         }
+
         body {
             transition: filter 0.5s ease;
         }
+
         .acara1 {
             font-size: 30px;
             padding-bottom: 10%;
         }
+
         .acara4 {
             font-size: 30px;
             padding-bottom: 20%;
             margin-bottom: 100%;
         }
+
         .detail-acara {
             font-size: 40px;
             margin-bottom: 50%;
             font-family: 'Tisa', serif;
         }
+
         #open-invitation {
             position: absolute;
             top: 50%;
@@ -98,17 +126,24 @@
             z-index: 10;
             filter: none;
         }
+
         .slide-up {
             transform: translateY(100%);
             opacity: 0;
             animation: slideUp 0.5s forwards;
         }
+
         .event {
             font-size: 20px;
         }
+
         @keyframes slideUp {
-            to { transform: translateY(0); opacity: 1; }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
+
         .nav-button {
             transition: transform 0.3s ease;
             background-color: rgba(255, 255, 255, 0.7);
@@ -117,23 +152,38 @@
             padding: 10px;
             margin: 5px;
         }
+
         .nav-button.active {
             transform: scale(1.2);
         }
+
         .fade-in {
             opacity: 0;
             animation: fadeIn 1s forwards;
         }
+
         @keyframes fadeIn {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
+
         .zoom-in {
             animation: zoomIn 1s forwards;
         }
+
         @keyframes zoomIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
+
         .banner {
             position: relative;
             min-height: 100vh;
@@ -142,6 +192,7 @@
             justify-content: center;
             color: #fff;
         }
+
         .banner::after {
             content: '';
             position: absolute;
@@ -151,6 +202,7 @@
             left: 0;
             bottom: 0;
         }
+
         .banner::before {
             content: '';
             width: 100%;
@@ -179,19 +231,28 @@
             transition: all 0.2s ease-in-out;
             z-index: -2;
         }
+
         @keyframes increase {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.5); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.5);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <section class="one banner">
-            <div class="card" style="max-width: 900px; margin-top: -90px; background-color: transparent; padding: 20px; border-radius: 20px; height: 500px;">
+            <div class="card"
+                style="max-width: 900px; margin-top: -90px; background-color: transparent; padding: 20px; border-radius: 20px; height: 500px;">
                 <br><br>
                 <h1 class="fade-in logo-text" style="font-size: 70px; text-align: center; color: white;"></h1>
-                <div class="wedding-card slide-up" style="text-align: center; background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 20px; margin-top: 20px; position: relative; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0.9; color: #f0f0f0;">
+                <div class="wedding-card slide-up"
+                    style="text-align: center; background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 20px; margin-top: 20px; position: relative; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0.9; color: #f0f0f0;">
                     <div class="judul slide-up">
                         <h2>{!! $tmp->opening->judul_acara ?? 'Judul Acara Tidak Tersedia' !!}</h2>
                     </div>
@@ -207,7 +268,7 @@
                     </div>
                     <br>
                     <div class="save-tanggal">
-                        <h3 class="slide-up">- Save the Date -</h3>
+                        <h3 class="slide-up">- Save the Date Ulang Tahun-</h3>
                     </div>
                     <br>
                     <div class="countdown" id="countdown" style="display: flex; justify-content: center; gap: 10px;">
@@ -216,7 +277,8 @@
                         <div class="minute" id="minutes" style="min-width: 80px;">00 Menit</div>
                         <div class="seconds" id="seconds" style="min-width: 80px;">00 Detik</div>
                     </div>
-                    <div id="countdown-message" style="display: none; text-align: center; margin-top: 20px;">Acara Dimulai!</div>
+                    <div id="countdown-message" style="display: none; text-align: center; margin-top: 20px;">Acara
+                        Dimulai!</div>
                 </div>
             </div>
         </section>
@@ -252,7 +314,9 @@
 
         function scrollToSection(sectionClass) {
             var section = document.querySelector('.' + sectionClass);
-            section.scrollIntoView({ behavior: 'smooth' });
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
             updateActiveButton(sectionClass);
         }
 
@@ -290,4 +354,5 @@
         }, 1000);
     </script>
 </body>
+
 </html>

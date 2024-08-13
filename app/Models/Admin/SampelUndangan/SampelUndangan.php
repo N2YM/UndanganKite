@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models\Admin\SampelUndangan;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,16 +17,16 @@ class SampelUndangan extends Model
         'cover',
         'audio',
         'kategori_id',
+        'wedding_id', // Pastikan kolom wedding_id ada di sini
     ];
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriTemplate::class, 'kategori_id','id');
+        return $this->belongsTo(KategoriTemplate::class, 'kategori_id', 'id');
     }
  
-    public function userWedding()
+    public function wedding()
     {
         return $this->belongsTo(Wedding::class, 'wedding_id');
     }
-
 }

@@ -36,6 +36,24 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('info') }}/css/util.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('info') }}/css/main.css">
     <!--===============================================================================================-->
+    <style>
+        .img1 {
+            width: 100px;
+            /* Atur lebar sesuai kebutuhan */
+            height: auto;
+            /* Sesuaikan tinggi agar proporsional */
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            /* Pusatkan logo */
+            align-items: center;
+            /* Vertikal center */
+            padding: 20px;
+            /* Tambahkan padding jika perlu */
+        }
+    </style>
 </head>
 
 <body class="animsition">
@@ -48,7 +66,8 @@
                 <nav class="limiter-menu-desktop container d-flex justify-content-between align-items-center">
                     <!-- Logo desktop -->
                     <a href="#" class="logo">
-                        <img src="{{ asset('info') }}/images/icons/logo-01.png" alt="IMG-LOGO">
+                        <strong style="font-size: 34px; color: black">InviVibe</strong>
+                        {{-- <img class="img1" src="{{ asset('info/logo') }}/INVI VIBE2.png" alt="IMG-LOGO"> --}}
                     </a>
                 </nav>
             </div>
@@ -72,16 +91,12 @@
                 <span class="mtext-103 cl2">
                     Your Cart
                 </span>
-
                 <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
                     <i class="zmdi zmdi-close"></i>
                 </div>
             </div>
         </div>
     </div>
-
-
-
     <!-- Slider -->
     <section class="section-slide">
         <div class="wrap-slick1">
@@ -99,7 +114,6 @@
                 </div>
             </div>
     </section>
-
     <!-- Product -->
     <section class="bg0 p-t-23 p-b-140">
         <div class="container">
@@ -113,28 +127,17 @@
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
                         All Products
                     </button>
-
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-
                     </button>
-
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-
                     </button>
-
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-
                     </button>
-
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-
                     </button>
-
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-
                     </button>
                 </div>
-
                 <div class="flex-w flex-c-m m-tb-10">
                     <div
                         class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
@@ -142,26 +145,22 @@
                         <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
                         Filter
                     </div>
-
                     <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
                         <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
                         <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
                         Search
                     </div>
                 </div>
-
                 <!-- Search product -->
                 <div class="dis-none panel-search w-full p-t-10 p-b-15">
                     <div class="bor8 dis-flex p-l-15">
                         <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
                             <i class="zmdi zmdi-search"></i>
                         </button>
-
                         <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
                             placeholder="Search">
                     </div>
                 </div>
-
                 <!-- Filter -->
                 <div class="dis-none panel-filter w-full p-t-10">
                     <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">

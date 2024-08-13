@@ -48,7 +48,7 @@
                     <div class="profile-social m-b-20" style="margin-top: 15%;">
                         <div class="row text-center m-b-20">
                             <div class="col-6">
-                                <div class="font-24 profile-stat-count"></div>
+                                <div class="font-24 profile-stat-count">5</div>
                                 <div class="text-muted">Undangan</div>
                             </div>
                             <div class="col-6">

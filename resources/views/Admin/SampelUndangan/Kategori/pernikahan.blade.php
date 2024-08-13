@@ -510,20 +510,17 @@
                                     <div class="form-group">
                                         <label for="kataSambutan">Judul Acara</label>
                                         <input type="text" class="form-control previewable" id="judulAcara"
-                                            name="judul_acara" value="{{ $sampel->userWedding->judul_acara ?? ' ' }}">
+                                            name="judul_acara" value="{{ $sampel->Wedding->judul_acara ?? ' ' }}">
                                         <div class="preview-text">Pratinjau Kata Judul Acara</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="kataSambutan">Kata Sambutan</label>
-                                        <input type="text" class="form-control previewable" id="kataSambutan"
-                                            name="kata_sambutan"
-                                            value="{{ $sampel->userWedding->kata_sambutan ?? ' ' }}">
-                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
+                                        <textarea name="kata_sambutan" id="" cols="30" rows="2">{{ $sampel->Wedding->kata_sambutan ?? ' ' }}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="countDown">Count Down</label>
                                         <input type="date" class="form-control previewable" id="countDown"
-                                            name="countdown" value="{{ $sampel->userWedding->countdown ?? ' ' }}">
+                                            name="countdown" value="{{ $sampel->Wedding->countdown ?? ' ' }}">
                                         <div class="preview-text">Pratinjau Count Down</div>
                                     </div>
                                 </div>
@@ -532,57 +529,53 @@
                                     <div class="form-group">
                                         <label for="namaPengantin">Nama Panggilan Pria</label>
                                         <input type="text" class="form-control previewable" name="np_pria"
-                                            value="{{ $sampel->userWedding->np_pria ?? ' ' }}">
+                                            value="{{ $sampel->Wedding->np_pria ?? ' ' }}">
                                         <div class="preview-text">Pratinjau Pengantin Pria</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="namaPengantinPria">Nama Panggilan Wanita</label>
                                         <input type="text" class="form-control previewable" id="np_wanita"
-                                            name="np_wanita" value="{{ $sampel->userWedding->np_wanita ?? ' ' }}">
+                                            name="np_wanita" value="{{ $sampel->Wedding->np_wanita ?? ' ' }}">
                                         <div class="preview-text">Pratinjau Nama Pengantin Wanita</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="namaPengantinPria">Nama Lengkap Pria</label>
-                                        <input type="text" class="form-control previewable" id="nl_pria"
-                                            name="nl_pria"value="{{ $sampel->userWedding->nl_pria ?? ' ' }}">
-                                        <div class="preview-text">Pratinjau Nama Lengkap Pria</div>
+                                        <input type="text" class="form-control" id="nl_pria"
+                                            name="nl_pria"value="{{ $sampel->Wedding->nl_pria ?? ' ' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="namaPengantinPria">Nama Lengkap Wanita</label>
-                                        <input type="text" class="form-control previewable" id="nl_wanita"
-                                            name="nl_wanita" value="{{ $sampel->userWedding->nl_wanita ?? ' ' }}">
-                                        <div class="preview-text">Pratinjau Nama Pengantin Wanita</div>
+                                        <input type="text" class="form-control " id="nl_wanita" name="nl_wanita"
+                                            value="{{ $sampel->Wedding->nl_wanita ?? ' ' }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="namaPengantinPria">Inisial Nama Pria</label>
                                         <input type="text" class="form-control previewable uppercase"
-                                            name="inisial_pria"value="{{ $sampel->userWedding->inisial_pria ?? ' ' }}">
+                                            name="inisial_pria"value="{{ $sampel->Wedding->inisial_pria ?? ' ' }}">
                                         <div class="preview-text">Pratinjau Inisial Nama Pengantin Pria</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="namaPengantinWanita">Inisial Nama Wanita</label>
                                         <input type="text" class="form-control previewable uppercase"
-                                            name="inisial_wanita"
-                                            value="{{ $sampel->userWedding->inisial_wanita ?? ' ' }}">
+                                            name="inisial_wanita" value="{{ $sampel->Wedding->inisial_wanita ?? ' ' }}">
                                         <div class="preview-text">Pratinjau Inisial Nama Pengantin Wanita</div>
                                     </div>
                                     <div class="row" style="padding: 0%">
                                         <div class="form-group col-md-6">
                                             <label>Foto Pria</label>
                                             <input type="file" class="form-control" name="foto_pria"
-                                                value="{{ $sampel->userWedding->foto_pria ?? ' ' }}">
+                                                value="{{ $sampel->Wedding->foto_pria ?? ' ' }}">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Foto Wanita</label>
                                             <input type="file" class="form-control "
-                                                name="foto_wanita"value="{{ $sampel->userWedding->foto_wanita ?? ' ' }}">
+                                                name="foto_wanita"value="{{ $sampel->Wedding->foto_wanita ?? ' ' }}">
                                         </div>
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="ucapan_terima_kasih"> Ucapan Terima Kasih</label>
-                                        <input type="text" class="form-control previewable " id="ucapan_terima_kasih"
-                                            name="ucapan_terima_kasih"value="{{ $sampel->userWedding->ucapan_terima_kasih ?? ' ' }}">
-                                        <div class="preview-text">Pratinjau Alamat</div>
+                                        <input type="text" class="form-control" id="ucapan_terima_kasih"
+                                            name="ucapan_terima_kasih"value="{{ $sampel->Wedding->ucapan_terima_kasih ?? ' ' }}">
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="orangTua">
@@ -591,20 +584,18 @@
                                         Pria</strong>
                                     <div class="form-group mt-3">
                                         <label for="namaPengantinPria">Ayah</label>
-                                        <input type="text" class="form-control previewable" id="ayah_pria"
-                                            name="ayah_pria" value="{{ $sampel->userWedding->ayah_pria ?? ' ' }}">
-                                        <div class="preview-text">Ayah</div>
+                                        <input type="text" class="form-control" id="ayah_pria" name="ayah_pria"
+                                            value="{{ $sampel->Wedding->ayah_pria ?? ' ' }}">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="namaPengantinPria"> Ibu</label>
-                                        <input type="text" class="form-control previewable" id="ibu_pria"
-                                            name="ibu_pria"value="{{ $sampel->userWedding->ayah_wanita ?? ' ' }}">
-                                        <div class="preview-text">Pratinjau Nama Ibu Pria</div>
+                                        <input type="text" class="form-control" id="ibu_pria"
+                                            name="ibu_pria"value="{{ $sampel->Wedding->ayah_wanita ?? ' ' }}">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="namaPengantinPria"> Alamat</label>
-                                        <input type="text" class="form-control previewable" id="alamat_org_tua_mp"
-                                            name="alamat_org_tua_mp"value="{{ $sampel->userWedding->alamat_org_tua_mp ?? ' ' }}">
+                                        <input type="text" class="form-control" id="alamat_org_tua_mp"
+                                            name="alamat_org_tua_mp"value="{{ $sampel->Wedding->alamat_org_tua_mp ?? ' ' }}">
                                         <div class="preview-text"></div>
                                     </div>
                                     <strong class="center" style="font-size: 18px">Orang Tua/Wali
@@ -612,21 +603,21 @@
                                         Wanita</strong>
                                     <div class="form-group mt-3">
                                         <label for="namaPengantinPria">Ayah</label>
-                                        <input type="text" class="form-control previewable" id="ayah_wanita"
-                                            name="ayah_wanita"value="{{ $sampel->userWedding->ayah_wanita ?? ' ' }}">
-                                        <div class="preview-text"></div>
+                                        <input type="text" class="form-control " id="ayah_wanita"
+                                            name="ayah_wanita"value="{{ $sampel->Wedding->ayah_wanita ?? ' ' }}">
+
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="namaPengantinPria"> Ibu</label>
-                                        <input type="text" class="form-control previewable" id="ibu_wanita"
-                                            name="ibu_wanita"value="{{ $sampel->userWedding->ibu_wanita ?? ' ' }}">
-                                        <div class="preview-text"></div>
+                                        <input type="text" class="form-control " id="ibu_wanita"
+                                            name="ibu_wanita"value="{{ $sampel->Wedding->ibu_wanita ?? ' ' }}">
+
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="namaPengantinPria"> Alamat</label>
-                                        <input type="text" class="form-control previewable" id="alamat_org_tua_mw"
-                                            name="alamat_org_tua_mw"value="{{ $sampel->userWedding->alamat_org_tua_mw ?? ' ' }}">
-                                        <div class="preview-text">Pratinjau Alamat</div>
+                                        <input type="text" class="form-control " id="alamat_org_tua_mw"
+                                            name="alamat_org_tua_mw"value="{{ $sampel->Wedding->alamat_org_tua_mw ?? ' ' }}">
+
                                     </div>
                                 </div>
                                 <div class="tab-pane fade "id="waktuTempat">
@@ -637,23 +628,23 @@
                                             <div class="form-group">
                                                 <label for="lokasiAcaraAkad">Lokasi Acara</label>
                                                 <input type="text" id="addressAkad" class="form-control "
-                                                    name="lokasi_acara_akad"value="{{ $sampel->userWedding->lokasi_acara_akad ?? ' ' }}">
+                                                    name="lokasi_acara_akad"value="{{ $sampel->Wedding->lokasi_acara_akad ?? ' ' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jamMulaiAkad">Jam Mulai</label>
                                                 <input type="time" class="form-control " id="jamMulaiAkad"
-                                                    name="jam_mulai_akad"value="{{ $sampel->userWedding->jam_mulai_akad ?? ' ' }}">
+                                                    name="jam_mulai_akad"value="{{ $sampel->Wedding->jam_mulai_akad ?? ' ' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jamSelesaiAkad">Jam Selesai</label>
                                                 <input type="time" class="form-control previewable"
                                                     id="jamSelesaiAkad"
-                                                    name="jam_selesai_akad"value="{{ $sampel->userWedding->jam_selesai_akad ?? ' ' }}">
+                                                    name="jam_selesai_akad"value="{{ $sampel->Wedding->jam_selesai_akad ?? ' ' }}">
                                             </div>
                                             <input id="latitudeAkad" type="hidden" class="form-control"
-                                                name="latitude_akad"value="{{ $sampel->userWedding->latitude_akad ?? ' ' }}">
+                                                name="latitude_akad"value="{{ $sampel->Wedding->latitude_akad ?? ' ' }}">
                                             <input id="longitudeAkad" type="hidden" class="form-control"
-                                                name="longitude_akad"value="{{ $sampel->userWedding->longitude_akad ?? ' ' }}">
+                                                name="longitude_akad"value="{{ $sampel->Wedding->longitude_akad ?? ' ' }}">
                                         </div>
                                         <div class="map-container col-md-6">
                                             <div class="map" id="mapAkad"></div>
@@ -667,23 +658,23 @@
                                                 <label for="lokasiAcaraResepsi">Lokasi Acara</label>
                                                 <input type="text" id="addressResepsi"
                                                     class="form-control previewable"
-                                                    name="lokasi_acara_resepsi"value="{{ $sampel->userWedding->lokasi_acara_resepsi ?? ' ' }}">
+                                                    name="lokasi_acara_resepsi"value="{{ $sampel->Wedding->lokasi_acara_resepsi ?? ' ' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jamMulaiResepsi">Jam Mulai</label>
                                                 <input type="time" class="form-control " id="jamMulaiResepsi"
-                                                    name="jam_mulai_resepsi"value="{{ $sampel->userWedding->jam_mulai_resepsi ?? ' ' }}">
+                                                    name="jam_mulai_resepsi"value="{{ $sampel->Wedding->jam_mulai_resepsi ?? ' ' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jamSelesaiResepsi">Jam Selesai</label>
                                                 <input type="time" class="form-control " id="jamSelesaiResepsi"
-                                                    name="jam_selesai_resepsi"value="{{ $sampel->userWedding->jam_selesai_resepsi ?? ' ' }}">
+                                                    name="jam_selesai_resepsi"value="{{ $sampel->Wedding->jam_selesai_resepsi ?? ' ' }}">
                                             </div>
                                             <input id="latitudeResepsi" type="hidden" class="form-control"
                                                 name="latitude_resepsi"
-                                                value="{{ $sampel->userWedding->latitude_resepsi ?? ' ' }}">
+                                                value="{{ $sampel->Wedding->latitude_resepsi ?? ' ' }}">
                                             <input id="longitudeResepsi" type="hidden" class="form-control"
-                                                name="longitude_resepsi"value="{{ $sampel->userWedding->longitude_resepsi ?? ' ' }}">
+                                                name="longitude_resepsi"value="{{ $sampel->Wedding->longitude_resepsi ?? ' ' }}">
                                         </div>
                                         <div class="map-container col-md-6">
                                             <div class="map" id="mapResepsi"></div>
@@ -697,44 +688,44 @@
                                     <div class="form-group mt-3">
                                         <label for="tanggal_kenalan">Tanggal </label>
                                         <input type="text" class="form-control"
-                                            name="tanggal_kenalan"value="{{ $sampel->userWedding->tanggal_kenalan ?? ' ' }}">
+                                            name="tanggal_kenalan"value="{{ $sampel->Wedding->tanggal_kenalan ?? ' ' }}">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="deskripsi">Cerita</label>
-                                        <textarea class="form-control " id="cerita_kenalan" name="cerita_kenalan" rows="2">{{ $sampel->userWedding->cerita_kenalan ?? ' ' }}</textarea>
+                                        <textarea class="form-control " id="cerita_kenalan" name="cerita_kenalan" rows="2">{{ $sampel->Wedding->cerita_kenalan ?? ' ' }}</textarea>
                                     </div>
                                     <strong style="padding-left: 7%" class="center "
                                         style="font-size: 18px">Jadian</strong>
                                     <div class="form-group mt-3">
                                         <label for="tanggal_jadian">Tanggal </label>
                                         <input type="text" class="form-control previewable" id="tanggal_jadian"
-                                            name="tanggal_jadian"value="{{ $sampel->userWedding->tanggal_jadian ?? ' ' }}">
+                                            name="tanggal_jadian"value="{{ $sampel->Wedding->tanggal_jadian ?? ' ' }}">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="cerita_jadian">Cerita</label>
-                                        <textarea class="form-control" id="cerita_jadian" name="cerita_jadian" rows="2">{{ $sampel->userWedding->tanggal_jadian ?? ' ' }}</textarea>
+                                        <textarea class="form-control" id="cerita_jadian" name="cerita_jadian" rows="2">{{ $sampel->Wedding->tanggal_jadian ?? ' ' }}</textarea>
                                     </div>
                                     <strong style="padding-left: 7%" class="center "
                                         style="font-size: 18px">Tunangan</strong>
                                     <div class="form-group mt-3">
                                         <label for="lokasiAcara">Tanggal </label>
                                         <input type="text" class="form-control "
-                                            name="tanggal_tunangan"value="{{ $sampel->userWedding->tanggal_jadian ?? ' ' }}">
+                                            name="tanggal_tunangan"value="{{ $sampel->Wedding->tanggal_jadian ?? ' ' }}">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="cerita_kenalan">Cerita</label>
-                                        <textarea class="form-control " id="cerita_kenalan" name="cerita_tunangan" rows="2">{{ $sampel->userWedding->cerita_tunangan ?? ' ' }}</textarea>
+                                        <textarea class="form-control " id="cerita_kenalan" name="cerita_tunangan" rows="2">{{ $sampel->Wedding->cerita_tunangan ?? ' ' }}</textarea>
                                     </div>
                                     <strong style="padding-left: 7%" class="center "
                                         style="font-size: 18px">Nikah</strong>
                                     <div class="form-group mt-3">
                                         <label for="tanggal_nikah">Tanggal </label>
                                         <input type="text" class="form-control " id="tanggal_nikah"
-                                            name="tanggal_nikah"value="{{ $sampel->userWedding->tanggal_nikah ?? ' ' }}">
+                                            name="tanggal_nikah"value="{{ $sampel->Wedding->tanggal_nikah ?? ' ' }}">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="cerita_nikah">Cerita</label>
-                                        <textarea class="form-control previewable" id="cerita_nikah" name="cerita_nikah" rows="2">{{ $sampel->userWedding->cerita_nikah ?? ' ' }}</textarea>
+                                        <textarea class="form-control previewable" id="cerita_nikah" name="cerita_nikah" rows="2">{{ $sampel->Wedding->cerita_nikah ?? ' ' }}</textarea>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade "id="galeri">

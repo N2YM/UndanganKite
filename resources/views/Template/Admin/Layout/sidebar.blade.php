@@ -27,9 +27,9 @@
                         $admin = Auth::guard('admin')->user();
                     @endphp
                     @if ($admin->foto)
-                        <img class="img" src="{{ asset($admin->foto) }}" />
+                        <img class="img1" src="{{ url('storage/' . $admin->foto) }}" />
                     @else
-                        <img class="img" src="{{ asset('path/to/default/image.jpg') }}" />
+                        <img class="img1" src="{{ asset('path/to/default/image.jpg') }}" />
                     @endif
                 @else
                     <!-- Code for non-admin users or guest -->
