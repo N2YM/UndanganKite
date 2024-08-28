@@ -435,8 +435,8 @@
         <button class="nav-button" onclick="scrollToSection('four')"><i class="fa-solid fa-image"></i></button>
         <button class="nav-button" onclick="scrollToSection('five')"><i class="fa-solid fa-map"></i></button>
         <!-- Button untuk mengontrol scroll otomatis -->
-        {{-- <button class="nav-button" onclick="toggleAutoScroll()"><i id="scroll-icon"
-                class="fa-solid fa-play"></i></button> --}}
+        <button class="nav-button" onclick="toggleAutoScroll()"><i id="scroll-icon"
+                class="fa-solid fa-play"></i></button>
     </div>
 
     <script>

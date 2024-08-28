@@ -373,7 +373,9 @@
     <div class="page-content fade-in-up">
         <div class="row">
             <div class="col-md-12">
-                <div class="ibox">
+                <a href="{{ route('sampel-undangan') }}" class="btn btn-dark"><i class="fa fa-arrow-left"></i>
+                    Kembali</a>
+                <div class="ibox mt-2">
                     <div class="ibox-head">
                         <div class="ibox-title">Edit/Isi Data Undangan Acara Keagamaan</div>
                     </div>
@@ -390,21 +392,16 @@
                                     Detail Acara</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#lokasiWaktu" data-toggle="tab"><i class="fa fa-map"></i>
-                                    Lokasi & Waktu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#kontak" data-toggle="tab"><i class="fa fa-users"></i>
-                                    Kontak</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="#galeri" data-toggle="tab"><i class="fa fa-praying-hands"></i>
                                     Galeri</a>
                             </li>
                         </ul>
-                        <form action="" method="POST" id="form-keagamaan">
+                        <form
+                            action="{{ route('admin-update-undangan-form', ['id' => $sampel->id, 'kategori_id' => $kategori->id]) }}?? ''"
+                            method="POST" id="form-keagamaan" enctype="multipart/form-data">
+                            @method('PUT')
                             @csrf
-                            <div class="tab-content">
+                            <div class="tab-content" id="form-keagamaan">
                                 <!-- Tab Pengaturan -->
                                 <div class="tab-pane fade show active" id="pengaturan">
                                     <div class="form-group">
@@ -437,77 +434,116 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="kataSambutan">Kata Sambutan</label>
+                                        <label for="kataSambutan">Judul Acara</label>
                                         <input type="text" class="form-control previewable" id="kataSambutan"
-                                            name="kata_sambutan" required>
-                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
+                                            name="judul_acara_keagamaan"required
+                                            value="{{ $sampel->keagamaan->judul_acara_keagamaan ?? '' }}">
+                                        <div class="preview-text"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="kataSambutan">Kata Sambutan</label>
+                                        <label for="kataSambutan">Nama Lengkap</label>
                                         <input type="text" class="form-control previewable" id="kataSambutan"
-                                            name="kata_sambutan" required>
-                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
+                                            name="nama_lengkap_keagamaan" required
+                                            value="{{ $sampel->keagamaan->nama_lengkap_keagamaan ?? '' }}">
+                                        <div class="preview-text"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="countDown">Count Down</label>
+                                        <label for="kataSambutan">Foto</label>
+                                        <input type="file" class="form-control previewable" id="kataSambutan"
+                                            name="foto_keagamaan" value="{{ $sampel->keagamaan->foto_keagamaan ?? '' }}">
+                                        <div class="preview-text"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="countDown">Hitung Mundur</label>
                                         <input type="date" class="form-control previewable" id="countDown"
-                                            name="count_down" required>
-                                        <div class="preview-text">Pratinjau Count Down</div>
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                            name="countdown_keagamaan" required
+                                            value="{{ $sampel->keagamaan->countdown_keagamaan ?? '' }}">
+                                        <div class="preview-text"></div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="detailAcara">
-                                    <div class="form-group">
-                                        <label for="deskripsiAcara">Deskripsi Acara</label>
-                                        <textarea class="form-control" id="deskripsiAcara" name="deskripsi_acara" rows="3"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="namaAyah">Nama Ayah</label>
+                                                <input type="text" class="form-control " id="namaAyah"
+                                                    name="nama_ayah_keagamaan"
+                                                    value="{{ $sampel->keagamaan->nama_ayah_keagamaan ?? '' }}">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="namaIbu">Nama Ibu</label>
+                                                <input type="text" class="form-control " id="namaIbu"
+                                                    name="nama_ibu_keagamaan"
+                                                    value="{{ $sampel->keagamaan->nama_ibu_keagamaan ?? '' }}">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="jadwalAcara">Jadwal Acara</label>
-                                        <input type="text" class="form-control previewable" id="jadwalAcara"
-                                            name="jadwal_acara">
-                                        <div class="preview-text">Nama Lengkap</div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jamMulai">Jam Mulai</label>
+                                                <input type="time" class="form-control" id="jamMulai"
+                                                    name="jam_mulai_keagamaan"value="{{ $sampel->keagamaan->jam_mulai_keagamaan ?? '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jamSelesai">Jam Selesai</label>
+                                                <input type="time" class="form-control" id="jamSelesai"
+                                                    name="jam_selesai_keagamaan"value="{{ $sampel->keagamaan->jam_selesai_keagamaan ?? '' }}">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="lokasiWaktu">
                                     <div class="form-group">
                                         <label for="alamatAcara">Lokasi Acara</label>
-                                        <input type="text" class="form-control" id="alamatAcara" name="alamat_acara">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="waktuAcara">Waktu Acara</label>
-                                        <input type="time" class="form-control" id="waktuAcara" name="waktu_acara"
-                                            required>
+                                        <input type="text" class="form-control" id="addressKeagamaan"
+                                            name="alamat_acara_keagamaan"value="{{ $sampel->keagamaan->alamat_acara_keagamaan ?? '' }}">
                                     </div>
                                     <div class="form-group" style="padding: 0%">
                                         <label for="petaLokasi">Peta Lokasi</label>
                                         <div class="map" id="mapKeagamaan"></div>
-                                        <input type="hidden" id="latitudeKeagamaan" name="latitude">
-                                        <input type="hidden" id="longitudeKeagamaan" name="longitude">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade " id="kontak">
-                                    <div class="form-group">
-                                        <label for="namaKontak">Nama Kontak</label>
-                                        <input type="text" class="form-control" id="namaKontak" name="nama_kontak">
+                                        <input type="hidden" id="latitude_keagamaan"
+                                            name="latitude_keagamaan"value="{{ $sampel->keagamaan->latitude_keagamaan ?? '' }}">
+                                        <input type="hidden" id="longitude_keagamaan"
+                                            name="longitude_keagamaan"value="{{ $sampel->keagamaan->longitude_keagamaan ?? '' }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="teleponKontak">Nomor Telepon</label>
-                                        <input type="text" class="form-control" id="teleponKontak"
-                                            name="telepon_kontak">
+                                        <label for="linkMap">Link Google Map</label>
+                                        <input type="text" class="form-control" id="linkMap"
+                                            name="link_map_keagamaan"value="{{ $sampel->keagamaan->link_map_keagamaan ?? '' }}">
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="noRek">Nomor Rekening</label>
+                                                <input type="text" class="form-control" id="noRek"
+                                                    name="no_rek"value="{{ $sampel->keagamaan->no_rek ?? '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="atasNama">Atas Nama</label>
+                                                <input type="text" class="form-control" id="atasNama"
+                                                    name="atas_nama"value="{{ $sampel->keagamaan->atas_nama ?? '' }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="emailKontak">Email</label>
-                                        <input type="email" class="form-control" id="emailKontak" name="email_kontak">
+                                        <label for="terimakasihKeagamaan">Ucapan Terima Kasih</label>
+                                        <textarea class="form-control" name="terimakasih_keagamaan" id="terimakasihKeagamaan" rows="2">{{ $sampel->keagamaan->terimakasih_keagamaan ?? '' }}</textarea>
                                     </div>
+
                                 </div>
                                 <div class="tab-pane fade " id="galeri">
                                     <div class="form-group">
                                         <label for="galleryUpload">Upload Foto Galeri</label>
-                                        <input type="file" class="form-control" id="galleryUpload" name="gallery[]"
-                                            multiple>
+                                        <input type="file" class="form-control" id="galleryUpload"
+                                            name="galeri_keagamaan[]" multiple
+                                            value="{{ $sampel->keagamaan->galeri_keagamaan ?? '' }}">
                                     </div>
                                     <div class="gallery-preview" id="galleryPreview"></div>
                                     <button type="button" id="addMoreImages" class="btn btn-secondary mt-2">Tambah Foto
@@ -520,11 +556,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -546,12 +583,21 @@
 
         let allFiles = [];
 
+        // Function to clear allFiles when new images are uploaded
+        function clearOldFiles() {
+            allFiles = []; // Reset the allFiles array
+            galleryPreview.innerHTML = ''; // Clear the preview
+        }
+
         galleryUpload.addEventListener('change', function() {
             const files = Array.from(galleryUpload.files);
 
+            // Clear old files when new ones are uploaded
+            clearOldFiles();
+
             // Check if the total number of files exceeds 9
-            if (allFiles.length + files.length > 9) {
-                errorMessage.textContent = 'Jumlah foto tidak boleh lebih dari 9.';
+            if (allFiles.length + files.length > 4) {
+                errorMessage.textContent = 'Jumlah foto tidak boleh lebih dari 4.';
                 return;
             } else {
                 errorMessage.textContent = ''; // Clear error message
@@ -628,6 +674,7 @@
         updateKeagamaanPreviews();
     });
 </script>
+{{-- MAP --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function initializeMap(mapId, latInputId, lngInputId, addressInputId) {
@@ -637,7 +684,6 @@
                 maxZoom: 19,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-
             var marker;
             var geocoder = L.Control.geocoder({
                     defaultMarkGeocode: false
@@ -706,82 +752,7 @@
         }
 
         // Initialize maps for the event
-        initializeMap('mapUltah', 'latitudeUltah', 'longitudeUltah', 'addressUltah');
-    });
-</script>
-{{-- MAP --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        function initializeMap(mapId, latInputId, lngInputId, addressInputId) {
-            var map = L.map(mapId).setView([-1.8592694909901866, 109.97138592970299], 13);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            var marker;
-            var geocoder = L.Control.geocoder({
-                    defaultMarkGeocode: false
-                })
-                .on('markgeocode', function(e) {
-                    var latlng = e.geocode.center;
-                    if (marker) {
-                        map.removeLayer(marker);
-                    }
-                    marker = L.marker(latlng, {
-                        draggable: true
-                    }).addTo(map);
-                    map.setView(latlng, 16);
-                    document.getElementById(latInputId).value = latlng.lat;
-                    document.getElementById(lngInputId).value = latlng.lng;
-                    updateAddress(latlng, addressInputId);
-                    marker.on('dragend', function(event) {
-                        var position = marker.getLatLng();
-                        document.getElementById(latInputId).value = position.lat;
-                        document.getElementById(lngInputId).value = position.lng;
-                        updateAddress(position, addressInputId);
-                    });
-                })
-                .addTo(map);
-
-            function updateAddress(latlng, addressInputId) {
-                var url =
-                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latlng.lat}&lon=${latlng.lng}`;
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById(addressInputId).value = data.display_name;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching address:', error);
-                    });
-            }
-
-            var rotationAngle = 0;
-            var isRotating = false;
-            map.getContainer().addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-            });
-            map.getContainer().addEventListener('mousedown', function(e) {
-                if (e.button === 2) {
-                    isRotating = true;
-                }
-            });
-            map.getContainer().addEventListener('mousemove', function(e) {
-                if (isRotating) {
-                    rotationAngle += e.movementX * 0.5;
-                    map.getPane('mapPane').style.transform = `rotate(${rotationAngle}deg)`;
-                }
-            });
-            map.getContainer().addEventListener('mouseup', function(e) {
-                if (e.button === 2) {
-                    isRotating = false;
-                }
-            });
-        }
-
-        initializeMap('mapKeagamaan', 'latitudeKeagamaan', 'longitudeKeagamaan', 'alamatAcara');
+        initializeMap('mapKeagamaan', 'latitude_keagamaan', 'longitude_keagamaan', 'addressKeagamaan');
     });
 </script>
 {{-- END --}}

@@ -68,7 +68,8 @@
             <div class="content login-content">
                 <form wire:submit.prevent="loginUser">
                     <strong>
-                        <h2 class="login-title">InviVibe</h2>
+                        <h2 class="login-title" style="font-weight: 900; font-size: 35px; margin-top: -2%;">InviVibe
+                        </h2>
                     </strong>
                     <div class="form-group">
                         <div class="input-group-icon right">

@@ -389,7 +389,9 @@
     <div class="page-content fade-in-up">
         <div class="row">
             <div class="col-md-12">
-                <div class="ibox">
+                <a href="{{ route('sampel-undangan') }}" class="btn btn-dark"><i class="fa fa-arrow-left"></i>
+                    Kembali</a>
+                <div class="ibox mt-2">
                     <div class="ibox-head">
                         <div class="ibox-title">Edit/Isi Data Undangan Pernikahan</div>
                     </div>
@@ -728,14 +730,54 @@
                                         <textarea class="form-control previewable" id="cerita_nikah" name="cerita_nikah" rows="2">{{ $sampel->Wedding->cerita_nikah ?? ' ' }}</textarea>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade "id="galeri">
+                                <div class="tab-pane fade" id="galeri">
                                     <strong class="center" style="font-size: 18px">Galeri Kedua Mempelai</strong>
                                     <div class="form-group">
                                         <label for="galleryUpload">Upload Foto Galeri</label>
                                         <input type="file" class="form-control" id="galleryUpload" name="gallery[]"
                                             multiple>
                                     </div>
-                                    <div class="gallery-preview" id="galleryPreview"></div>
+                                    <div class="gallery-preview" id="galleryPreview">
+                                        @php
+                                            // Inisialisasi array kosong untuk gallery images
+                                            $galleryImages = [];
+
+                                            // Periksa jika $sampel dan $sampel->wedding tidak null
+                                            if ($sampel && $sampel->wedding) {
+                                                $galleryData = $sampel->wedding->gallery;
+
+                                                // Jika gallery berupa array langsung, tidak perlu di-decode
+                                                if (is_array($galleryData)) {
+                                                    $galleryImages = $galleryData;
+                                                } elseif (is_string($galleryData)) {
+                                                    // Decode data JSON jika berupa string
+                                                    $galleryImages = json_decode($galleryData, true);
+                                                    if (!is_array($galleryImages)) {
+                                                        $galleryImages = []; // Jika json_decode gagal, gunakan array kosong
+                                                    }
+                                                }
+
+                                                // Filter elemen kosong dari array
+                                                $galleryImages = array_filter($galleryImages, function ($item) {
+                                                    return !empty($item); // Hanya ambil elemen yang tidak kosong
+                                                });
+                                            }
+                                        @endphp
+
+                                        @if (!empty($galleryImages))
+                                            @foreach ($galleryImages as $image)
+                                                <div class="img-wrapper">
+                                                    <img src="{{ asset('storage/gallery/' . $image) }}"
+                                                        class="gallery-img" alt="Gallery Image">
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <p>No images available.</p>
+                                        @endif
+                                    </div>
+
+
+
                                     <button type="button" id="addMoreImages" class="btn btn-secondary mt-2">Tambah Foto
                                         Lain</button>
                                     <div id="error-message" class="text-danger mt-2"></div>
@@ -745,6 +787,7 @@
                                             style="margin-top: -20%">Simpan</button>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
                     </div>

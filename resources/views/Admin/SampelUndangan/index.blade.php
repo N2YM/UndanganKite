@@ -19,14 +19,22 @@
                             <p class="card-text">
                                 <strong>{{ $undangan->kategori->kategori_tmp }}</strong>
                             </p>
-                            <div class="mt-auto btn-group">
-                                <a href="{{ route('admin-edit-undangan', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
-                                    class="btn btn-warning btn-sm stretched-link btn-spacing">Edit</a>
-                                <a href="{{ route('admin-undangan-form', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
-                                    class="btn btn-info btn-sm stretched-link btn-spacing">Preview</a>
-                                <a href="{{ route('destroy-undangan', ['id' => $undangan->id]) }}"
-                                    class="btn btn-danger btn-sm stretched-link btn-spacing">Hapus</a>
-                            </div>
+                            <!-- Edit Button -->
+                            <a href="{{ route('admin-edit-undangan', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
+                                class="btn btn-warning btn-sm btn-spacing">Edit</a>
+
+                            <!-- Preview Button -->
+                            <a href="{{ route('admin-undangan-form', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
+                                class="btn btn-info btn-sm btn-spacing">Preview</a>
+                            <!-- Delete Form -->
+                            <form
+                                action="{{ route('admin-undangan-destroy', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
+                                method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm btn-spacing"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                            </form>
                         </div>
                     </div>
                 </div>

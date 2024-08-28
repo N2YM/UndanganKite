@@ -4,378 +4,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url('CSS/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="{{ url('TemplateSystem/html/dist') }}/assets/vendors/font-awesome/css/font-awesome.min.css"
-        rel="stylesheet" />
-    @include('User.PreviewTemplate.font')
-    <title>Document</title>
-
-    <style>
-        html,
-        body {
-            overflow-x: hidden;
-        }
-
-        body .container {
-            background-color: rgba(0, 0, 0, 0.6);
-        }
-
-        .formatted-text {
-            color: white;
-            margin-top: 20px;
-            word-wrap: break-word;
-            font-size: 20px;
-        }
-
-        .logo-text {
-            font-family: 'Cursive', sans-serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            letter-spacing: 5px;
-        }
-
-        .vertical-text {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            font-size: 30px;
-            color: #b3b3b3;
-        }
-
-        .judul {
-            color: #b3b3b3;
-            font-size: 30px;
-        }
-
-        .hari-tgl {
-            color: #b3b3b3;
-            font-size: 35px;
-        }
-
-        .days,
-        .hours,
-        .minute,
-        .seconds {
-            color: #333;
-            border-radius: 8px;
-            background: white;
-            padding: 20px;
-            font-weight: bold;
-        }
-
-        .save-tanggal {
-            color: #b3b3b3;
-            font-size: 20px;
-        }
-
-        .teks-acara {
-            text-transform: uppercase;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-100%);
-            }
-
-            100% {
-                transform: translateY(100vh);
-            }
-        }
-
-        .maple-leaf {
-            position: absolute;
-            top: -10%;
-            color: orange;
-            font-size: 1px;
-            opacity: 0.5;
-            pointer-events: none;
-            animation: fall linear infinite 2s;
-        }
-
-        .three {
-            min-height: 100vh;
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            transition: filter 0.5s ease;
-        }
-
-        .acara1 {
-            font-size: 30px;
-            padding-bottom: 10%;
-        }
-
-        .acara4 {
-            font-size: 30px;
-            padding-bottom: 20%;
-            margin-bottom: 100%;
-        }
-
-        .detail-acara {
-            font-size: 40px;
-            margin-bottom: 50%;
-            font-family: 'Tisa', serif;
-        }
-
-        #open-invitation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            filter: none;
-        }
-
-        .slide-up {
-            transform: translateY(100%);
-            opacity: 0;
-            animation: slideUp 0.5s forwards;
-        }
-
-        .event {
-            font-size: 20px;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .nav-button {
-            transition: transform 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.7);
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 5px;
-        }
-
-        .nav-button.active {
-            transform: scale(1.2);
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .zoom-in {
-            animation: zoomIn 1s forwards;
-        }
-
-        @keyframes zoomIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .banner {
-            position: relative;
-            min-height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            color: #fff;
-        }
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            left: 0;
-            bottom: 0;
-        }
-
-        .banner::before {
-            content: '';
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: -1;
-            left: 0;
-            top: 0;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -ms-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform: translateZ(0) scale(1.0, 1.0);
-            -moz-transform: translateZ(0) scale(1.0, 1.0);
-            -ms-transform: translateZ(0) scale(1.0, 1.0);
-            -o-transform: translateZ(0) scale(1.0, 1.0);
-            transform: translateZ(0) scale(1.0, 1.0);
-            background-size: cover;
-            background-image: url('{{ asset('storage/' . ($undangan->cover ?? 'default_cover_image.jpg')) }}');
-            background-attachment: fixed;
-            animation: increase 60s linear 10ms infinite;
-            -webkit-transition: all 0.2s ease-in-out;
-            -moz-transition: all 0.2s ease-in-out;
-            -ms-transition: all 0.2s ease-in-out;
-            -o-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-            z-index: -2;
-        }
-
-        @keyframes increase {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.5);
-            }
-        }
-    </style>
+    <title>Mobile Invitation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ asset('icon/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/solid.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/solid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('icon/css/regular.css') }}">
 </head>
 
-<body>
-    <div class="container">
-        <section id="one" class="banner">
-            <div class="card"
-                style="max-width: 900px; margin-top: -90px; background-color: transparent; padding: 20px; border-radius: 20px; height: 500px;">
-                <br><br>
-                <h1 class="fade-in logo-text" style="font-size: 70px; text-align: center; color: white;"></h1>
-                <div class="wedding-card slide-up"
-                    style="text-align: center; background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 20px; margin-top: 20px; position: relative; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0.9; color: #f0f0f0;">
-                    <!-- Content for Section One -->
-                    <div class="judul slide-up">
-                        <h2>{!! $tmp->opening->judul_acara ?? 'Judul Acara Tidak Tersedia' !!}</h2>
+<body class="no-scroll">
+    <div class="outer-container">
+        <div class="container">
+            <div class="content">
+                <section id="opening" class="section background1">
+                    <div style="position: relative;">
+                        <h1
+                            style="color: #ffffff; position: absolute; top: -180px; left: 50%; transform: translateX(-50%); text-align: center; font-size: 38px; font-weight: 1000; font-family: 'League Spartan', sans-serif;">
+                            SYUKURAN
+                        </h1>
                     </div>
-                    <br>
-                    <div class="vertical-text" style="justify-content: center; align-items: center;">
-                        <h3 style="margin: 0;" class="slide-up">{!! $tmp->undanganProfilWedding->nama_mempelai_pria ?? 'Nama Mempelai Pria Tidak Tersedia' !!}</h3>
-                        <h3 style="margin: 0;" class="slide-up">&</h3>
-                        <h3 style="margin: 0;" class="slide-up">{!! $tmp->undanganProfilWedding->nama_mempelai_wanita ?? 'Nama Mempelai Wanita Tidak Tersedia' !!}</h3>
-                    </div>
-                    <br><br><br>
-                    <div class="hari-tgl">
-                        <p class="slide-up">{!! $tmp->opening->tanggal_acara ?? 'Tanggal Acara Tidak Tersedia' !!}</p>
-                    </div>
-                    <br>
-                    <div class="save-tanggal">
-                        <h3 class="slide-up">- Save the Date Keagamaan-</h3>
-                    </div>
-                    <br>
-                    <div class="countdown" id="countdown" style="display: flex; justify-content: center; gap: 10px;">
-                        <div class="days" id="days" style="min-width: 80px;">00 Hari</div>
-                        <div class="hours" id="hours" style="min-width: 80px;">00 Jam</div>
-                        <div class="minute" id="minutes" style="min-width: 80px;">00 Menit</div>
-                        <div class="seconds" id="seconds" style="min-width: 80px;">00 Detik</div>
-                    </div>
-                    <div id="countdown-message" style="display: none; text-align: center; margin-top: 20px;">Acara
-                        Dimulai!</div>
-                </div>
-            </div>
-        </section>
+                    <div class="card1"
+                        style="background-color: transparent; box-shadow: 0 0 15px rgba(247, 201, 109, 1); border-radius: 2%; border: 2px solid #f7c96d">
+                        <div class="card-body">
+                            <div class="header" style="text-align: center; padding: 20px;">
+                                <h1
+                                    style="font-size: 40px; font-family: 'Cinzel', serif; margin-top: 0; color: #f5e6c8;"">
+                                    {{ $undangan->keagamaan->judul_acara_keagamaan ?? '' }}</h1>
+                                <h2
+                                    style="font-size: 20px; color: #ffffff; background-color: transparent; padding: 10px 20px; border-radius: 50px; display: inline-block; margin-top: 10%; border: 2px solid #f7c96d;">
+                                    {{ $undangan->keagamaan->nama_lengkap_keagamaan ?? '' }}
+                                </h2>
 
-        <!-- Repeat for other sections -->
-        <section id="two" class="banner">
-            <div class="card" style="/* similar styles */">
-                <!-- Content for Section Two -->
-                <!-- You can copy the previous card's content or modify it as needed -->
-            </div>
-        </section>
+                                <div
+                                    style="margin-top: 20px; background-color: transparent; padding: 15px; border-radius: 15px; text-align: center; border: 2px solid #f7c96d;">
+                                    <p style="color: #ffffff; margin: 0; font-size: 18px; font-weight: bold;">
+                                        Kepada Yth:
+                                    </p>
+                                    <hr style="border-top: 1px solid #f7c96d;">
+                                    <p style="color: #ddd; margin: 5px 0 0; font-size: 16px;">
+                                        Bapak/Ibu/Saudara/I
+                                    </p>
+                                </div>
 
-        <section id="three" class="banner">
-            <div class="card" style="/* similar styles */">
-                <!-- Content for Section Three -->
-                <!-- You can copy the previous card's content or modify it as needed -->
-            </div>
-        </section>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="fullscreenBtn" class="fullscreen-btn"><i class="far fa-paper-plane"></i> Buka
+                        Undangan</button>
+                </section>
+                <section id="acara" class="section">
+                    <div class="card2"
+                        style="box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); background-color: transparent; padding: 20px; border-radius: 10px;">
+                        <div class="card-body">
+                            <div class="details" style="text-align: center; color: #ffffff;">
+                                <p style="margin-top: 0; font-size: 24px;">Assalamu'alaikum Wr Wb</p>
+                                <p style="font-size: 18px; margin-top: -10px; margin-bottom: 20px;">
+                                    Tanpa mengurangi rasa hormat kami bermaksud mengundang Bapak/Ibu/Saudara/i pada
+                                    acara syukuran khitan anak kami:
+                                </p>
+                                <img src="{{ optional($undangan->keagamaan)->foto_keagamaan ? asset('storage/foto_keagamaan/' . $undangan->keagamaan->foto_keagamaan) : asset('path/to/placeholder-image.png') }}"
+                                    alt="Foto Keagamaan"
+                                    style="
+         width: 200px; 
+         height: 260px; 
+         object-fit: cover; 
+         background: url('/path/to/background-pattern.png') no-repeat center center;
+         background-size: cover;
+         border-radius: 100px 100px 0 0; /* Rounded top corners */
+         overflow: hidden; /* Ensures the image does not overflow the rounded corners */
+     ">
 
-        <section id="four" class="banner">
-            <div class="card" style="/* similar styles */">
-                <!-- Content for Section Four -->
-                <!-- You can copy the previous card's content or modify it as needed -->
+
+                                <p style="font-size: 28px; font-weight: bold; margin-bottom: 3px;">
+                                    {{ $undangan->keagamaan->nama_lengkap_keagamaan ?? '' }}</p>
+                                <p style="font-size: 18px; margin-bottom: 20px;">
+                                    {{ $undangan->keagamaan->nama_ayah_keagamaan ?? '' }} &
+                                    {{ $undangan->keagamaan->nama_ibu_keagamaan ?? '' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="maps" class="section">
+                    <div class="card4"
+                        style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); background-color: transparent; padding: 20px; border-radius: 10px;">
+                        <div class="card-body" style="color: #ffffff; text-align: center;">
+                            <h1 class="birthday-title"
+                                style="font-size: 40px; font-family: 'Cinzel', serif; margin-top: 0; color: #f5e6c8;">
+                                {{ $undangan->keagamaan->judul_acara_keagamaan ?? '' }}
+                            </h1>
+                            <p style="font-size: 18px; margin-top: 10px;">Insya Allah akan di laksanakan pada:</p>
+                            <p style="font-size: 24px; font-weight: bold; margin-top: 10px;">
+                                {{ optional($undangan->keagamaan)->countdown_keagamaan? \Carbon\Carbon::parse($undangan->keagamaan->countdown_keagamaan)->locale('id')->isoFormat('dddd, D MMMM YYYY'): '' }}
+                            </p>
+
+
+                            <p style="font-size: 18px; margin-bottom: 20px;">
+                                {{ $undangan->keagamaan->jam_mulai_keagamaan ?? '' }} -
+                                {{ $undangan->keagamaan->jam_selesai_keagamaan ?? '' }} PM</p>
+                            <p style="font-size: 18px; margin-bottom: 20px;">
+                                {{ $undangan->keagamaan->alamat_acara_keagamaan ?? '' }}
+                            </p>
+                            <div id="countdown" class="countdown"
+                                style="display: flex; justify-content: space-around; margin-top: 20px; font-size: 16px;">
+                                <div
+                                    style="background-color: #f5e6c8; padding: 10px 20px; border-radius: 10px; color: #3e2723;">
+                                    <span id="days"></span> Hari
+                                </div>
+                                <div
+                                    style="background-color: #f5e6c8; padding: 10px 20px; border-radius: 10px; color: #3e2723;">
+                                    <span id="hours"></span> Jam
+                                </div>
+                                <div
+                                    style="background-color: #f5e6c8; padding: 10px 20px; border-radius: 10px; color: #3e2723;">
+                                    <span id="minutes"></span> Menit
+                                </div>
+                                <div
+                                    style="background-color: #f5e6c8; padding: 10px 20px; border-radius: 10px; color: #3e2723;">
+                                    <span id="seconds"></span> Detik
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <section id="rsvp" class="section">
+                    <div class="card4"style=" box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);">
+                        <div class="card-body">
+                            <h1 class="birthday-title"
+                                style="color: rgb(255, 255, 255); margin-top: 3%; font-size: 30px">
+                                LOKASI ACARA</h1>
+                            <div id="map1"
+                                style="width: 100%; height: 250px; border-radius: 10px; margin-top: 5%;"></div>
+                        </div>
+                        <a href="{{ $undangan->keagamaan->link_map_keagamaan ?? '' }}" target="_blank">
+                            <button class="btnMap">Petunjuk ke Lokasi</button>
+                        </a>
+                    </div>
+                </section>
+                <section id="galeri" class="section">
+                    <div class="card7"
+                        style="
+                        width: 400px;
+                        height: 380px;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        background-color: transparent;
+                        border: 1px solid #ddd;
+                        border-radius: 8px;
+                        margin-top: -20%;
+                    ">
+                        <div class="card-body" style="text-align: center; color: #ffffff; font-size: 18px;">
+                            <h2 style="margin-bottom: 20px;">Galeri</h2>
+                            <div class="gallery-container"
+                                style="
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: space-between;
+                                gap: 5px;
+                                height: 100%;
+                            ">
+                                @php
+                                    $galleryImages = [];
+                                    if ($undangan->keagamaan) {
+                                        $galleryData = $undangan->keagamaan->galeri_keagamaan;
+
+                                        if (!empty($galleryData)) {
+                                            if (is_string($galleryData)) {
+                                                $galleryImages = json_decode($galleryData, true);
+                                            } elseif (is_array($galleryData)) {
+                                                $galleryImages = $galleryData;
+                                            }
+                                        }
+
+                                        $galleryImages = array_filter($galleryImages, function ($item) {
+                                            return !empty($item);
+                                        });
+                                    }
+                                @endphp
+
+                                @if (count($galleryImages) > 0)
+                                    @foreach ($galleryImages as $index => $image)
+                                        @if ($index < 4)
+                                            <!-- Only display the first 4 images -->
+                                            <div class="gallery-item"
+                                                style="
+                                                width: calc(50% - 5px); 
+                                                height: calc(50% - 5px);
+                                                overflow: hidden;
+                                            ">
+                                                <img src="{{ asset('storage/gallery_keagamaan/' . $image) ?? '' }}"
+                                                    alt="Gallery Image"
+                                                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <p>No images available.</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="gift" class="section">
+                    <div class="card6">
+                        <div class="card-body" style="text-align: center; color: #ffffff; font-size: 18px;">
+                            <p>{{ $undangan->keagamaan->terimakasih_keagamaan ?? 'Nama kosong' }}</p>
+
+                            <!-- Jarak antara teks sebelumnya dengan "Hormat Kami" -->
+                            <p style="margin-top: 25px; font-size: 20px; font-style: italic;">Hormat Kami Yang
+                                Mengundang</p>
+                            <!-- Jarak antara "Hormat Kami" dengan nama -->
+                            <p style="font-size: 28px; margin-top: 10px;">
+                                {{ $undangan->keagamaan->nama_ayah_keagamaan ?? 'Nama kosong' }} &
+                                {{ $undangan->keagamaan->nama_ibu_keagamaan ?? 'Nama kosong' }}</p>
+                        </div>
+                    </div>
+                </section>
+
             </div>
-        </section>
+            <!-- Add the buttons inside content and stack them vertically -->
+            <div class="audio-controls"
+                style="display: flex; flex-direction: column; align-items: center; position: absolute; top: 60%; right: 35%; z-index: 10;">
+                <button class="audio-btn" id="volume-btn"
+                    style="background-color: #3e4a61; border-radius: 50%; padding: 15px; margin-bottom: 10px; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
+                    <i class="fas fa-volume-up" id="volume-icon" style="color: white; font-size: 18px;"></i>
+                </button>
+                <button class="play-btn" id="play-btn"
+                    style="background-color: #3e4a61; border-radius: 50%; padding: 15px; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
+                    <i class="fas fa-play" id="play-icon" style="color: white; font-size: 18px;"></i>
+                </button>
+            </div>
+            <audio id="audio" src="{{ asset('storage/' . $undangan->audio) }}" autoplay></audio>
+            <div class="navigation hidden">
+                <a href="#opening"><i class="fa fa-home"></i></a>
+                <a href="#acara"><i class="fas fa-file-alt"></i></a>
+                <a href="#maps"><i class="far fa-calendar-alt"></i></a>
+                <a href="#rsvp"><i class="fa fa-map-marker-alt"></i></a>
+                <a href="#galeri"><i class="far fa-file-image"></i></a>
+                <a href="#gift"><i class="fa fa-check-square"></i></a>
+                {{-- <a href="#gift"><i class="fa fa-check-square"></i></a> --}}
+            </div>
+
+        </div>
     </div>
 
-    <div class="navigation-buttons">
-        <button class="nav-button" onclick="scrollToSection('one')"><i class="fa-solid fa-home"></i></button>
-        <button class="nav-button" onclick="scrollToSection('two')"><i class="fa-solid fa-user"></i></button>
-        <button class="nav-button" onclick="scrollToSection('three')"><i class="fa-solid fa-calendar"></i></button>
-        <button class="nav-button" onclick="scrollToSection('four')"><i class="fa-solid fa-envelope"></i></button>
-    </div>
-    <script>
-        var audio = document.getElementById('background-audio');
-        var icon = document.getElementById('audio-icon');
-        var isPlaying = false;
-        var autoScrollInterval;
-        var isAutoScrolling = false;
-        var scrollIcon = document.getElementById('scroll-icon');
-
-        function toggleAudio() {
-            if (isPlaying) {
-                audio.pause();
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            } else {
-                audio.play();
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-            }
-            isPlaying = !isPlaying;
-        }
-
-        function scrollToSection(sectionId) {
-            var section = document.getElementById(sectionId);
-            section.scrollIntoView({
-                behavior: 'smooth'
-            });
-            updateActiveButton(sectionId);
-        }
-
-        function updateActiveButton(sectionId) {
-            var buttons = document.querySelectorAll('.nav-button');
-            buttons.forEach(function(button) {
-                button.classList.remove('active');
-            });
-            var activeButton = document.querySelector('button[onclick="scrollToSection(\'' + sectionId + '\')"]');
-            activeButton.classList.add('active');
-        }
-
-
-        // Countdown Timer
-        var countDownDate = new Date("{!! $tmp->opening->tanggal_acara ?? '2024-12-31T00:00:00' !!}").getTime();
-
-        var x = setInterval(function() {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerHTML = days + " Hari";
-            document.getElementById("hours").innerHTML = hours + " Jam";
-            document.getElementById("minutes").innerHTML = minutes + " Menit";
-            document.getElementById("seconds").innerHTML = seconds + " Detik";
-
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown-message").style.display = "block";
-                document.getElementById("countdown").style.display = "none";
-            }
-        }, 1000);
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
+@include('Admin.PreviewUndangan.StyleKategori.StyleKeagamaan.cssKeagamaan')
+@include('Admin.PreviewUndangan.StyleKategori.StyleKeagamaan.jsKeagamaan')

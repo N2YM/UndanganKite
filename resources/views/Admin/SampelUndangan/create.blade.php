@@ -23,7 +23,7 @@
                         <i class="fa fa-gear"></i> Setting
                     </strong>
                     <div class="card-body">
-                        <form action="{{ route('admin-store-undangan') }}" method="POST">
+                        <form action="{{ route('admin-store-undangan') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -39,18 +39,12 @@
                                     <strong><label>Audio</label></strong>
                                     <select class="form-control mt-2" id="musicSelect" name="audio" required>
                                         @foreach ($audio as $kategori)
-                                            <option value="{{ asset('storage/' . $kategori->musik) }}">
-                                                {{ $kategori->kategori_audio }} {{ $kategori->judul }}
+                                            <!-- Use the ID or the file name as the value -->
+                                            <option value="{{ $kategori->musik }}">
+                                                {{ $kategori->judul }} - {{ $kategori->kategori_audio }}
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <strong><label>Link Undangan</label></strong>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text"
-                                        id="inputGroup-sizing-default"><strong>undangankite.com/</strong></span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        name="link_undangan" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
                                 <!-- Input hidden untuk cover -->
                                 <input type="hidden" name="cover" value="{{ $template->cover }}">
@@ -71,6 +65,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

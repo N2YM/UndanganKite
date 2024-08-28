@@ -373,9 +373,11 @@
     <div class="page-content fade-in-up">
         <div class="row">
             <div class="col-md-12">
-                <div class="ibox">
+                <a href="{{ route('sampel-undangan') }}" class="btn btn-dark"><i class="fa fa-arrow-left"></i>
+                    Kembali</a>
+                <div class="ibox mt-2">
                     <div class="ibox-head">
-                        <div class="ibox-title">Edit/Isi Data Undangan Ulang Tahun D</div>
+                        <div class="ibox-title">Edit/Isi Data Undangan Ulang Tahun </div>
                     </div>
                     <div class="ibox-body">
                         <ul class="nav nav-tabs tabs-line mb-3">
@@ -391,11 +393,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#waktuTempat" data-toggle="tab"><i class="fa fa-map"></i>
-                                    Waktu & Tempat</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#agendaAcara" data-toggle="tab"><i
-                                        class="fa fa-birthday-cake"></i> Agenda Acara</a>
+                                    Lokasi</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#galeri" data-toggle="tab"><i class="fa fa-image"></i>
@@ -403,8 +401,8 @@
                             </li>
                         </ul>
                         <form
-                            action="{{ route('admin-update-undangan-form', ['id' => $sampel->id, 'kategori_id' => $kategori->id]) }}"
-                            method="POST" id="form-ulan-tahun">
+                            action="{{ route('admin-update-undangan-form', ['id' => $sampel->id, 'kategori_id' => $kategori->id]) }}?? ''"
+                            method="POST" id="form-ulang-tahun" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <div class="tab-content" id="form-ulang-tahun">
@@ -412,7 +410,8 @@
                                 <div class="tab-pane fade show active" id="pengaturan">
                                     <div class="form-group">
                                         <label for="fontSelect">Pilih Jenis Font</label>
-                                        <select class="form-control" id="fontSelect" onchange="changeFont()">
+                                        <select class="form-control" id="fontSelect" name="font_ultah"
+                                            onchange="changeFont()">
                                             <option value="font-arial">Arial</option>
                                             <option value="font-playfair-display">Playfair Display</option>
                                             <option value="font-merriweather">Merriweather</option>
@@ -440,96 +439,122 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="kataSambutan">Judul Acara</label>
-                                        <input type="text" class="form-control previewable" id="judul_acara"
-                                            name="kata_sambutan">
-                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="kataSambutan">Kata Sambutan</label>
-                                        <input type="text" class="form-control previewable" id="kataSambutan"
-                                            name="kata_sambutan">
-                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="countDown">Count Down</label>
-                                        <input type="date" class="form-control previewable" id="countDown"
-                                            name="count_down">
-                                        <div class="preview-text">Pratinjau Count Down</div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade " id="penyelenggaraAcara">
-                                    <div class="form-group">
                                         <label for="kataSambutan">Nama Lengkap</label>
-                                        <input type="text" class="form-control previewable" id="nama_lengkap"
-                                            name="kata_sambutan">
-                                        <div class="preview-text">Nama Lengkap</div>
+                                        <input type="text" class="form-control previewable" id="judul_acara_ultah"
+                                            name="nama_lengkap_ultah"
+                                            value="{{ $sampel->ulangTahun->nama_lengkap_ultah ?? '' }}">
+                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="kataSambutan">Nama Panggilan</label>
-                                        <input type="text" class="form-control previewable" id="nama_panggilan"
-                                            name="kata_sambutan">
-                                        <div class="preview-text">Nama Panggilan</div>
+                                        <input type="text" class="form-control previewable" id="kataSambutan"
+                                            name="nama_panggilan_ultah"
+                                            value="{{ $sampel->ulangTahun->nama_panggilan_ultah ?? '' }}">
+                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="kataSambutan">Kontak Penyelenggara</label>
-                                        <input type="text" class="form-control previewable" id="kontak"
-                                            name="kata_sambutan">
-                                        <div class="preview-text">Kontak Penyelenggara</div>
+                                        <label for="kataSambutan">Foto yang berulang tahun</label>
+                                        <input type="file" class="form-control previewable" id="kataSambutan"
+                                            name="foto_ultah" value="{{ $sampel->ulangTahun->foto_ultah ?? '' }}">
+                                        <div class="preview-text">Pratinjau Kata Sambutan</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ulang_tahun_yang_ke">Ulang Tahun Yang Ke</label>
+                                        <input type="text" class="form-control previewable" id="countDown"
+                                            name="ulang_tahun_yang_ke"
+                                            value="{{ $sampel->ulangTahun->ulang_tahun_yang_ke ?? '' }}">
+                                        <div class="preview-text">Pratinjau Count Down</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="countDown">Hitung Mundur</label>
+                                        <input type="date" class="form-control previewable" id="countDown"
+                                            name="countdown_ultah"
+                                            value="{{ $sampel->ulangTahun->countdown_ultah ?? '' }}">
+                                        <div class="preview-text">Pratinjau Count Down</div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade " id="waktuTempat">
+                                <!-- Tab Penyelenggara Acara -->
+                                <div class="tab-pane fade" id="penyelenggaraAcara">
+                                    <div class="form-group">
+                                        <label for="kataSambutan">Kontak Penyelenggara</label>
+                                        <input type="text" class="form-control previewable" id="nama_lengkap"
+                                            name="kontak_penyelenggara_ultah"
+                                            value="{{ $sampel->ulangTahun->kontak_penyelenggara_ultah ?? '' }}">
+                                        <div class="preview-text">Nama Lengkap</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kataSambutan">Hari & Tanggal </label>
+                                        <input type="date" class="form-control previewable" id="nama_lengkap"
+                                            name="hari_tanggal_ultah"
+                                            value="{{ $sampel->ulangTahun->hari_tanggal_ultah ?? '' }}">
+                                        <div class="preview-text">Nama Lengkap</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jam_mulai_ultah">Jam Mulai</label>
+                                        <input type="time" class="form-control previewable" id="nama_panggilan"
+                                            name="jam_mulai_ultah"
+                                            value="{{ $sampel->ulangTahun->jam_mulai_ultah ?? '' }}">
+                                        <div class="preview-text"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jam_selesai_ultah">Jam Selesai</label>
+                                        <input type="time" class="form-control previewable" id="kontak"
+                                            name="jam_selesai_ultah"
+                                            value="{{ $sampel->ulangTahun->jam_selesai_ultah ?? '' }}">
+                                        <div class="preview-text"></div>
+                                    </div>
+                                </div>
+                                <!-- Tab Waktu dan Tempat -->
+                                <div class="tab-pane fade" id="waktuTempat">
                                     <div class="row">
                                         <div class="form-section col-md-6">
                                             <div class="form-group">
-                                                <label for="kataSambutan">Hari & Tanggal Acara</label>
+                                                <label for="kataSambutan">Link Map</label>
                                                 <input type="text" class="form-control previewable" id="kontak"
-                                                    name="hari_tanggal">
+                                                    name="link_map" value="{{ $sampel->ulangTahun->link_map ?? '' }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kataSambutan">Nomor Rek</label>
+                                                <input type="text" class="form-control previewable" id="kontak"
+                                                    name="nomor_rek_ultah"
+                                                    value="{{ $sampel->ulangTahun->nomor_rek_ultah ?? '' }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="lokasiAcara">Lokasi Acara</label>
                                                 <input type="text" id="addressUltah" class="form-control previewable"
-                                                    name="lokasi_acara">
+                                                    name="lokasi_acara_ultah"
+                                                    value="{{ $sampel->ulangTahun->lokasi_acara_ultah ?? '' }}">
                                                 <input id="latitudeUltah" type="hidden" class="form-control"
-                                                    name="latitude_ultah">
+                                                    name="latitude_ultah"
+                                                    value="{{ $sampel->ulangTahun->latitude_ultah ?? '' }}">
                                                 <input id="longitudeUltah" type="hidden" class="form-control"
-                                                    name="longitude_ultah">
+                                                    name="longitude_ultah"
+                                                    value="{{ $sampel->ulangTahun->longitude_ultah ?? '' }}">
+                                                <input type="hidden" id="selectedFont" name="font">
                                             </div>
                                         </div>
                                         <div class="map-container col-md-6">
                                             <div class="map" id="mapUltah"></div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="agendaAcara">
-                                    <div id="agendaContainer">
-                                        <div class="form-group agenda-item">
-                                            <label for="agenda1">Agenda 1</label>
-                                            <input type="text" class="form-control previewable" id="agenda1"
-                                                name="agenda[]">
-                                            <label for="waktu1">Waktu Agenda 1</label>
-                                            <input type="time" class="form-control previewable" id="waktu1"
-                                                name="waktu[]">
-                                            <button type="button" class="btn btn-danger remove-agenda">Hapus</button>
+                                        <div class="form-group">
+                                            <label for="kataSambutan">Ucapan Terima Kasih</label>
+                                            <input type="text" class="form-control previewable" id="kontak"
+                                                name="ucapan_terima_kasih_ultah"
+                                                value="{{ $sampel->ulangTahun->ucapan_terima_kasih_ultah ?? '' }}">
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary" id="addAgenda">Tambah Agenda</button>
                                 </div>
-                                <div class="tab-pane fade "id="galeri">
+                                <!-- Tab Galeri -->
+                                <div class="tab-pane fade" id="galeri">
                                     <div class="form-group">
                                         <label for="galleryUpload">Upload Foto Galeri</label>
-                                        <input type="file" class="form-control" id="galleryUpload" name="gallery[]"
-                                            multiple>
+                                        <input type="file" class="form-control" id="galleryUpload"
+                                            name="galeri_ultah[]" multiple>
                                     </div>
                                     <div class="gallery-preview" id="galleryPreview"></div>
                                     <button type="button" id="addMoreImages" class="btn btn-secondary mt-2">Tambah Foto
                                         Lain</button>
                                     <div id="error-message" class="text-danger mt-2"></div>
-                                    <input type="hidden" id="selectedFont" name="font">
-                                    <div class="form-group float-right">
-                                        <button type="submit" class="btn btn-primary"
-                                            style="margin-top: -20%">Simpan</button>
-                                    </div>
                                     <div class="form-group mb-3">
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
@@ -543,41 +568,6 @@
     </div>
     </div>
 @endsection
-{{-- SCRIPT AGENDA --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('addAgenda').addEventListener('click', function() {
-            var container = document.getElementById('agendaContainer');
-            var agendaCount = container.getElementsByClassName('agenda-item').length + 1;
-
-            var newAgenda = document.createElement('div');
-            newAgenda.classList.add('form-group', 'agenda-item');
-
-            newAgenda.innerHTML = `
-                <label for="agenda${agendaCount}">Agenda ${agendaCount}</label>
-                <input type="text" class="form-control previewable" id="agenda${agendaCount}" name="agenda[]" >
-                <label for="waktu${agendaCount}">Waktu Agenda ${agendaCount}</label>
-                <input type="time" class="form-control previewable" id="waktu${agendaCount}" name="waktu[]" >
-                <button type="button" class="btn btn-danger remove-agenda">Hapus</button>
-            `;
-
-            container.appendChild(newAgenda);
-
-            // Add event listener to the new remove button
-            newAgenda.querySelector('.remove-agenda').addEventListener('click', function() {
-                container.removeChild(newAgenda);
-            });
-        });
-
-        // Add event listener to the initial remove button
-        document.querySelectorAll('.remove-agenda').forEach(function(button) {
-            button.addEventListener('click', function() {
-                var container = document.getElementById('agendaContainer');
-                container.removeChild(button.closest('.agenda-item'));
-            });
-        });
-    });
-</script>
 {{-- END --}}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -622,7 +612,6 @@
         updateUlangTahunPreviews();
     });
 </script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const galleryUpload = document.getElementById('galleryUpload');
@@ -635,12 +624,12 @@
         galleryUpload.addEventListener('change', function() {
             const files = Array.from(galleryUpload.files);
 
-            // Check if the total number of files exceeds 9
+            // Cek apakah jumlah total file melebihi 9
             if (allFiles.length + files.length > 9) {
                 errorMessage.textContent = 'Jumlah foto tidak boleh lebih dari 9.';
                 return;
             } else {
-                errorMessage.textContent = ''; // Clear error message
+                errorMessage.textContent = ''; // Bersihkan pesan error
             }
 
             allFiles = allFiles.concat(files);
@@ -652,7 +641,7 @@
         });
 
         function updatePreview() {
-            galleryPreview.innerHTML = ''; // Clear existing previews
+            galleryPreview.innerHTML = ''; // Bersihkan preview yang ada
 
             allFiles.forEach((file, index) => {
                 const reader = new FileReader();
@@ -760,5 +749,38 @@
 
         // Initialize maps for the event
         initializeMap('mapUltah', 'latitudeUltah', 'longitudeUltah', 'addressUltah');
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fontSelect = document.getElementById('fontSelect');
+        const formUlangTahun = document.getElementById('form-ulang-tahun');
+        const previewableInputs = formUlangTahun.querySelectorAll('.previewable');
+        const selectedFont = document.getElementById('selectedFont');
+
+        function updateUlangTahunPreviews() {
+            previewableInputs.forEach((input) => {
+                const preview = input.nextElementSibling;
+                if (preview && preview.classList.contains('preview-text')) {
+                    preview.className = 'preview-text ' + fontSelect.value;
+                    preview.textContent = input.value;
+                }
+            });
+        }
+
+        // Update previews when font changes
+        fontSelect.addEventListener('change', function() {
+            selectedFont.value = fontSelect
+                .value; // Simpan jenis font yang dipilih ke input tersembunyi
+            updateUlangTahunPreviews();
+        });
+
+        // Update previews when input changes
+        previewableInputs.forEach((input) => {
+            input.addEventListener('input', updateUlangTahunPreviews);
+        });
+
+        // Update previews on initial load
+        updateUlangTahunPreviews();
     });
 </script>

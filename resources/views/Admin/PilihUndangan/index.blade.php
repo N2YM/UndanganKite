@@ -36,24 +36,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('info') }}/css/util.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('info') }}/css/main.css">
     <!--===============================================================================================-->
-    <style>
-        .img1 {
-            width: 100px;
-            /* Atur lebar sesuai kebutuhan */
-            height: auto;
-            /* Sesuaikan tinggi agar proporsional */
-        }
-
-        .logo {
-            display: flex;
-            justify-content: center;
-            /* Pusatkan logo */
-            align-items: center;
-            /* Vertikal center */
-            padding: 20px;
-            /* Tambahkan padding jika perlu */
-        }
-    </style>
 </head>
 
 <body class="animsition">
@@ -65,9 +47,8 @@
             <div class="wrap-menu-desktop">
                 <nav class="limiter-menu-desktop container d-flex justify-content-between align-items-center">
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
-                        <strong style="font-size: 34px; color: black">InviVibe</strong>
-                        {{-- <img class="img1" src="{{ asset('info/logo') }}/INVI VIBE2.png" alt="IMG-LOGO"> --}}
+                    <a class="logo">
+                        <h1 style="font-weight: 900">InviVibe</h1>
                     </a>
                 </nav>
             </div>
@@ -80,9 +61,6 @@
             </div>
         </div>
     </header>
-
-
-    <!-- Cart -->
     <div class="wrap-header-cart js-panel-cart">
         <div class="s-full js-hide-cart"></div>
 
@@ -91,6 +69,7 @@
                 <span class="mtext-103 cl2">
                     Your Cart
                 </span>
+
                 <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
                     <i class="zmdi zmdi-close"></i>
                 </div>
@@ -119,285 +98,43 @@
         <div class="container">
             <div class="p-b-10">
                 <h3 class="ltext-103 cl5">
-                    Product
                 </h3>
             </div>
-            <div class="flex-w flex-sb-m p-b-52">
-                <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                        All Products
-                    </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-                    </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-                    </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                    </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-                    </button>
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-                    </button>
-                </div>
-                <div class="flex-w flex-c-m m-tb-10">
-                    <div
-                        class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
-                        <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-                        <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                        Filter
-                    </div>
-                    <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
-                        <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-                        <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                        Search
-                    </div>
-                </div>
-                <!-- Search product -->
-                <div class="dis-none panel-search w-full p-t-10 p-b-15">
-                    <div class="bor8 dis-flex p-l-15">
-                        <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-                            <i class="zmdi zmdi-search"></i>
-                        </button>
-                        <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
-                            placeholder="Search">
-                    </div>
-                </div>
-                <!-- Filter -->
-                <div class="dis-none panel-filter w-full p-t-10">
-                    <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-                        <div class="filter-col1 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Sort By
-                            </div>
-
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Default
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Popularity
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Average rating
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        Newness
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Price: Low to High
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Price: High to Low
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col2 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Price
-                            </div>
-
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        All
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $0.00 - $50.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $50.00 - $100.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $100.00 - $150.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $150.00 - $200.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $200.00+
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col3 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Color
-                            </div>
-
-                            <ul>
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #222;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Black
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        Blue
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Grey
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Green
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
-                                        <i class="zmdi zmdi-circle"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        Red
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-                                        <i class="zmdi zmdi-circle-o"></i>
-                                    </span>
-
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        White
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col4 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Tags
-                            </div>
-
-                            <div class="flex-w p-t-4 m-r--5">
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Fashion
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Lifestyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Denim
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Streetstyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Crafts
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row isotope-grid">
+            <div class="row">
                 @foreach ($template as $tmp)
-                    <div class="card col-sm-6 col-md-4 col-lg-2 p-b-20 isotope-item"
-                        style="padding: 0 0 2% 0; margin-left: 10px;">
+                    <div class="col-sm-6 col-md-4 col-lg-2"
+                        style="margin-left: 10px; padding: 0; height: 350px; display: flex; flex-direction: column;">
                         <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <img src="{{ asset('storage/' . $tmp->cover) }}" class="larger-image"
-                                    alt="IMG-PRODUCT">
+                        <div
+                            style="display: flex; flex-direction: column; height: 100%; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
+                            <div style="flex-grow: 1; height: 150px;">
+                                <img src="{{ asset('storage/' . $tmp->cover) }}" alt="IMG-PRODUCT"
+                                    style="height: 100%; width: 100%; object-fit: cover;">
                             </div>
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l" style="padding-left: 15px;">
-                                    <div class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            <div
+                                style="flex-grow: 1; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div style="padding-left: 15px;">
+                                    <div style="font-size: 16px; color: #444; margin-bottom: 6px;">
                                         {{ $tmp->judul }}
                                     </div>
-                                    <span class="stext-105 cl3">
-                                        <b>{{ $tmp->kategori->kategori_tmp }}</b>
+                                    <span style="font-size: 14px; color: #888;">
+                                        <b>{{ $tmp->kategori_tmp }}</b>
                                     </span>
                                 </div>
                                 <div class="row">
-                                    <div class="btm-group" style="padding-left: 23px; padding-top: 20px;">
-                                        <a href="{{ route('preview-undangan', ['id' => $tmp->id]) }}"
-                                            style="font-size: 14px" class="btn btn-secondary btn-sm mr-1 px-3">
-                                            Preview
-                                        </a>
-                                        <a href="{{ route('create-undangan', ['id' => $tmp->id]) }}"
-                                            style="font-size: 14px" class="btn btn-outline-success btn-sm ml-1 px-3">
+                                    <div class="btm-group" style="padding-left: 29px; padding-top: 20px;">
+                                        <a class="btn btn-success btn-sm"
+                                            href="{{ route('create-undangan', ['id' => $tmp->id]) }}"
+                                            style="font-size: 14px; padding-left: 50px; padding-right: 45px; text-align: center;">
                                             Gunakan
                                         </a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-            </div>
-
-            <!-- Load more -->
-            <div class="flex-c-m flex-w w-full p-t-45">
-                <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                    Load More
-                </a>
             </div>
         </div>
     </section>
@@ -733,9 +470,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <!--===============================================================================================-->
     <script src="{{ asset('info') }}/vendor/jquery/jquery-3.2.1.min.js"></script>

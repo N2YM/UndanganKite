@@ -1,3 +1,215 @@
+{{-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InviVibe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar {
+            background-color: #2CA03E;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            margin-right: 85%;
+        }
+
+        .jumbotron {
+            background-color: #00A651;
+            color: white;
+            padding: 350px 20px 100px 80px;
+            /* 40px padding on the left */
+            text-align: left;
+        }
+
+        .jumbotron h2 {
+            font-size: 36px;
+            margin-top: -15%;
+
+        }
+
+        .product-section {
+            padding: 0px 20px 0px 5%;
+            /* Adjusted padding on the left */
+            text-align: left;
+        }
+
+        .product-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .product-grid {
+            display: flex;
+            justify-content: left;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 220px;
+            padding: 15px;
+            text-align: left;
+            display: flex;
+            height: 300px;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card img {
+            height: 0px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 3px;
+        }
+
+        .product-card .title {
+            font-size: 18px;
+            margin: 0px 0;
+            color: #444;
+        }
+
+        .product-card .category {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 0px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .btn-preview {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .btn-use {
+            color: #28a745;
+            border: 1px solid #28a745;
+            background-color: white;
+        }
+
+        .footer {
+            background-color: #222;
+            color: #aaa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <nav class="navbar">
+            <h1>InviVibe</h1>
+        </nav>
+
+        <!-- Jumbotron Section -->
+        <section class="jumbotron">
+            <h2>
+                BUAT UNDANGAN DIGITAL<br>
+                ANDA UNTUK BERBAGAI<br>
+                ACARA
+            </h2>
+        </section>
+        <!-- Product Section -->
+        <section class="product-section">
+            <h2>PRODUCT</h2>
+            <p>All Products</p>
+            <div class="product-grid">
+                <!-- Product Card -->
+                @foreach ($template as $tmp)
+                    <div class="product-card">
+                        <img src="{{ asset('storage/' . $tmp->cover) }}" alt="IMG-PRODUCT"
+                            style="height: 50%; width: 100%; object-fit: cover;">
+                        <div>
+                            <h3 class="title">{{ $tmp->judul }}</h3>
+                            <span class="category">{{ $tmp->kategori_template }}</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-preview">Preview</a>
+                            <a href="#" class="btn btn-use">Gunakan</a>
+                        </div>
+                    </div>
+                @endforeach
+                <!-- Tambahkan kartu produk lain di sini -->
+            </div>
+        </section>
+        <button
+            style="margin-top: 30px; margin-left: 50%; padding: 10px 20px; background-color: #000; color: #fff; border: none; border-radius: 5px;">LOAD
+            MORE</button>
+    </div>
+    <!-- Navbar Section -->
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div>
+            <a href="#">Categories</a>
+            <a href="#">Help</a>
+            <a href="#">Get in Touch</a>
+            <a href="#">Newsletter</a>
+        </div>
+        <p>&copy; 2024 All rights reserved | Made with <3 by Colorlib & distributed by ThemeWagon</p>
+                <div>
+                    <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+                    <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+                    <a href="#"><img src="pinterest-icon.png" alt="Pinterest"></a>
+                </div>
+    </footer>
+</body>
+
+</html> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -357,33 +569,32 @@
                 </div>
             </div>
 
-            <div class="row isotope-grid">
+            <div class="row">
                 @foreach ($template as $tmp)
-                    <div class="card col-sm-6 col-md-4 col-lg-2 p-b-20 isotope-item"
-                        style="padding: 0 0 2% 0; margin-left: 10px;">
+                    <div class="col-sm-6 col-md-4 col-lg-2"
+                        style="margin-left: 10px; padding: 0; height: 350px; display: flex; flex-direction: column;">
                         <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <img src="{{ asset('storage/' . $tmp->cover) }}" class="larger-image"
-                                    alt="IMG-PRODUCT">
+                        <div
+                            style="display: flex; flex-direction: column; height: 100%; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
+                            <div style="flex-grow: 1; height: 150px;">
+                                <img src="{{ asset('storage/' . $tmp->cover) }}" alt="IMG-PRODUCT"
+                                    style="height: 100%; width: 100%; object-fit: cover;">
                             </div>
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l" style="padding-left: 15px;">
-                                    <div class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            <div
+                                style="flex-grow: 1; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div style="padding-left: 15px;">
+                                    <div style="font-size: 16px; color: #444; margin-bottom: 6px;">
                                         {{ $tmp->judul }}
                                     </div>
-                                    <span class="stext-105 cl3">
+                                    <span style="font-size: 14px; color: #888;">
                                         <b>{{ $tmp->kategori_tmp }}</b>
                                     </span>
                                 </div>
                                 <div class="row">
-                                    <div class="btm-group" style="padding-left: 23px; padding-top: 20px;">
-                                        <a href="{{ route('preview-undangan', ['id' => $tmp->id]) }}"
-                                            style="font-size: 14px" class="btn btn-secondary btn-sm mr-1 px-3">
-                                            Preview
-                                        </a>
-                                        <a href="{{ route('buat-undagan', ['id' => $tmp->id]) }}"
-                                            style="font-size: 14px" class="btn btn-outline-success btn-sm ml-1 px-3">
+                                    <div class="btm-group" style="padding-left: 29px; padding-top: 20px;">
+                                        <a class="btn btn-success btn-sm"
+                                            href="{{ route('create-undangan', ['id' => $tmp->id]) }}"
+                                            style="font-size: 14px; padding-left: 50px; padding-right: 45px; text-align: center;">
                                             Gunakan
                                         </a>
                                     </div>
@@ -393,6 +604,10 @@
                     </div>
                 @endforeach
             </div>
+
+
+
+
 
             <!-- Load more -->
             <div class="flex-c-m flex-w w-full p-t-45">

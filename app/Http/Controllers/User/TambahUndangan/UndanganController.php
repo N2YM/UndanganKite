@@ -7,24 +7,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User\BuatUndangan\Opening;
-use App\Models\User\BuatUndangan\GaleriWedding;
+use App\Models\Admin\Template\KategoriTemplate;
 use App\Models\User\BuatUndangan\ProfilWedding;
-use App\Models\User\BuatUndangan\DetailAcaraUndangan;
 use App\Models\User\BuatUndangan\TambahUndangan;
+use App\Models\Admin\SampelUndangan\SampelUndangan;
+use App\Models\Admin\SampelUndangan\Kategori\Wedding;
+use App\Models\Admin\SampelUndangan\Kategori\Keagamaan;
+use App\Models\Admin\SampelUndangan\Kategori\UlangTahun;
 
 class UndanganController extends Controller
 {
     public function index()
     {
+        // Dapatkan user yang sedang login
         $user = Auth::user();
-        $tmp = TambahUndangan::where('id_user', $user->id)->get();
-        return view('User.TambahUndangan.index', compact('user', 'tmp'));
+        
+        // Ambil data undangan berdasarkan id user
+        $undangan = SampelUndangan::where('user_id', $user->id)->get();
+        
+        // Kirim data ke view
+        return view('User.TambahUndangan.index', compact('user', 'undangan'));
     }
+    
     public function preview($id)
     {
+        $user = Auth::user();
         $tmp = TambahUndangan::with(['opening', 'undanganProfilWedding', 'galeriWedding','detailWedding'])->find($id);
        
-        return view('User.PreviewTemplate.index', compact('tmp',    ));
+        return view('User.PreviewTemplate.index', compact('tmp', 'user'   ));
     }
 
     public function edit($id)
@@ -36,186 +46,242 @@ class UndanganController extends Controller
         return view('User.TambahUndangan.edit', compact('user', 'tmp', 'profilWedding','opening'));
     }
 
-    public function update(Request $request, $buatUndanganId)
-    {
-        $request->validate([
-            'salam_pembuka' => 'required|string|max:255',
-            'cerita_mempelai' => 'required|string',
-            'nama_mempelai_pria' => 'required|string|max:255',
-            'nama_mempelai_wanita' => 'required|string|max:255',
-            'nama_ayah_mempelai_pria' => 'required|string|max:255',
-            'nama_ibu_mempelai_pria' => 'required|string|max:255',
-            'nama_ayah_mempelai_wanita' => 'required|string|max:255',
-            'nama_ibu_mempelai_wanita' => 'required|string|max:255',
-            'deskripsi_singkat_pasangan' => 'required|string',
-            'fm_pria' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'fm_wanita' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-        // Cari data profil undangan berdasarkan user_id dan buat_undangan_id
-        $profilWedding = ProfilWedding::firstOrNew([
-            'user_id' => Auth::id(),
-            'buat_undangan_id' => $buatUndanganId
-        ]);
-        // Perbarui atau isi data profil undangan
-        $profilWedding->salam_pembuka = $request->salam_pembuka;
-        $profilWedding->cerita_mempelai = $request->cerita_mempelai;
-        $profilWedding->nama_mempelai_pria = $request->nama_mempelai_pria;
-        $profilWedding->nama_mempelai_wanita = $request->nama_mempelai_wanita;
-        $profilWedding->nama_ayah_mempelai_pria = $request->nama_ayah_mempelai_pria;
-        $profilWedding->nama_ibu_mempelai_pria = $request->nama_ibu_mempelai_pria;
-        $profilWedding->nama_ayah_mempelai_wanita = $request->nama_ayah_mempelai_wanita;
-        $profilWedding->nama_ibu_mempelai_wanita = $request->nama_ibu_mempelai_wanita;
-        $profilWedding->deskripsi_singkat_pasangan = $request->deskripsi_singkat_pasangan;
+    public function editForm($id, $kategori_id) 
+{  $user = Auth::user();
+    $sampel = SampelUndangan::find($id);
+    $kategori = KategoriTemplate::find($kategori_id);
 
-        // Unggah dan perbarui foto mempelai pria jika ada
-        if ($request->hasFile('fm_pria')) {
-            if ($profilWedding->fm_pria) {
-                Storage::delete($profilWedding->fm_pria);
-            }
-            $profilWedding->fm_pria = $request->file('fm_pria')->store('public/user/kategori/wedding/foto');
+    if (!$sampel || !$kategori) {
+        return redirect()->back()->with('error', 'Data tidak ditemukan');
+    }
+
+    $formView = $this->getFormView($kategori->kategori_tmp);
+    return view('User.TambahUndangan.Kategori.' . $formView, compact('sampel', 'kategori','user'));
+}
+
+public function viewForm(Request $request, $id) 
+{
+    $user = Auth::user();
+    // Ambil data undangan berdasarkan ID
+    $undangan = SampelUndangan::with('wedding', 'kategori','ulangTahun','keagamaan')->find($id);
+
+    // Periksa apakah undangan ditemukan
+    if (!$undangan) {
+        return redirect()->back()->with('error', 'Undangan tidak ditemukan');
+    }
+
+    // Ambil kategori terkait
+    $kategori = $undangan->kategori;
+
+    // Ambil data wedding dari relasi
+    $wedding = $undangan->wedding;
+    $ulangTahun = $undangan->ulangTahun;
+    $keagamaan = $undangan->keagamaan;
+
+    // Tentukan view form berdasarkan kategori
+    $formView = $this->getFormView($kategori ? $kategori->kategori_tmp : 'default');
+
+    // Kembalikan view dengan data yang diperlukan
+    return view('User.PreviewTemplate.Kategori.' . $formView, compact('undangan', 'kategori', 'wedding', 'ulangTahun','user'));
+}
+
+public function updateForm(Request $request, $id, $kategori_id)
+{
+    // Temukan data undangan dengan ID yang diberikan
+    $userUndangan = SampelUndangan::find($id);
+    if (!$userUndangan) {
+        return redirect()->back()->with('error', 'Undangan tidak ditemukan');
+    }
+
+    // Wedding Section
+    $undangan = Wedding::where('id', $userUndangan->wedding_id)->first() ?: new Wedding;
+    $undangan->fill($request->all());
+
+    if ($request->hasFile('foto_pria')) {
+        $file = $request->file('foto_pria');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/foto_pria', $filename);
+        $undangan->foto_pria = $filename;
+    }
+
+    if ($request->hasFile('foto_wanita')) {
+        $file = $request->file('foto_wanita');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/foto_wanita', $filename);
+        $undangan->foto_wanita = $filename;
+    }
+
+    if ($request->hasFile('gallery')) {
+        $gallery = [];
+        foreach ($request->file('gallery') as $file) {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/gallery', $filename);
+            $gallery[] = $filename;
         }
 
-        // Unggah dan perbarui foto mempelai wanita jika ada
-        if ($request->hasFile('fm_wanita')) {
-            if ($profilWedding->fm_wanita) {
-                Storage::delete($profilWedding->fm_wanita);
-            }
-            $profilWedding->fm_wanita = $request->file('fm_wanita')->store('public/user/kategori/wedding/foto');
+        $existingGallery = $undangan->gallery;
+        if (is_string($existingGallery)) {
+            $existingGallery = json_decode($existingGallery, true);
         }
 
-        // Simpan data
-        $profilWedding->save();
+        if (is_array($existingGallery)) {
+            $mergedGallery = array_merge($existingGallery, $gallery);
+        } else {
+            $mergedGallery = $gallery;
+        }
 
-        return back()->with('success', 'Profil undangan pernikahan berhasil disimpan atau diperbarui!');
-    }
-    public function updateOpening(Request $request, $buatUndanganId)
-    {
-        
-        // Aktifkan validasi
-        // $request->validate([
-        //     'judul_acara' => 'required|string|max:255',
-        //     'tanggal_acara' => 'required|date',
-        // ]);
-        // Cari data opening berdasarkan user_id dan buat_undangan_id
-        $opening = Opening::firstOrNew([
-            'user_id' => Auth::id(),
-            'buat_undangan_id' => $buatUndanganId
-        ]);
-        
-        // Perbarui atau isi data opening
-        $opening->judul_acara = $request->judul_acara;
-        $opening->tanggal_acara = $request->tanggal_acara;
-        // dd($opening);
-        // Simpan data
-        $opening->save();
+        $filteredGallery = array_filter($mergedGallery, function ($item) {
+            return !empty($item);
+        });
 
-        return back()->with('success', 'Opening berhasil disimpan atau diperbarui!');
-    }
-    public function updateDetailAcara(Request $request, $buatUndanganId)
-    {
-        // Validasi input dari pengguna
-        // $request->validate([
-        //     'acara1' => 'required|string|max:255',
-        //     'jam_mulai_acara1' => 'required|date_format:H:i',
-        //     'jam_selesai_acara1' => 'required|date_format:H:i',
-        //     'hari_tanggal_acara1' => 'required|date',
-        //     'alamat_gedung_acara1' => 'required|string|max:255',
-        //     'link_map_acara1' => 'nullable|url',
-        //     'acara2' => 'nullable|string|max:255',
-        //     'jam_mulai_acara2' => 'nullable|date_format:H:i',
-        //     'jam_selesai_acara2' => 'nullable|date_format:H:i',
-        //     'hari_tanggal_acara2' => 'nullable|date',
-        //     'alamat_gedung_acara2' => 'nullable|string|max:255',
-        //     
-        // ]);
-        // dd($request->all());
-        // Cari data DetailAcaraUndangan berdasarkan user_id dan buat_undangan_id
-        $detailAcara = DetailAcaraUndangan::firstOrNew([
-            'user_id' => Auth::id(),
-            'buat_undangan_id' => $buatUndanganId
-        ]);
-        // Perbarui atau isi data DetailAcaraUndangan
-        $detailAcara->acara1 = $request->acara1;
-        $detailAcara->jam_mulai_acara1 = $request->jam_mulai_acara1;
-        $detailAcara->jam_selesai_acara1 = $request->jam_selesai_acara1;
-        $detailAcara->hari_tanggal_acara1 = $request->hari_tanggal_acara1;
-        $detailAcara->alamat_gedung_acara1 = $request->alamat_gedung_acara1;
-        $detailAcara->link_map_acara1 = $request->link_map_acara1;
-        $detailAcara->acara2 = $request->acara2;
-        $detailAcara->jam_mulai_acara2 = $request->jam_mulai_acara2;
-        $detailAcara->jam_selesai_acara2 = $request->jam_selesai_acara2;
-        $detailAcara->hari_tanggal_acara2 = $request->hari_tanggal_acara2;
-        $detailAcara->alamat_gedung_acara2 = $request->alamat_gedung_acara2;
-      
-
-        // Simpan data
-        $detailAcara->save();
-
-        return back()->with('success', 'Detail acara berhasil disimpan atau diperbarui!');
+        $undangan->gallery = json_encode($filteredGallery);
     }
 
+    $undangan->save();
 
-    public function updateGalleri(Request $request, $buatUndanganId)
-    {
-        // Validasi input foto yang diupload
-        $request->validate([
-            'image_path.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi foto
-        ]);
-    // dd($request->all());
-        // Ambil semua foto yang diupload
-        $files = $request->file('image_path');
-    
-        // Ambil user ID
-        $userId = Auth::id();
-    
-        // Cek jika ada file yang diupload
-        if ($files && count($files) > 0) {
-            foreach ($files as $file) {
-                // Simpan foto di storage
-                $path = $file->store('public/user/kategori/wedding/gallery');
-    
-                // Periksa apakah ada data galeri sebelumnya
-                $existingGaleri = GaleriWedding::where('user_id', $userId)
-                                               ->where('buat_undangan_id', $buatUndanganId)
-                                               ->first();
-                
-                if ($existingGaleri) {
-                    // Hapus foto lama dari storage
-                    Storage::delete($existingGaleri->image_path);
-    
-                    // Update data galeri dengan foto baru
-                    $existingGaleri->image_path = $path;
-                    $existingGaleri->save();
-                } else {
-                    // Tambahkan data foto baru ke tabel gallery_wedding
-                    GaleriWedding::create([
-                        'user_id' => $userId,
-                        'buat_undangan_id' => $buatUndanganId,
-                        'image_path' => $path,
-                    ]);
+    if (!$userUndangan->wedding_id) {
+        $userUndangan->wedding_id = $undangan->id;
+        $userUndangan->save();
+    }
+
+    // Ulang Tahun Section
+    $ulangTahun = UlangTahun::where('id', $userUndangan->ulang_tahun_id)->first() ?: new UlangTahun;
+    $ulangTahun->fill($request->except(['galeri_ultah']));
+
+    if ($request->hasFile('galeri_ultah')) {
+        $galeri_ultah = [];
+        foreach ($request->file('galeri_ultah') as $file) {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/gallery_ultah', $filename);
+            $galeri_ultah[] = $filename;
+        }
+
+        $existingGaleriUlangTahun = $ulangTahun->galeri_ultah;
+        if (is_string($existingGaleriUlangTahun)) {
+            $existingGaleriUlangTahun = json_decode($existingGaleriUlangTahun, true);
+        }
+
+        if (is_array($existingGaleriUlangTahun)) {
+            $mergedGaleriUlangTahun = array_merge($existingGaleriUlangTahun, $galeri_ultah);
+        } else {
+            $mergedGaleriUlangTahun = $galeri_ultah;
+        }
+
+        $filteredGaleriUlangTahun = array_filter($mergedGaleriUlangTahun, function ($item) {
+            return !empty($item);
+        });
+
+        $ulangTahun->galeri_ultah = json_encode($filteredGaleriUlangTahun);
+    }
+
+    if ($request->hasFile('foto_ultah')) {
+        $file = $request->file('foto_ultah');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/foto_ultah', $filename);
+        $ulangTahun->foto_ultah = $filename;
+    }
+
+    $ulangTahun->save();
+
+    if (!$userUndangan->ulang_tahun_id) {
+        $userUndangan->ulang_tahun_id = $ulangTahun->id;
+        $userUndangan->save();
+    }
+
+    // Keagamaan Section
+    $keagamaan = Keagamaan::where('id', $userUndangan->keagamaan_id)->first() ?: new Keagamaan;
+    $keagamaan->fill($request->except(['galeri_keagamaan', 'foto_keagamaan']));
+
+    if ($request->hasFile('galeri_keagamaan')) {
+        // Step 1: Delete old images from storage
+        if ($keagamaan->galeri_keagamaan) {
+            $existingGaleriKeagamaan = json_decode($keagamaan->galeri_keagamaan, true);
+            if (is_array($existingGaleriKeagamaan)) {
+                foreach ($existingGaleriKeagamaan as $oldImage) {
+                    Storage::delete('public/gallery_keagamaan/' . $oldImage);
                 }
             }
-        } else {
-            // Jika tidak ada file baru, tambahkan pesan atau tindakan yang sesuai
-            return back()->with('info', 'Tidak ada file baru untuk diupload.');
         }
-        return back()->with('success', 'Foto berhasil diupload atau diperbarui!');
+
+        // Step 2: Save new images
+        $galeri_keagamaan = [];
+        foreach ($request->file('galeri_keagamaan') as $file) {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/gallery_keagamaan', $filename);
+            $galeri_keagamaan[] = $filename;
+        }
+
+        // Save the new gallery images as JSON
+        $keagamaan->galeri_keagamaan = json_encode($galeri_keagamaan);
     }
 
-
-    public function destroy($id)
-    {
-        // Temukan data undangan berdasarkan ID
-        $template = TambahUndangan::findOrFail($id);
-    
-        // Hapus cover images dari storage (jika ada)
-        // Hapus audio undangan dari storage (jika ada)
-        if ($template->audio_undangan) {
-            Storage::disk('public')->delete($template->audio_undangan);
-        }
-        // Hapus data undangan dari database
-        $template->delete();
-    
-        return redirect()->route('undangan')->with('danger', 'Data undangan berhasil dihapus.');
+    if ($request->hasFile('foto_keagamaan')) {
+        $file = $request->file('foto_keagamaan');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/foto_keagamaan', $filename);
+        $keagamaan->foto_keagamaan = $filename;
+    } else {
+        // Preserve the existing foto_keagamaan if no new file is uploaded
+        $keagamaan->foto_keagamaan = $keagamaan->getOriginal('foto_keagamaan');
     }
+
+    $keagamaan->terimakasih_keagamaan = $request->input('terimakasih_keagamaan');
+    $keagamaan->save();
+
+    if (!$userUndangan->keagamaan_id) {
+        $userUndangan->keagamaan_id = $keagamaan->id;
+        $userUndangan->save();
+    }
+
+    return redirect()->route('undangan')->with('success', 'Data undangan, ulang tahun, dan keagamaan berhasil diperbarui');
+}
+
+private function getFormView($kategori_tmp) 
+{
+    switch ($kategori_tmp) {
+        case 'Pernikahan':
+            return 'pernikahan';
+        case 'Syukuran':
+            return 'syukuran';
+        case 'Ulang Tahun':
+            return 'ulang_tahun';
+        case 'Acara Sosial':
+            return 'acara_sosial';
+        case 'Acara Keagamaan':
+            return 'keagamaan';
+        default:
+            return 'default-form';
+    }
+}
+
+public function deleteForm($id, $kategori_id)
+{
+    // Temukan data undangan dengan ID yang diberikan
+    $userUndangan = SampelUndangan::find($id);
+    if (!$userUndangan) {
+        return redirect()->back()->with('error', 'Undangan tidak ditemukan');
+    }
+
+    // Wedding Section
+    if ($userUndangan->wedding_id) {
+        Wedding::where('id', $userUndangan->wedding_id)->delete();
+    }
+
+    // Ulang Tahun Section
+    if ($userUndangan->ulang_tahun_id) {
+        UlangTahun::where('id', $userUndangan->ulang_tahun_id)->delete();
+    }
+
+    // Keagamaan Section
+    if ($userUndangan->keagamaan_id) {
+        Keagamaan::where('id', $userUndangan->keagamaan_id)->delete();
+    }
+
+    // Hapus undangan
+    $userUndangan->delete();
+
+    return redirect()->route('undangan')->with('success', 'Undangan, ulang tahun, dan keagamaan berhasil dihapus');
+}
+
+
 }

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InviVibe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .navbar {
+            background-color: #2CA03E;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            margin-right: 85%;
+        }
+        .jumbotron {
+            background-color: #00A651;
+            color: white;
+            padding: 350px 20px 100px 80px; /* 40px padding on the left */
+            text-align: left;
+        }
+
+        .jumbotron h2 {
+            font-size: 36px;
+           margin-top: -15%;
+
+        }
+        .product-section {
+            padding: 0px 20px 0px 20%; /* 40px padding on the left */
+            text-align: left;
+        }
+        .product-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .product-grid {
+            display: flex;
+            justify-content: left;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 220px;
+            padding: 15px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card img {
+            height: 150px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 3px;
+        }
+        .product-card .title {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #444;
+        }
+        .product-card .category {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 3px;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .btn-preview {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+        .btn-use {
+            color: #28a745;
+            border: 1px solid #28a745;
+            background-color: white;
+        }
+        .footer {
+            background-color: #222;
+            color: #aaa;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <nav class="navbar">
+            <h1>InviVibe</h1>
+        </nav>
+    
+      <!-- Jumbotron Section -->
+    <section class="jumbotron">
+        <h2>
+            BUAT UNDANGAN DIGITAL<br>
+            ANDA UNTUK BERBAGAI<br>
+            ACARA
+        </h2>
+    </section>
+        <!-- Product Section -->
+        <section class="product-section">
+            <h2>TEMA TEMPLATE </h2>
+            <p>Semua Tema</p>
+            <div class="product-grid">
+                <!-- Product Card -->
+                <div class="product-card">
+                    <img src="image1.jpg" alt="Wedding flowers">
+                    <div>
+                        <h3 class="title">Wedding flowers</h3>
+                        <span class="category">Pernikahan</span>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-preview">Preview</a>
+                        <a href="#" class="btn btn-use">Gunakan</a>
+                    </div>
+                </div>
+    
+                <!-- Tambahkan kartu produk lain di sini -->
+            </div>
+        </section>
+        <button style="margin-top: 30px; margin-left: 50%; padding: 10px 20px; background-color: #000; color: #fff; border: none; border-radius: 5px;">LOAD MORE</button>
+    </div>
+    <!-- Navbar Section -->
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div>
+            <a href="#">Categories</a>
+            <a href="#">Help</a>
+            <a href="#">Get in Touch</a>
+            <a href="#">Newsletter</a>
+        </div>
+        <p>&copy; 2024 All rights reserved | Made with <3 by Colorlib & distributed by ThemeWagon</p>
+        <div>
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="pinterest-icon.png" alt="Pinterest"></a>
+        </div>
+    </footer>
+</body>
+</html>

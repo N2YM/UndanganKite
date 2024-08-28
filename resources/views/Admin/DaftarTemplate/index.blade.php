@@ -6,13 +6,13 @@
             <!-- Card  -->
             @foreach ($data as $tmp)
                 <div class="col-md-2 mb-3">
-                    <div class="card">
+                    <div class="card h-100">
                         @if ($tmp->cover)
                             <img class="card-img-top" src="{{ asset('storage/' . $tmp->cover) }}" alt="Cover Image">
                         @endif
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $tmp->judul }}</h5>
-                            <p class="card-text">{{ $tmp->kategori_tmp }}</p>
+                            <h5 class="card-title text-truncate">{{ $tmp->judul }}</h5>
+                            <p class="card-text text-truncate">{{ $tmp->kategori_tmp }}</p>
                             <div class="mt-auto">
                                 <a href="{{ route('view', ['id' => $tmp->id]) }}"
                                     class="btn btn-secondary btn-sm stretched-link">Preview</a>
@@ -31,12 +31,24 @@
             /* Border radius */
             overflow: hidden;
             /* Hindari overflow dari gambar jika terlalu besar */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card-body {
             padding: 1rem;
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title,
+        .card-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
         }
 
         .btn-secondary {
@@ -53,6 +65,11 @@
             /* Memastikan gambar terpotong dengan rapi */
             width: 100%;
             /* Pastikan gambar memenuhi lebar kartu */
+        }
+
+        /* Menjaga tinggi kartu yang konsisten */
+        .h-100 {
+            height: 100%;
         }
     </style>
 @endsection

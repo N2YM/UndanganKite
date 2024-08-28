@@ -12,265 +12,42 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     @include('User.PreviewTemplate.font')
     <title>Document</title>
-
-    <style>
-        html,
-        body {
-            overflow-x: hidden;
-        }
-
-        body .container {
-            background-color: rgba(0, 0, 0, 0.6);
-
-        }
-
-        .formatted-text {
-            color: white;
-            margin-top: 20px;
-            word-wrap: break-word;
-            font-size: 20px;
-        }
-
-        .logo-text {
-            font-family: 'Cursive', sans-serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            letter-spacing: 5px;
-        }
-
-        .vertical-text {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            font-size: 30px;
-            color: #b3b3b3;
-        }
-
-        .judul {
-            color: #b3b3b3;
-            font-size: 30px;
-        }
-
-        .hari-tgl {
-            color: #b3b3b3;
-            font-size: 35px;
-        }
-
-        .days,
-        .hours,
-        .minute,
-        .seconds {
-            color: #333;
-            border-radius: 8px;
-            background: white;
-            padding: 20px;
-            font-weight: bold;
-        }
-
-        .save-tanggal {
-            color: #b3b3b3;
-            font-size: 20px;
-        }
-
-        .teks-acara {
-            text-transform: uppercase;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-100%);
-            }
-
-            100% {
-                transform: translateY(100vh);
-            }
-        }
-
-        .maple-leaf {
-            position: absolute;
-            top: -10%;
-            color: orange;
-            font-size: 1px;
-            opacity: 0.5;
-            pointer-events: none;
-            animation: fall linear infinite 2s;
-        }
-
-        .three {
-            min-height: 100vh;
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            transition: filter 0.5s ease;
-        }
-
-        .acara1 {
-            font-size: 30px;
-            padding-bottom: 10%;
-        }
-
-        .acara4 {
-            font-size: 30px;
-            padding-bottom: 20%;
-            margin-bottom: 100%;
-        }
-
-        .detail-acara {
-            font-size: 40px;
-            margin-bottom: 50%;
-            font-family: 'Tisa', serif;
-        }
-
-        #open-invitation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            filter: none;
-        }
-
-        .slide-up {
-            transform: translateY(100%);
-            opacity: 0;
-            animation: slideUp 0.5s forwards;
-        }
-
-        .event {
-            font-size: 20px;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .nav-button {
-            transition: transform 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.7);
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 5px;
-        }
-
-        .nav-button.active {
-            transform: scale(1.2);
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .zoom-in {
-            animation: zoomIn 1s forwards;
-        }
-
-        @keyframes zoomIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .banner {
-            position: relative;
-            min-height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            color: #fff;
-        }
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            left: 0;
-            bottom: 0;
-        }
-
-        .banner::before {
-            content: '';
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: -1;
-            left: 0;
-            top: 0;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -ms-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform: translateZ(0) scale(1.0, 1.0);
-            -moz-transform: translateZ(0) scale(1.0, 1.0);
-            -ms-transform: translateZ(0) scale(1.0, 1.0);
-            -o-transform: translateZ(0) scale(1.0, 1.0);
-            transform: translateZ(0) scale(1.0, 1.0);
-            background-size: cover;
-            background-image: url('{{ asset('storage/' . ($undangan->cover ?? 'default_cover_image.jpg')) }}');
-            background-attachment: fixed;
-            animation: increase 60s linear 10ms infinite;
-            -webkit-transition: all 0.2s ease-in-out;
-            -moz-transition: all 0.2s ease-in-out;
-            -ms-transition: all 0.2s ease-in-out;
-            -o-transition: all 0.2s ease-in-out;
-            transition: all 0.2s ease-in-out;
-            z-index: -2;
-        }
-
-        @keyframes increase {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.5);
-            }
-        }
-    </style>
+    @include('Admin.PreviewUndangan.StyleKategori.StylePernikahan.cssPernikahan')
 </head>
 
 <body>
     <div class="container">
-        <section id="one" class="banner">
+        <section id="one" class="banner backgorund-section1">
             <div class="card"
-                style="max-width: 900px; margin-top: -90px; background-color: transparent; padding: 20px; border-radius: 20px; height: 500px;">
+                style="
+                    background-color: transparent; 
+                    padding: 30px; 
+                    border-radius: 15px; 
+                    text-align: center; 
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    max-width: 800px;
+                    margin: 0 auto; /* Pusatkan kartu */
+                ">
                 <br><br>
                 <h1 class="fade-in logo-text" style="font-size: 70px; text-align: center; color: white;"></h1>
                 <div class="wedding-card slide-up"
-                    style="text-align: center; background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 20px; margin-top: 20px; position: relative; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0.9; color: #f0f0f0;">
+                    style="text-align: center; background: transparent; border-radius: 10px; padding: 20px; margin-top: 20px; position: relative; border: 2px solid rgba(255, 255, 255, 0.8); opacity: 0.9; color: #f0f0f0;">
                     <!-- Content for Section One -->
                     <div class="judul slide-up">
-                        <h2>{!! $undangan->wedding->judul_acara ?? 'Judul Acara Tidak Tersedia' !!}</h2>
+                        <h2 style="{{ $undangan->wedding->font ?? 'font-arial' }}">{!! $undangan->wedding->judul_acara ?? 'Judul Acara Tidak Tersedia' !!}</h2>
                     </div>
                     <br>
                     <div class="vertical-text" style="justify-content: center; align-items: center;">
                         <h3 style="margin: 0;" class="slide-up">{!! $undangan->wedding->np_pria ?? 'Nama Mempelai Pria Tidak Tersedia' !!}</h3>
                         <h3 style="margin: 0;" class="slide-up">&</h3>
-                        <h3 style="margin: 0;" class="slide-up">{!! $undangan->wedding->np_pria ?? 'Nama Mempelai Wanita Tidak Tersedia' !!}</h3>
+                        <h3 style="margin: 0;" class="slide-up">{!! $undangan->wedding->np_wanita ?? 'Nama Mempelai Wanita Tidak Tersedia' !!}</h3>
                     </div>
                     <br><br><br>
                     <div class="hari-tgl">
                         <p class="slide-up">
-                            {{ \Carbon\Carbon::parse($undangan->wedding->countdown)->locale('id')->translatedFormat('l, d F Y') ?? 'Tanggal Acara Tidak Tersedia' }}
+                            {{ \Carbon\Carbon::parse(optional($undangan->wedding)->countdown)->locale('id')->translatedFormat('l, d F Y') ?? 'Tanggal Acara Tidak Tersedia' }}
                         </p>
+
                     </div>
                     <br>
                     <div class="save-tanggal">
@@ -288,93 +65,292 @@
                 </div>
             </div>
         </section>
-
         <!-- Repeat for other sections -->
-        <section id="two" class="banner">
+        <section id="two" class="banner bacground-section2">
             <div class="card"
-                style="background-color: transparent; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
-                <h2 style="font-family: 'Georgia', serif; font-size: 2.5rem; color: #f0f0f0;">Mempelai</h2>
+                style="
+                        background-color: transparent; 
+                        padding: 30px; 
+                        border-radius: 15px; 
+                        text-align: center; 
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                        max-width: 800px;
+                        margin: 0 auto; /* Pusatkan kartu */
+                    ">
+                <h2
+                    style="
+                            font-family: 'Georgia', serif; 
+                            font-size: 2.5rem; 
+                            color: #f0f0f0;
+                        ">
+                    Mempelai</h2>
+
                 <p
-                    style="text-align: center; white-space: pre-line; font-family: 'Arial', sans-serif; font-size: 1rem; color: #cccccc; margin-bottom: 40px;">
-                    {{ $undangan->wedding->kata_sambutan }}
+                    style="
+                            text-align: center; 
+                            white-space: pre-line; 
+                            font-family: 'Arial', sans-serif; 
+                            font-size: 1rem; 
+                            color: #cccccc; 
+                            margin-bottom: 40px;
+                        ">
+                    {{ $undangan->wedding->kata_sambutan ?? '' }}
                 </p>
-                <div style="display: flex; justify-content: center; gap: 50px;">
+
+                <div
+                    style="
+                            display: flex; 
+                            justify-content: center; 
+                            gap: 50px;
+                        ">
+                    <!-- Mempelai Pria -->
                     <div style="text-align: center;">
-                        <div style="border-radius: 50%; overflow: hidden; width: 150px; height: 150px; margin: auto;">
-                            <img src="{{ asset('storage/foto_pria/' . $undangan->wedding->foto_pria) }}"
-                                alt="Foto Pria">
+                        <div
+                            style="
+                                    border-radius: 50%; 
+                                    overflow: hidden; 
+                                    width: 150px; 
+                                    height: 150px; 
+                                    margin: auto;
+                                ">
+                            <img src="{{ asset('storage/foto_pria/' . (optional($undangan->wedding)->foto_pria ?? 'default-image.jpg')) }}"
+                                alt="Foto Pria" style="width: 100%; height: 100%; object-fit: cover;">
+
                         </div>
-                        <h3 style="font-family: 'Georgia', serif; font-size: 1.8rem; color: #f0f0f0;">
-                            {{ $undangan->wedding->np_pria }}</h3>
-                        <p style="font-family: 'Arial', sans-serif; font-size: 1rem; color: #cccccc;">
-                            {{ $undangan->wedding->nl_pria }}<br>Putra
-                            dari<br><b>{{ $undangan->wedding->ayah_pria }}</b><br>&<br><b>
-                                {{ $undangan->wedding->ibu_pria }}</b><br>{{ $undangan->wedding->alamat_org_tua_mp }}
+                        <h3
+                            style="
+                                    font-family: 'Georgia', serif; 
+                                    font-size: 1.8rem; 
+                                    color: #f0f0f0;
+                                ">
+                            {{ $undangan->wedding->np_pria ?? '' }}
+                        </h3>
+                        <p
+                            style="
+                                    font-family: 'Arial', sans-serif; 
+                                    font-size: 1rem; 
+                                    color: #cccccc;
+                                ">
+                            {{ $undangan->wedding->nl_pria ?? '' }}<br>Putra
+                            dari<br><b>{{ $undangan->wedding->ayah_pria ?? '' }}</b><br>&<br><b>{{ $undangan->wedding->ibu_pria ?? '' }}</b><br>{{ $undangan->wedding->alamat_org_tua_mp ?? '' }}
                         </p>
                     </div>
+
+                    <!-- Mempelai Wanita -->
                     <div style="text-align: center;">
-                        <div style="border-radius: 50%; overflow: hidden; width: 150px; height: 150px; margin: auto;">
-                            <img src="{{ asset('storage/foto_wanita/' . $undangan->wedding->foto_wanita) }}"
-                                alt="Foto Wanita">
+                        <div
+                            style="
+                                    border-radius: 50%; 
+                                    overflow: hidden; 
+                                    width: 150px; 
+                                    height: 150px; 
+                                    margin: auto;
+                                ">
+                            <img src="{{ asset('storage/foto_wanita/' . (optional($undangan->wedding)->foto_wanita ?? 'default-woman.jpg')) }}"
+                                alt="Foto Wanita" style="width: 100%; height: 100%; object-fit: cover;">
+
                         </div>
-                        <h3 style="font-family: 'Georgia', serif; font-size: 1.8rem; color: #f0f0f0;">
-                            {{ $undangan->wedding->np_wanita }}</h3>
-                        <p style="font-family: 'Arial', sans-serif; font-size: 1rem; color: #cccccc;">
-                            {{ $undangan->wedding->nl_wanita }}<br>Putri
-                            dari<br><b>{{ $undangan->wedding->ayah_wanita }}</b><br>&<br><b>{{ $undangan->wedding->ibu_wanita }}</b><br>{{ $undangan->wedding->alamat_org_tua_mw }}
+                        <h3
+                            style="
+                                    font-family: 'Georgia', serif; 
+                                    font-size: 1.8rem; 
+                                    color: #f0f0f0;
+                                ">
+                            {{ $undangan->wedding->np_wanita ?? '' }}
+                        </h3>
+                        <p
+                            style="
+                                    font-family: 'Arial', sans-serif; 
+                                    font-size: 1rem; 
+                                    color: #cccccc;
+                                ">
+                            {{ $undangan->wedding->nl_wanita ?? '' }}<br>Putri
+                            dari<br><b>{{ $undangan->wedding->ayah_wanita ?? '' }}</b><br>&<br><b>{{ $undangan->wedding->ibu_wanita ?? '' }}</b><br>{{ $undangan->wedding->alamat_org_tua_mw ?? '' }}
                         </p>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="three" class="banner">
+        <section id="three" class="banner bacground-section3">
             <div class="card"
-                style="background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 20px; text-align: center; width: 1000px; margin-top:0px; height: 550px;">
-                <h2 style="font-size: 36px; color: #4a4a4a; margin-bottom: 30px;">Detail Acara</h2>
-                <div style="display: flex; justify-content: space-around; gap: 20px;">
+                style="padding: 10px; 
+                   border-radius: 20px; 
+                   text-align: center; 
+                   width: 1000px; 
+                   margin-top: 0px; 
+                   height: 550px;">
+                <h2 style="font-size: 36px; color: rgb(252, 252, 252); margin-bottom: 30px;">Detail Acara</h2>
+                <div style="display: flex; justify-content: space-around; gap: 20px; margin-top: 2%;">
                     <!-- Acara 1 -->
                     <div class="card"
-                        style="background-color: #f7f7f7; padding: 20px; border-radius: 20px; width: 45%; height: 450px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                        <h3 style="font-size: 24px; color: #4a4a4a;">Acara 1</h3>
-                        <p style="color: #7a7a7a;">Minggu, 17 April 2022</p>
-                        <p style="color: #7a7a7a;">10:00 - 12:00 WIB</p>
-                        <h4 style="font-size: 18px; color: #4a4a4a;">Gedung Acara 1</h4>
-                        <p style="color: #7a7a7a;">Jalan Alamat Gedung Acara 1</p>
+                        style="background-color: transparent; padding: 20px; border-radius: 20px; width: 45%; height: 450px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column;">
+                        <div style="flex: 1;">
+                            <h3 class="mt-2" style="font-size: 24px; color: rgb(255, 255, 255);">Resepsi</h3>
+                            <p style="color: rgb(255, 255, 255);">
+                                {{ optional($undangan->wedding)->countdown? \Carbon\Carbon::parse(optional($undangan->wedding)->countdown)->locale('id')->translatedFormat('l, d F Y'): 'Tanggal Acara Tidak Tersedia' }}
+                            </p>
+
+                            <p style="color: rgb(255, 255, 255);">{{ $undangan->wedding->jam_mulai_resepsi ?? '' }} -
+                                {{ $undangan->wedding->jam_selesai_resepsi ?? '' }} WIB</p>
+                            <h4 style="font-size: 18px; color: rgb(255, 255, 255);">Gedung Acara 1</h4>
+                            <p style="color: rgb(255, 255, 255);">{{ $undangan->wedding->lokasi_acara_resepsi ?? '' }}
+                            </p>
+                        </div>
                         <!-- Map for Acara 1 -->
-                        <div style="margin: 20px;">
+                        <div style="flex-grow: 1; align-self: stretch; margin-top: 20px;">
                             <div id="map1" style="width: 100%; height: 250px; border-radius: 10px;"></div>
                         </div>
                         <button
-                            style="background-color: #4a4a4a; color: white; padding: 10px 20px; border-radius: 10px; border: none; margin-top: -15%;">Buka
+                            style="background-color: #4a4a4a; color: white; padding: 10px 20px; border-radius: 10px; border: none; margin-top: 10px; align-self: center;">Buka
                             Map</button>
                     </div>
 
                     <!-- Acara 2 -->
                     <div class="card"
-                        style="background-color: #f7f7f7; padding: 20px; border-radius: 20px; width: 45%; height: 450px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                        <h3 style="font-size: 24px; color: #4a4a4a;">Acara 1</h3>
-                        <p style="color: #7a7a7a;">Minggu, 17 April 2022</p>
-                        <p style="color: #7a7a7a;">10:00 - 12:00 WIB</p>
-                        <h4 style="font-size: 18px; color: #4a4a4a;">Gedung Acara 1</h4>
-                        <p style="color: #7a7a7a;">Jalan Alamat Gedung Acara 1</p>
-                        <!-- Map for Acara 1 -->
-                        <div style="margin: 20px;">
+                        style="background-color: transparent; padding: 20px; border-radius: 20px; width: 45%; height: 450px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column;">
+                        <div style="flex: 1;">
+                            <h3 style="font-size: 24px; color: rgb(255, 255, 255);">Akad</h3>
+                            <p style="color: rgb(255, 255, 255);">
+                                {{ optional($undangan->wedding)->countdown? \Carbon\Carbon::parse(optional($undangan->wedding)->countdown)->locale('id')->translatedFormat('l, d F Y'): 'Tanggal Acara Tidak Tersedia' }}
+                            </p>
+
+                            <p style="color: rgb(255, 255, 255);">{{ $undangan->wedding->jam_mulai_akad ?? '' }} -
+                                {{ $undangan->wedding->jam_selesai_akad ?? '' }} WIB</p>
+                            <h4 style="font-size: 18px; color: rgb(255, 255, 255);">Gedung Acara 2</h4>
+                            <p style="color: rgb(255, 255, 255);">{{ $undangan->wedding->lokasi_acara_akad ?? '' }}
+                            </p>
+                        </div>
+                        <!-- Map for Acara 2 -->
+                        <div style="flex-grow: 1; align-self: stretch;">
                             <div id="map2" style="width: 100%; height: 250px; border-radius: 10px;"></div>
                         </div>
                         <button
-                            style="background-color: #4a4a4a; color: white; padding: 10px 20px; border-radius: 10px; border: none; margin-top: -15%;">Buka
+                            style="background-color: #4a4a4a; color: white; padding: 10px 20px; border-radius: 10px; border: none; margin-top: 10px; align-self: center;">Buka
                             Map</button>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <section id="four" class="banner">
-            <div class="card" style="/* similar styles */">
-                <!-- Content for Section Four -->
-                <!-- You can copy the previous card's content or modify it as needed -->
+        <section id="four" class="banner bacground-section4" style=" padding: 50px 0; text-align: center;">
+            <div class="container"
+                style="overflow: hidden; background: transparent;  max-width: 1200px; margin: 0 auto; padding: 0 15px; height: 400px;">
+                <div class="card-wrapper"
+                    style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div class="card-galeri1">
+                        <h3 class="card-title"
+                            style="font-family: 'Cursive', sans-serif; font-size: 24px; color: #6f7a8c; margin: 10px 0;">
+                            Kenalan</h3>
+                        <p class="card-subtitle"
+                            style="font-style: italic; font-size: 16px; color: #6f7a8c; margin-bottom: 10px;">
+                            {{ $undangan->wedding->tanggal_kenalan ?? '' }}</p>
+                        <p class="card-text"
+                            style="font-size: 14px; color: #6f7a8c; text-align: center; padding: 0 15px;">
+                            {{ $undangan->wedding->cerita_kenalan ?? '' }}</p>
+                        <div
+                            style="position: absolute; top: -20px; left: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                        <div
+                            style="position: absolute; bottom: -20px; right: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                    </div>
+                    <div class="card"
+                        style="background-color: transparent; border-radius: 50%; width: 250px; height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); margin-bottom: 20px; position: relative;">
+                        <h3 class="card-title"
+                            style="font-family: 'Cursive', sans-serif; font-size: 24px; color: #6f7a8c; margin: 10px 0;">
+                            Jadian</h3>
+                        <p class="card-subtitle"
+                            style="font-style: italic; font-size: 16px; color: #6f7a8c; margin-bottom: 10px;">
+                            {{ $undangan->wedding->tanggal_jadian ?? '' }}</p>
+                        <p class="card-text"
+                            style="font-size: 14px; color: #6f7a8c; text-align: center; padding: 0 15px;">
+                            {{ $undangan->wedding->cerita_jadian ?? '' }}</p>
+                        <div
+                            style="position: absolute; top: -20px; left: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                        <div
+                            style="position: absolute; bottom: -20px; right: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                    </div>
+                    <div class="card"
+                        style="background-color: transparent; border-radius: 50%; width: 250px; height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); margin-bottom: 20px; position: relative;">
+                        <h3 class="card-title"
+                            style="font-family: 'Cursive', sans-serif; font-size: 24px; color: #6f7a8c; margin: 10px 0;">
+                            Tunangan</h3>
+                        <p class="card-subtitle"
+                            style="font-style: italic; font-size: 16px; color: #6f7a8c; margin-bottom: 10px;">
+                            {{ $undangan->wedding->tanggal_tunangan ?? '' }}</p>
+                        <p class="card-text"
+                            style="font-size: 14px; color: #6f7a8c; text-align: center; padding: 0 15px;">
+                            {{ $undangan->wedding->cerita_tunangan ?? '' }}</p>
+                        <div
+                            style="position: absolute; top: -20px; left: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                        <div
+                            style="position: absolute; bottom: -20px; right: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                    </div>
+                    <div class="card"
+                        style="background-color: transparent; border-radius: 50%; width: 250px; height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); margin-bottom: 20px; position: relative;">
+                        <h3 class="card-title"
+                            style="font-family: 'Cursive', sans-serif; font-size: 24px; color: #6f7a8c; margin: 10px 0;">
+                            Nikah</h3>
+                        <p class="card-subtitle"
+                            style="font-style: italic; font-size: 16px; color: #6f7a8c; margin-bottom: 10px;">
+                            {{ $undangan->wedding->tanggal_nikah ?? '' }}</p>
+                        <p class="card-text"
+                            style="font-size: 14px; color: #6f7a8c; text-align: center; padding: 0 15px;">
+                            {{ $undangan->wedding->cerita_nikah ?? '' }}</p>
+                        <div
+                            style="position: absolute; top: -20px; left: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                        <div
+                            style="position: absolute; bottom: -20px; right: -20px; width: 70px; height: 70px; background: url('your-floral-image-url.png') no-repeat center center; background-size: contain;">
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+        <section id="five" class="banner bacground-section5"
+            style="padding: 50px 0; text-align: center; position: relative;">
+            <h2 class="section-title"
+                style="font-family: 'Cursive', sans-serif; font-size: 36px; color: #ffffff; margin-bottom: 40px; position: absolute; top: 120px; left: 50%; transform: translateX(-50%); z-index: 1; background: transparent; padding: 10px 20px; border-radius: 5px;">
+                Photo Gallery
+            </h2>
+            <div class="gallery"
+                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 1200px; margin: 0 auto;">
+                @php
+                    // Ambil data gallery dari model
+                    $galleryData = optional($undangan->wedding)->gallery;
+
+                    // Jika gallery berupa string JSON, decode
+                    if (is_string($galleryData)) {
+                        $galleryImages = json_decode($galleryData, true);
+                    } elseif (is_array($galleryData)) {
+                        // Jika sudah berupa array, gunakan langsung
+                        $galleryImages = $galleryData;
+                    } else {
+                        $galleryImages = []; // Jika tidak valid, gunakan array kosong
+                    }
+
+                    // Filter elemen kosong dari array
+                    $galleryImages = array_filter($galleryImages, function ($item) {
+                        return !empty($item); // Hapus elemen kosong
+                    });
+                @endphp
+
+                @if (!empty($galleryImages))
+                    @foreach ($galleryImages as $image)
+                        <div class="gallery-item" style="position: relative; overflow: hidden;">
+                            <img src="{{ asset('storage/gallery/' . $image) }}" alt="Gallery Image"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                        </div>
+                    @endforeach
+                @else
+                    <p>No images available.</p>
+                @endif
+            </div>
+
         </section>
     </div>
     <div class="navigation-buttons">
@@ -382,112 +358,16 @@
         <button class="nav-button" onclick="scrollToSection('two')"><i class="fa-solid fa-user"></i></button>
         <button class="nav-button" onclick="scrollToSection('three')"><i class="fa-solid fa-calendar"></i></button>
         <button class="nav-button" onclick="scrollToSection('four')"><i class="fa-solid fa-envelope"></i></button>
+        <button class="nav-button" onclick="scrollToSection('five')"><i class="fa-solid fa-image"></i></button>
+        <button class="nav-button" onclick="toggleAudio()">
+            <i id="audio-icon" class="fa-solid fa-play"></i>
+        </button>
+        <audio id="background-audio" src="{{ asset('storage/' . $undangan->audio) }}" preload="auto"
+            autoplay></audio>
+
     </div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-        // Initialize map for Acara 1
-        const map1 = L.map('map1').setView([51.505, -0.09], 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map1);
-        L.marker([51.5, -0.09]).addTo(map1);
-        L.circle([51.508, -0.11], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 500
-        }).addTo(map1);
-        L.polygon([
-            [51.509, -0.08],
-            [51.503, -0.06],
-            [51.51, -0.047]
-        ]).addTo(map1);
 
-        // Initialize map for Acara 2
-        const map2 = L.map('map2').setView([51.505, -0.09], 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map2);
-        L.marker([51.5, -0.09]).addTo(map2);
-        L.circle([51.508, -0.11], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 500
-        }).addTo(map2);
-        L.polygon([
-            [51.509, -0.08],
-            [51.503, -0.06],
-            [51.51, -0.047]
-        ]).addTo(map2);
-    </script>
-    <script>
-        var audio = document.getElementById('background-audio');
-        var icon = document.getElementById('audio-icon');
-        var isPlaying = false;
-        var autoScrollInterval;
-        var isAutoScrolling = false;
-        var scrollIcon = document.getElementById('scroll-icon');
-
-        function toggleAudio() {
-            if (isPlaying) {
-                audio.pause();
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            } else {
-                audio.play();
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-            }
-            isPlaying = !isPlaying;
-        }
-
-        function scrollToSection(sectionId) {
-            var section = document.getElementById(sectionId);
-            section.scrollIntoView({
-                behavior: 'smooth'
-            });
-            updateActiveButton(sectionId);
-        }
-
-        function updateActiveButton(sectionId) {
-            var buttons = document.querySelectorAll('.nav-button');
-            buttons.forEach(function(button) {
-                button.classList.remove('active');
-            });
-            var activeButton = document.querySelector('button[onclick="scrollToSection(\'' + sectionId + '\')"]');
-            activeButton.classList.add('active');
-        }
-
-
-        var countDownDate = new Date("{!! \Carbon\Carbon::parse($undangan->wedding->countdown)->format('Y-m-d\TH:i:s') !!}").getTime();
-
-        var x = setInterval(function() {
-            var now = new Date().getTime(); // Dapatkan waktu saat ini
-            var distance = countDownDate - now; // Hitung jarak waktu antara sekarang dan tanggal acara
-
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Tampilkan hasil di elemen dengan id "days", "hours", "minutes", dan "seconds"
-            document.getElementById("days").innerHTML = days + " Hari";
-            document.getElementById("hours").innerHTML = hours + " Jam";
-            document.getElementById("minutes").innerHTML = minutes + " Menit";
-            document.getElementById("seconds").innerHTML = seconds + " Detik";
-
-            // Jika countdown selesai, tampilkan pesan dan sembunyikan countdown
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown-message").style.display = "block";
-                document.getElementById("countdown").style.display = "none";
-            }
-        }, 1000);
-    </script>
 </body>
+@include('Admin.PreviewUndangan.StyleKategori.StylePernikahan.jsPernikahan')
 
 </html>

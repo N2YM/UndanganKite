@@ -91,6 +91,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('admin-edit-undangan/{id}/{kategori_id}', [SampelController::class,'editForm'])->name('admin-edit-undangan');
     Route::put('admin-update-undangan-form/{id}/{kategori_id}', [SampelController::class, 'updateForm'])->name('admin-update-undangan-form');
     Route::get('/admin-undangan-form/{id}/{kategori_id}', [SampelController::class, 'viewForm'])->name('admin-undangan-form');
+    Route::delete('/admin-undangan-destroy/{id}/{kategori_id}', [SampelController::class, 'deleteForm'])->name('admin-undangan-destroy');
 
 
 });
@@ -118,12 +119,10 @@ Route::middleware('auth')->group(function () {
 
  // Route untuk Undangan
     Route::get('undangan', [UndanganController::class, 'index'])->name('undangan');
-    Route::get('edit-undangan/{id}',[UndanganController::class, 'edit'])->name('edit-undangan');
-    Route::post('profil-wedding-update{buatUndanganId}', [UndanganController::class,'update'])->name('profil-wedding-update');
-    Route::post('update-opening{buatUndanganId}', [UndanganController::class,'updateOpening'])->name('update-opening');
-    Route::post('update-detail-acara{buatUndanganId}', [UndanganController::class,'updateDetailAcara'])->name('update-detail-acara');
-    Route::post('update-galeri{buatUndanganId}', [UndanganController::class,'updateGalleri'])->name('update-galeri');
-    Route::delete('destroy-undangan/{id}', [UndanganController::class, 'destroy'])->name('destroy-undangan');
+    Route::get('user-edit-undangan/{id}/{kategori_id}', [UndanganController::class,'editForm'])->name('user-edit-undangan');
+    Route::put('user-update-undangan-form/{id}/{kategori_id}', [UndanganController::class, 'updateForm'])->name('user-update-undangan-form');
+    Route::get('/user-undangan-form/{id}/{kategori_id}', [UndanganController::class, 'viewForm'])->name('user-undangan-form');
+    Route::delete('/user-undangan-destroy/{id}/{kategori_id}', [UndanganController::class, 'deleteForm'])->name('user-undangan-destroy');
 
 });
 

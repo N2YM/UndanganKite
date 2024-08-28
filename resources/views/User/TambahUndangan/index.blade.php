@@ -1,74 +1,94 @@
 @extends('Template.User.base')
-
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <!-- Card  -->
-            @foreach ($tmp as $tmp)
-                <div class="col-md-3 mb-3">
+            @foreach ($undangan as $undangan)
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
                     <div class="card">
-                        @if ($tmp->cover)
-                            <img class="card-img-top" src="{{ asset('storage/' . $tmp->cover) }}" alt="Cover Image">
+                        @if ($undangan->cover)
+                            <img class="card-img-top" src="{{ asset('storage/' . $undangan->cover) }}" alt="Cover Image">
                         @endif
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $tmp->judul_undangan }}</h5>
-                            <p class="card-text">{{ $tmp->kategori_undangan }}</p>
-                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                <a href="{{ route('preview-undangan', ['id' => $tmp->id]) }}"
-                                    class="btn btn-secondary btn-sm stretched-link">Preview</a>
-                                <div>
-                                    <a href="{{ route('edit-undangan', $tmp->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('destroy-undangan', $tmp->id) }}" method="POST"
-                                        style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            style="cursor: pointer;">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
+                            <h5 class="card-title">{{ $undangan->judul_undangan }}</h5>
+                            <p class="card-text">
+                                <strong>{{ $undangan->kategori->kategori_tmp }}</strong>
+                            </p>
+                            <!-- Edit Button -->
+                            <a href="{{ route('user-edit-undangan', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
+                                class="btn btn-warning btn-sm btn-spacing">Edit</a>
+
+                            <!-- Preview Button -->
+                            <a href="{{ route('user-undangan-form', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
+                                class="btn btn-info btn-sm btn-spacing">Preview</a>
+                            <!-- Delete Form -->
+                            <form
+                                action="{{ route('user-undangan-destroy', ['id' => $undangan->id, 'kategori_id' => $undangan->kategori_id]) }}"
+                                method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm btn-spacing"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-@endsection
-@section('styles')
     <style>
         .card {
-            height: 300px;
-            /* Atur tinggi kartu agar sama */
+            height: auto;
+            /* Menggunakan tinggi otomatis untuk fleksibilitas */
             border-radius: 10px;
             overflow: hidden;
-            display: flex;
-            /* Tambahkan flex untuk meratakan konten */
-            flex-direction: column;
-            /* Atur arah flex */
-        }
-
-        .card-img-top {
-            height: 150px;
-            /* Atur tinggi gambar */
-            width: 150px;
-            /* Atur lebar gambar agar sama */
-            object-fit: cover;
-            /* Memastikan gambar terpotong dengan baik */
         }
 
         .card-body {
             padding: 1rem;
-            flex-grow: 1;
-            /* Membuat body kartu tumbuh untuk mengisi ruang */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Meratakan konten di dalam body */
+            /* Menjamin tombol selalu di bagian bawah */
         }
 
-        .btn-secondary {
+        .card-img-top {
+            height: 150px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .btn-secondary,
+        .btn-spacing {
             width: 100%;
             border-radius: 5px;
+            margin-bottom: 5px;
+            /* Memberi jarak antar tombol */
+        }
+
+        /* Menyederhanakan margin dan border radius */
+        .btn-spacing:last-child {
+            margin-right: 0;
+        }
+
+        @media (max-width: 768px) {
+            .btn-spacing {
+                border-radius: 10%;
+                /* Menyesuaikan bentuk untuk mudah diakses */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card-body {
+                padding: 0.5rem;
+                /* Mengurangi padding di perangkat kecil */
+            }
+
+            .btn-spacing {
+                margin-right: 0;
+                /* Menghilangkan margin kanan */
+                border-radius: 5px;
+                /* Menyesuaikan bentuk tombol */
+            }
         }
     </style>
 @endsection

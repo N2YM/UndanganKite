@@ -29,11 +29,11 @@ class TemplateController extends Controller
         return view('Admin.TambahTemplate.index', compact('data', 'kategoriTemplate'));
     }
 
-    public function create()
-    {
-        $data = KategoriTemplate::all();
-        return view('Admin.TambahTemplate.create',compact('data'));
-    }
+    // public function create()
+    // {
+    //     $data = KategoriTemplate::all();
+    //     return view('Admin.TambahTemplate.create',compact('data'));
+    // }
 
     public function store(Request $request)
     {
@@ -69,29 +69,30 @@ class TemplateController extends Controller
     public function update(Request $request, $id)
     {
         // Validasi input
-        $request->validate([
-            'judul' => 'nullable|string|max:255',
-            'kategori_id' => 'required|exists:admin__kategori__template,id',
-            'cover' => 'nullable|image|max:2048', // Maksimal 2MB (2048 KB)
-        ]);
-
+        // $request->validate([
+        //     'judul' => 'nullable|string|max:255',
+        //     'kategori_tmp' => 'required|exists:kategori_template,id',
+        //     'cover' => 'nullable|image|max:2048', // Maksimal 2MB (2048 KB)
+        // ]);
+    
         // Temukan template berdasarkan ID
         $template = ModelTemplate::findOrFail($id);
-
+    
         // Update data template
-        $template->judul = $request->judul ?? $template->judul; // Jika tidak ada perubahan, tetap menggunakan nilai lama
-        $template->kategori_id = $request->kategori_id;
-
+        $template->judul = $request->input('judul', $template->judul); // Jika tidak ada perubahan, tetap menggunakan nilai lama
+        $template->kategori_id = $request->input('kategori_tmp', $template->kategori_id);
+    
         // Proses pembaruan file gambar
         if ($request->hasFile('cover')) {
             $imagePath = $request->file('cover')->store('images', 'public');
             $template->cover = $imagePath;
         }
-
+    
         $template->save();
-
-        return redirect()->route('template.index')->with('warning', 'Template berhasil diperbarui.');
+    
+        return redirect()->route('template')->with('warning', 'Template berhasil diperbarui.');
     }
+    
     public function destroy(string $id)
 {
     $template = ModelTemplate::findOrFail($id); // Cari template berdasarkan ID

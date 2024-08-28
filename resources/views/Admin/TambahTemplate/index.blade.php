@@ -34,7 +34,7 @@
                             <tr style="text-align: center">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tmp->judul }}</td>
-                                <td>{{ $tmp->kategori->kategori_tmp }}</td>
+                                <td>{{ $tmp->kategori->kategori_tmp ?? '' }}</td>
                                 <td>
                                     @if ($tmp->cover)
                                         <img class="img" width="100%;" src="{{ asset('storage/' . $tmp->cover) }}" />
@@ -145,6 +145,7 @@
         </div>
     </div>
     {{-- Modal Tambah Edit --}}
+    {{-- Modal Edit --}}
     @foreach ($data as $tmp)
         <div class="modal fade" id="exampleModal1{{ $tmp->id }}" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -161,65 +162,61 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
-                            <div class="tab-content">
-                                <div class="tab-pane fade active show" id="tab-1">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Judul Template</label>
-                                        <div class="col-sm-9">
-                                            <input class="form-control" name="judul" type="text"
-                                                placeholder="Masukkan Judul Template" value="{{ $tmp->judul }}">
-                                            @error('judul')
-                                                <div class="ivalid-feedback" style="color: red;" id="error-judul">
-                                                    {{ $message }}
-                                                </div>
-                                                <script>
-                                                    setTimeout(() => {
-                                                        document.getElementById('error-judul').style.display = 'none';
-                                                    }, 2000);
-                                                </script>
-                                            @enderror
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Judul Template</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="judul" type="text"
+                                        placeholder="Masukkan Judul Template" value="{{ $tmp->judul }}">
+                                    @error('judul')
+                                        <div class="invalid-feedback" style="color: red;" id="error-judul">
+                                            {{ $message }}
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Kategori</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-control" name="kategori_tmp" required>
-                                                <option value="{{ $tmp->kategori_tmp }}">{{ $tmp->kategori_tmp }}
-                                                </option>
-                                                @foreach ($kategoriTemplate as $item)
-                                                    <option value="{{ $item->kategori_tmp }}">
-                                                        {{ $item->kategori_tmp }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('kategori_tmp')
-                                                <div class="invalid-feedback" style="color: red;" id="error-kategori">
-                                                    {{ $message }}
-                                                </div>
-                                                <script>
-                                                    setTimeout(() => {
-                                                        document.getElementById('error-kategori').style.display = 'none';
-                                                    }, 2000);
-                                                </script>
-                                            @enderror
+                                        <script>
+                                            setTimeout(() => {
+                                                document.getElementById('error-judul').style.display = 'none';
+                                            }, 2000);
+                                        </script>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Kategori</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="kategori_tmp" required>
+                                        <option value="">-- Pilih Kategori --</option>
+                                        @foreach ($kategoriTemplate as $item)
+                                            <option value="{{ $item->id }}"
+                                                @if ($item->id == $tmp->kategori_id) selected @endif>
+                                                {{ $item->kategori_tmp }} 
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('kategori_tmp')
+                                        <div class="invalid-feedback" style="color: red;" id="error-kategori">
+                                            {{ $message }}
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Background</label>
-                                        <div class="col-sm-9">
-                                            <input class="form-control" name="cover" type="file">
-                                            @error('cover')
-                                                <div class="ivalid-feedback" style="color: red;" id="error-cover1">
-                                                    {{ $message }}
-                                                </div>
-                                                <script>
-                                                    setTimeout(() => {
-                                                        document.getElementById('error-cover').style.display = 'none';
-                                                    }, 2000);
-                                                </script>
-                                            @enderror
+                                        <script>
+                                            setTimeout(() => {
+                                                document.getElementById('error-kategori').style.display = 'none';
+                                            }, 2000);
+                                        </script>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Background</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="cover" type="file">
+                                    @error('cover')
+                                        <div class="invalid-feedback" style="color: red;" id="error-cover1">
+                                            {{ $message }}
                                         </div>
-                                    </div>
+                                        <script>
+                                            setTimeout(() => {
+                                                document.getElementById('error-cover').style.display = 'none';
+                                            }, 2000);
+                                        </script>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -232,6 +229,8 @@
             </div>
         </div>
     @endforeach
+
+
 
 
     @push('javascript')

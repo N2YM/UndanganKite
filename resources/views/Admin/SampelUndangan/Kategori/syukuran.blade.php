@@ -113,7 +113,9 @@
     <div class="page-content fade-in-up">
         <div class="row">
             <div class="col-md-12">
-                <div class="ibox">
+                <a href="{{ route('sampel-undangan') }}" class="btn btn-dark"><i class="fa fa-arrow-left"></i>
+                    Kembali</a>
+                <div class="ibox mt-2">
                     <div class="ibox-head">
                         <div class="ibox-title">Edit/Isi Data Undangan Syukuran</div>
                     </div>

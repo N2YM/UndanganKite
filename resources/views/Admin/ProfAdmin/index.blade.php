@@ -94,9 +94,15 @@
                                         @endphp
                                         <div class="col-sm-6 form-group">
                                             <label>Email</label>
-                                            <input class="form-control" name="email" type="text"
-                                                placeholder="example@gmail.com" value="{{ $admin->email }}">
+                                            <input class="form-control  @error('email') is-invalid @enderror" name="email"
+                                                type="text" placeholder="example@gmail.com" value="{{ $admin->email }}"
+                                                required>
                                         </div>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     @endif
                                     <div class="col-sm-6 form-group">
                                         <label>Foto</label>

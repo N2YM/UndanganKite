@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered Card</title>
+    <title>Buat Undangan Baru</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6" style="padding-top: 3%;">
-                <div class="card card-success card-outline ">
+                <div class="card card-success card-outline">
                     <strong style="text-align: center; margin-top: 3%; font-size: 30px;">
                         <i class="fa fa-gear"></i> Setting
                     </strong>
@@ -28,21 +28,16 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <strong><label>Judul Undangan</label></strong>
-                                    <input type="text" class="form-control" name="judul_undangan">
+                                    <input type="text" class="form-control" name="judul_undangan" required>
                                 </div>
-                                <!-- select -->
                                 <div class="form-group">
                                     <strong><label>Kategori Undangan</label></strong>
-                                    <select class="form-control" name="kategori_undangan">
-                                        @foreach ($kategori_undangan as $kategori)
-                                            <option value="{{ $kategori->kategori_tmp }}">{{ $kategori->kategori_tmp }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" class="form-control" disabled
+                                        value="{{ $template->kategori->kategori_tmp }}">
                                 </div>
                                 <div class="form-group">
                                     <strong><label>Audio</label></strong>
-                                    <select class="form-control mt-2" id="musicSelect" name="audio_undangan">
+                                    <select class="form-control mt-2" id="musicSelect" name="audio" required>
                                         @foreach ($audio as $kategori)
                                             <option value="{{ asset('storage/' . $kategori->musik) }}">
                                                 {{ $kategori->kategori_audio }} {{ $kategori->judul }}
@@ -55,16 +50,15 @@
                                     <span class="input-group-text"
                                         id="inputGroup-sizing-default"><strong>undangankite.com/</strong></span>
                                     <input type="text" class="form-control" aria-label="Sizing example input"
-                                        name="link_undangan" aria-describedby="inputGroup-sizing-default">
+                                        name="link_undangan" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
-                                <!-- Input hidden untuk cover1 hingga cover5 -->
-                                <input type="hidden" name="cover1" value="{{ $template->cover }}">
-
-
+                                <!-- Input hidden untuk cover -->
+                                <input type="hidden" name="cover" value="{{ $template->cover }}">
+                                <input type="hidden" name="kategori_id" value="{{ $template->kategori_id }}">
                                 <div class="row">
                                     <div class="col-md-2" style="padding-right: 0%;">
-                                        <a href="{{ route('pilih-template') }}" class="btn btn-secondary btn-sm"
-                                            style="width:100% ;">
+                                        <a href="{{ route('pilih-undangan') }}" class="btn btn-secondary btn-sm"
+                                            style="width:100%;">
                                             <i class="fa-solid fa-arrow-left"></i>
                                         </a>
                                     </div>
@@ -88,4 +82,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-dQW7tLtShM0P3HqA9z2ovdXgATsH1Fs4v9HxOB5Z0zAy+U1XB6T9t2eNnJhPPhZW" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
